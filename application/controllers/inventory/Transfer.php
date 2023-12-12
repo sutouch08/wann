@@ -3,7 +3,7 @@ class Transfer extends PS_Controller
 {
   public $menu_code = "ICTRWH";
   public $menu_group_code = "IC";
-  public $title = 'Transfer';
+  public $title = 'Inventory Transfer';
 	public $segment = 4;
 
 	public function __construct()
@@ -12,6 +12,7 @@ class Transfer extends PS_Controller
     $this->home = base_url().'inventory/transfer';
     $this->load->model('inventory/transfer_model');
     $this->load->helper('warehouse');
+    $this->load->helper('transfer');
   }
 
 
@@ -24,6 +25,7 @@ class Transfer extends PS_Controller
       'fromWhs' => get_filter('fromWhs', 'tr_fromWhs', 'all'),
       'toWhs' => get_filter('toWhs', 'tr_toWhs', 'all'),
       'status' => get_filter('status', 'tr_status', 'all'),
+      'approval' => get_filter('approval', 'tr_approval', 'all'),
       'from_date' => get_filter('from_date', 'tr_from_date', ''),
       'to_date' => get_filter('to_date', 'tr_to_date', ''),
       'user' => get_filter('user', 'tr_user', '')
@@ -211,6 +213,16 @@ class Transfer extends PS_Controller
               if($sc === TRUE)
               {
                 $this->db->trans_commit();
+                $arr = array(
+                  'user_id' => $this->_user->id,
+                  'uname' => $this->_user->uname,
+                  'docType' => 'TR',
+                  'docNum' => $code,
+                  'action' => 'create',
+                  'ip_address' => $_SERVER['REMOTE_ADDR']
+                );
+
+                $this->user_model->add_logs($arr);
               }
               else
               {
@@ -265,7 +277,20 @@ class Transfer extends PS_Controller
 
     if( ! empty($doc))
     {
+      $can_do = FALSE;
+
+      $pm = $this->user_model->get_permission('ICAPRQ', $this->_user->id_profile);
+
+      if(! empty($pm))
+      {
+        $num = $pm->can_add + $pm->can_edit + $pm->can_delete;
+        $can_do = $num ? TRUE : FALSE;
+      }
+
+      $can_do = $this->_SuperAdmin ? TRUE : $can_do;
+
       $arr = array(
+        'pm' => $can_do,
         'doc' => $doc,
         'details' => $this->transfer_model->get_details($id),
         'request_rows' => $this->transfer_model->get_request_rows($id)
@@ -278,6 +303,669 @@ class Transfer extends PS_Controller
       $this->page_error();
     }
   }
+
+
+  public function update()
+  {
+    $sc = TRUE;
+    $id = $this->input->post('id');
+    $doc_date = $this->input->post('doc_date');
+    $due_date = $this->input->post('due_date');
+    $tax_date = $this->input->post('tax_date');
+    $remark = get_null(trim($this->input->post('remark')));
+
+    $doc = $this->transfer_model->get($id);
+
+    if( ! empty($doc))
+    {
+      if($doc->Status == -1 OR $doc->Status == 0)
+      {
+        $arr = array(
+          'DocDate' => db_date($doc_date),
+          'DocDueDate' => db_date($due_date),
+          'TaxDate' => db_date($tax_date),
+          'remark' => $remark
+        );
+
+        if( ! $this->transfer_model->update($id, $arr))
+        {
+          $sc = FALSE;
+          $this->error = "Failed to update data";
+        }
+        else
+        {
+          $arr = array(
+            'user_id' => $this->_user->id,
+            'uname' => $this->_user->uname,
+            'docType' => 'TR',
+            'docNum' => $doc->code,
+            'action' => 'update',
+            'ip_address' => $_SERVER['REMOTE_ADDR']
+          );
+
+          $this->user_model->add_logs($arr);
+        }
+      }
+      else
+      {
+        $sc = FALSE;
+        $this->error = "Invalid document status";
+      }
+    }
+    else
+    {
+      $sc = FALSE;
+      $this->error = "Invalid document number";
+    }
+
+    $arr = array(
+      'status' => $sc === TRUE ? 'success' : 'failed',
+      'message' => $sc === TRUE ? 'success' : $this->error
+    );
+
+    echo json_encode($arr);
+  }
+
+
+  public function view_detail($id)
+  {
+
+    $doc = $this->transfer_model->get($id);
+
+    if( ! empty($doc))
+    {
+      $request_rows = $this->transfer_model->get_request_rows($id);
+
+      if( ! empty($request_rows))
+      {
+        foreach($request_rows as $rs)
+        {
+          $rs->details = $this->transfer_model->get_details_by_base_line($doc->id, $rs->LineNum);
+        }
+      }
+
+      $arr = array(
+        'doc' => $doc,
+        'request_rows' => $request_rows,
+        'logs' => $this->transfer_model->get_transfer_logs($doc->code)
+      );
+
+      $this->load->view('inventory/transfer/transfer_detail', $arr);
+    }
+    else
+    {
+      $this->page_error();
+    }
+  }
+
+
+  public function get_request_item()
+  {
+    $sc = TRUE;
+    $id = $this->input->get('id');
+    $itemCode = $this->input->get('itemCode');
+
+    if($id && $itemCode)
+    {
+      $row = $this->transfer_model->get_request_item($id, $itemCode);
+
+      if( ! empty($row))
+      {
+        $ds = array(
+          'LineNum' => $row->LineNum,
+          'ItemCode' => $row->ItemCode,
+          'Dscription' => $row->Dscription,
+          'UomEntry' => $row->UomEntry,
+          'UomCode' => $row->UomCode,
+          'unitMsr' => $row->unitMsr,
+          'NumPerMsr' => $row->NumPerMsr,
+          'UomEntry2' => $row->UomEntry2,
+          'UomCode2' => $row->UomCode2,
+          'unitMsr2' => $row->unitMsr2,
+          'NumPerMsr2' => $row->NumPerMsr2,
+          'OpenQty' => $row->OpenQty,
+          'Qty' => $row->Qty,
+          'balance' => round(($row->OpenQty - $row->Qty), 6)
+        );
+      }
+      else
+      {
+        $sc = FALSE;
+        $this->error = "Not found";
+      }
+    }
+    else
+    {
+      $sc = FALSE;
+      set_error('required');
+    }
+
+    $arr = array(
+      'status' => $sc === TRUE ? 'success' : 'failed',
+      'message' => $sc === TRUE ? 'success' : $this->error,
+      'data' => $sc === TRUE ? $ds : NULL
+    );
+
+    echo json_encode($arr);
+  }
+
+
+  public function save()
+  {
+    $sc = TRUE;
+    $ex = 0;
+    $id = $this->input->post('id');
+    $must_approve = $this->input->post('must_approve') == 1 ? TRUE : FALSE;
+
+    $doc = $this->transfer_model->get($id);
+
+    if( ! empty($doc))
+    {
+      if($doc->Status == -1 OR $doc->Status == 0)
+      {
+        $arr = array(
+          'must_approve' => $must_approve ? 1 : 0,
+          'approved' => $must_approve ? 'P' : 'S',
+          'Status' => 0,
+          'isSaved' => 1
+        );
+
+        if( ! $this->transfer_model->update($id, $arr))
+        {
+          $sc = FALSE;
+          $this->error = "Failed to update document status";
+        }
+
+        if($sc === TRUE)
+        {
+          $arr = array(
+            'user_id' => $this->_user->id,
+            'uname' => $this->_user->uname,
+            'docType' => 'TR',
+            'docNum' => $doc->code,
+            'action' => $doc->isSaved == 1 ? 'edit' : 'save',
+            'ip_address' => $_SERVER['REMOTE_ADDR']
+          );
+
+          $this->user_model->add_logs($arr);
+
+          if( ! $must_approve)
+          {
+            $this->load->library('api');
+
+            if( ! $this->api->exportTransfer($id))
+            {
+              $sc = FALSE;
+              $ex = 1;
+              $this->error = "บันทึกเอกสารสำเร็จแต่สส่งข้อมูลเข้า SAP ไม่สำเร็จ กรุณากดส่งข้อมูลอีกครั้งภายหลัง : {$this->error}";
+            }
+            else
+            {
+              $arr = array(
+                'LineStatus' => 'C'
+              );
+
+              $this->transfer_model->update_details($id, $arr);
+            }
+          }
+        }
+      }
+      else
+      {
+        $sc = FALSE;
+        $this->error = "Invalid document status";
+      }
+    }
+    else
+    {
+      $sc = FALSE;
+      $this->error = "Document not found!";
+    }
+
+    $arr = array(
+      'status' => $sc === TRUE ? 'success' : 'failed',
+      'message' => $sc === TRUE ? 'success' : $this->error,
+      'ex' => $ex,
+    );
+
+    echo json_encode($arr);
+  }
+
+
+  public function unsave()
+  {
+    $sc = TRUE;
+    $id = $this->input->post('id');
+
+    if( ! empty($id))
+    {
+      if($this->pm->can_delete)
+      {
+        $doc = $this->transfer_model->get($id);
+
+        if( ! empty($doc))
+        {
+          if($doc->Status != 2)
+          {
+            if($doc->Status == 1)
+            {
+              $sap = $this->transfer_model->get_sap_doc_num($doc->code);
+
+              if( empty($sap))
+              {
+                $this->db->trans_begin();
+
+                if( ! $this->transfer_model->update_details($doc->id, array('LineStatus' => 'O')))
+                {
+                  $sc = FALSE;
+                  $this->error = "Failed to update transfer line status";
+                }
+
+                if( $sc === TRUE)
+                {
+                  $arr = array(
+                    'Status' => -1,
+                    'DocEntry' => NULL,
+                    'DocNum' => NULL,
+                    'Message' => NULL
+                  );
+
+                  if( ! $this->transfer_model->update($doc->id, $arr))
+                  {
+                    $sc = FALSE;
+                    $this->error = "Failed to update document status";
+                  }
+                }
+
+                if($sc === TRUE)
+                {
+                  $this->db->trans_commit();
+
+                  $arr = array(
+      							'user_id' => $this->_user->id,
+      							'uname' => $this->_user->uname,
+      							'docType' => 'TR',
+      							'docNum' => $doc->code,
+      							'action' => 'rollback',
+      							'ip_address' => $_SERVER['REMOTE_ADDR']
+      						);
+
+      						$this->user_model->add_logs($arr);
+                }
+                else
+                {
+                  $this->db->trans_rollback();
+                }
+              }
+              else
+              {
+                $sc = FALSE;
+                $this->error = "The document has already been entered into SAP. Please cancel the document in SAP before rollback this document.";
+              }
+            }
+          }
+          else
+          {
+            $sc = FALSE;
+            $this->error = "Invalid document status";
+          }
+        }
+        else
+        {
+          $sc = FALSE;
+          $this->error = "Invalid document number";
+        }
+      }
+      else
+      {
+        $sc = FALSE;
+        $this->error = "You don't have permission to perform this operation";
+      }
+    }
+    else
+    {
+      $sc = FALSE;
+      $this->error = "Missing required parameter";
+    }
+
+    $arr = array(
+      'status' => $sc === TRUE ? 'success' : 'failed',
+      'message' => $sc === TRUE ? 'success' : $this->error
+    );
+
+    echo json_encode($arr);
+  }
+
+
+  public function cancle_transfer()
+  {
+    $sc = TRUE;
+
+    $id = $this->input->post('id');
+
+    if( ! empty($id))
+    {
+      if($this->pm->can_delete)
+      {
+        $doc = $this->transfer_model->get($id);
+
+        if( ! empty($doc))
+        {
+          if($doc->Status != 2)
+          {
+            if($doc->Status == 1)
+            {
+              //--- check document exists on sap ?
+              $sap = $this->transfer_model->get_sap_doc_num($doc->code);
+
+              if( ! empty($sap))
+              {
+                $sc = FALSE;
+                $this->error = "The document has already been entered into SAP. Please cancel the document in SAP before canceling this document.";
+              }
+            }
+
+            if( $sc === TRUE )
+            {
+              //-- change status to -1 (draft)
+              $this->db->trans_begin();
+
+              if( ! $this->transfer_model->update_details($doc->id, array('LineStatus' => 'D')))
+              {
+                $sc = FALSE;
+                $this->error = "Failed to change Transfer Line Status";
+              }
+
+              if($sc === TRUE)
+              {
+                $arr = array(
+                  'Status' => 2
+                );
+
+                if( ! $this->transfer_model->update($doc->id, $arr))
+                {
+                  $sc = FALSE;
+                  $this->error = "Failed to update document status";
+                }
+              }
+
+              if($sc === TRUE)
+              {
+                $this->db->trans_commit();
+                $arr = array(
+                  'user_id' => $this->_user->id,
+                  'uname' => $this->_user->uname,
+                  'docType' => 'TR',
+                  'docNum' => $doc->code,
+                  'action' => 'cancel',
+                  'ip_address' => $_SERVER['REMOTE_ADDR']
+                );
+
+                $this->user_model->add_logs($arr);
+              }
+              else
+              {
+                $this->db->trans_rollback();
+              }
+            }
+          }
+          else
+          {
+            $sc = FALSE;
+            $this->error = "Document already Canceled";
+          }
+        }
+        else
+        {
+          $sc = FALSE;
+          $this->error = "Invalid document number";
+        }
+      }
+      else
+      {
+        $sc = FALSE;
+        $this->error = "You don't have permission to perform this operation";
+      }
+    }
+    else
+    {
+      $sc = FALSE;
+      $this->error = "Missing required parameter";
+    }
+
+    $arr = array(
+      'status' => $sc === TRUE ? 'success' : 'failed',
+      'message' => $sc === TRUE ? 'success' : $this->error
+    );
+
+    echo json_encode($arr);
+  }
+
+
+  public function update_request_row()
+  {
+    $sc = TRUE;
+    $id = $this->input->post('id');
+
+    $doc = $this->transfer_model->get($id);
+
+    if( ! empty($doc))
+    {
+      if($doc->Status < 1)
+      {
+        $LineNum = $this->input->post('LineNum');
+        $Qty = $this->input->post('Qty'); //--- นน. อ่านจากเครื่องชั่ง ยังไม่แปลงหน่วย
+        $qty = $Qty; //--- will change after unit convert
+        $receiptNo = trim($this->input->post('ReceiptNo'));
+        $deviceUnit = $this->input->post('deviceUnit'); //--- หน่วยของเครื่องชั่ง
+        $rate = $this->input->post('rate'); //--- rate ที่ใช้แปลงตอนดึงข้อมูลไปเทียบกับเครื่องชั่ง
+        $checker_uid = get_null($this->input->post('checker_uid'));
+
+        $row = $this->transfer_model->get_request_row($id, $LineNum);
+
+        if( ! empty($row))
+        {
+           //---- แปลงหน่วยกลับมาเป็นหน่วยเดียวกับ request row
+           //--- ก่อนหน้านี้แปลงไปเป็นหน่วยเดียวกับเครื่องชั่ง
+
+           if($row->unitMsr != "ชิ้น") {
+             if($row->unitMsr == "กรัม" && $deviceUnit == "กิโลกรัม") {
+               $qty = $Qty * $rate;
+             }
+
+             if($row->unitMsr == "กิโลกรัม" && $deviceUnit == "กรัม") {
+               $qty = $Qty / $rate;
+             }
+           }
+           else {
+             if($row->unitMsr2 == "กิโลกรัม" && $deviceUnit == "กิโลกรัม") {
+               $qty = $Qty * $rate;
+             }
+
+             if($row->unitMsr2 == "กิโลกรัม" && $deviceUnit == "กรัม") {
+               $qty = ($Qty * $rate) / 1000;
+             }
+           }
+
+          //--- เช็คว่าเกินที่ request หรือไม่
+          $resultQty = $row->Qty + $qty;
+
+          if($resultQty > $row->OpenQty)
+          {
+            $sc = FALSE;
+            $this->error = "Quantity exceeded";
+          }
+          else
+          {
+            $this->db->trans_begin();
+            //--- add transfer row
+            $newLine = $this->transfer_model->get_max_line($id);
+
+            $newLine++;
+
+            $ds = array(
+              'transfer_id' => $id,
+              'transfer_code' => $doc->code,
+              'LineNum' => $newLine,
+              'BaseRef' => $row->DocNum,
+              'BaseEntry' => $row->DocEntry,
+              'BaseLine' => $row->LineNum,
+              'ItemCode' => $row->ItemCode,
+              'Dscription' => $row->Dscription,
+              'ReceiptNo' => $receiptNo,
+              'Qty' => $qty,
+              'fromWhsCode' => $doc->fromWhsCode,
+              'toWhsCode' => $doc->toWhsCode,
+              'unitMsr' => $row->unitMsr,
+              'UomEntry' => $row->UomEntry,
+              'UomCode' => $row->UomCode,
+              'numPerMsr' => $row->NumPerMsr,
+              'unitMsr2' => $row->unitMsr2,
+              'UomEntry2' => $row->UomEntry2,
+              'UomCode2' => $row->UomCode2,
+              'numPerMsr2' => $row->NumPerMsr2,
+              'user_id' => $this->_user->id,
+              'checker_uid' => $checker_uid,
+              'weight' => $Qty,
+              'deviceUnit' => $deviceUnit
+            );
+
+            if( ! $this->transfer_model->add_detail($ds))
+            {
+              $sc = FALSE;
+              $this->error = "Failed to add transfer row";
+            }
+            else
+            {
+              $ds['QtyLabel'] = number($Qty, 6);
+              $ds['date_add'] = thai_date(now(), TRUE);
+            }
+
+            if($sc === TRUE)
+            {
+              $arr = array(
+                'Qty' => $resultQty
+              );
+
+              if( ! $this->transfer_model->update_request_row($row->id, $arr))
+              {
+                $sc = FALSE;
+                $this->error = "Failed to update request row";
+              }
+            }
+
+            if($sc === TRUE)
+            {
+              $this->db->trans_commit();
+            }
+            else
+            {
+              $this->db->trans_rollback();
+            }
+          }
+        }
+        else
+        {
+          $sc = FALSE;
+          $this->error = "Request data not found";
+        }
+      }
+      else
+      {
+        $sc = FALSE;
+        $this->error = "Invalid document status";
+      }
+    }
+    else
+    {
+      $sc = FALSE;
+      $this->error = "Document not found";
+    }
+
+
+    $arr = array(
+      'status' => $sc === TRUE ? 'success' : 'failed',
+      'message' => $sc === TRUE ? 'success' : $this->error,
+      'qtyLabel' => $sc === TRUE ? number($resultQty, 6) : NULL,
+      'qty' => $sc === TRUE ? $resultQty : NULL,
+      'full' => $resultQty == $row->OpenQty ? TRUE : FALSE,
+      'row' => $sc === TRUE ? $ds : NULL
+    );
+
+    echo json_encode($arr);
+  }
+
+
+  public function remove_row()
+  {
+    $sc = TRUE;
+    $id = $this->input->post('transfer_id');
+    $lineNum = $this->input->post('LineNum');
+
+    $row = $this->transfer_model->get_detail_by_line_num($id, $lineNum);
+
+    if( ! empty($row))
+    {
+      $request_row = $this->transfer_model->get_request_row($row->transfer_id, $row->BaseLine);
+
+      if( ! empty($request_row))
+      {
+        $this->db->trans_begin();
+        //--- remove row
+        if( ! $this->transfer_model->delete_detail($row->id))
+        {
+          $sc = FALSE;
+          $this->error = "Failed to delete transection row";
+        }
+
+        //--- update request qty
+        if( $sc === TRUE)
+        {
+          $Qty = $request_row->Qty - $row->Qty;
+
+          $ds = array(
+            'Qty' => $Qty < 0 ? 0 : $Qty
+          );
+
+          if( ! $this->transfer_model->update_request_row($request_row->id, $ds))
+          {
+            $sc = FALSE;
+            $this->error = "Failed to update request row";
+          }
+        }
+
+        if($sc === TRUE)
+        {
+          $this->db->trans_commit();
+        }
+        else
+        {
+          $this->db->trans_rollback();
+        }
+      }
+      else
+      {
+        $sc = FALSE;
+        $this->error = "Request row not found";
+      }
+    }
+    else
+    {
+      $sc = FALSE;
+      $this->error = "No data found !";
+    }
+
+    $arr = array(
+      'status' => $sc === TRUE ? 'success' : 'failed',
+      'message' => $sc === TRUE ? 'success' : $this->error,
+      'qtyLabel' => $sc === TRUE ? number($Qty, 6) : 0,
+      'qty' => $sc === TRUE ? $Qty : 0,
+      'LineNum' => $sc === TRUE ? $request_row->LineNum : NULL
+    );
+
+    echo json_encode($arr);
+  }
+
 
   public function get_request_code()
   {
@@ -325,6 +1013,167 @@ class Transfer extends PS_Controller
   }
 
 
+  public function change_request_qty()
+  {
+    $sc = TRUE;
+    $id = $this->input->post('id');
+    $LineNum = $this->input->post('LineNum');
+    $Qty = $this->input->post('Qty');
+    $uname = $this->input->post('uname');
+
+    $row = $this->transfer_model->get_request_row($id, $LineNum);
+
+    if( ! empty($row))
+    {
+      if($Qty <= 0)
+      {
+        $sc = FALSE;
+        $this->error = "น้ำหนักต้องมากกว่า 0.00";
+      }
+
+      if($sc === TRUE)
+      {
+        if($row->Qty > $Qty)
+        {
+          $sc = FALSE;
+          $this->error = "น้ำหนักต้องไม่เกินน้ำหนักที่บรรจุแล้ว";
+        }
+      }
+
+      if($sc === TRUE)
+      {
+        $ds = array(
+          'OpenQty' => $Qty,
+          'OriginalQty' => $row->OpenQty,
+          'OverwriteUser' => $uname,
+          'OverwriteTime' => now()
+        );
+
+        if( ! $this->transfer_model->update_request_row($row->id, $ds))
+        {
+          $sc = FALSE;
+          $this->error = "Failed to update request qty";
+        }
+      }
+    }
+    else
+    {
+      $sc = FALSE;
+      $this->error = "Request row not found";
+    }
+
+    $arr = array(
+      'status' => $sc === TRUE ? 'success' : 'failed',
+      'message' => $sc === TRUE ? 'success' : $this->error,
+      'qtyLabel' => number($Qty, 6),
+      'qty' => $Qty
+    );
+
+    echo json_encode($arr);
+  }
+
+
+  public function do_export()
+  {
+    $sc = TRUE;
+    $id = $this->input->post('id');
+
+    $doc = $this->transfer_model->get($id);
+
+    if( ! empty($doc))
+    {
+      if($doc->Status == 1 OR $doc->Status == 3)
+      {
+        $sap = $this->transfer_model->get_sap_doc_num($doc->code);
+
+        if( empty($sap))
+        {
+          $this->load->library('api');
+
+          if( ! $this->api->exportTransfer($id))
+          {
+            $sc = FALSE;
+            $this->error = "บันทึกเอกสารสำเร็จแต่สส่งข้อมูลเข้า SAP ไม่สำเร็จ กรุณากดส่งข้อมูลอีกครั้งภายหลัง : {$this->error}";
+          }
+          else
+          {
+            $arr = array(
+              'LineStatus' => 'C'
+            );
+
+            $this->transfer_model->update_details($id, $arr);
+          }
+        }
+        else
+        {
+          $sc = FALSE;
+          $this->error = "The document has already been entered into SAP. Please cancel the document in SAP before.";
+        }
+      }
+      else
+      {
+        $sc = FALSE;
+        $this->error = "Invalid document status";
+      }
+    }
+    else
+    {
+      $sc = FALSE;
+      $this->error = "Document number could not be found";
+    }
+
+    $arr = array(
+      'status' => $sc === TRUE ? 'success' : 'failed',
+      'message' => $sc === TRUE ? 'success' : $this->error
+    );
+
+    echo json_encode($arr);
+  }
+
+
+  public function print_transfer($id)
+  {
+    $doc = $this->transfer_model->get($id);
+
+    if( ! empty($doc))
+    {
+      $ds = array(
+        'doc' => $doc,
+        'details' => $this->transfer_model->get_details($id)
+      );
+
+      $this->load->library('printer');
+      $this->load->view('print/print_transfer', $ds);
+    }
+    else
+    {
+      $this->page_error();
+    }
+  }
+
+  public function printLabel($id, $LineNum)
+  {
+    $row = $this->transfer_model->get_detail_by_line_num($id, $LineNum);
+
+    if( ! empty($row))
+    {
+      $this->load->library('printer');
+      $this->load->view('print/transfer_sticker', $row);
+    }
+    else
+    {
+      $this->error_page();
+    }
+  }
+
+
+  public function test_print()
+  {
+    $this->load->library('printer');
+    $this->load->view('print/sticker_test_print');
+  }
+
+
   public function get_new_code($date = NULL)
   {
     $date = empty($date) ? date('Y-m-d') : $date;
@@ -358,6 +1207,8 @@ class Transfer extends PS_Controller
       'tr_fromWhs',
       'tr_toWhs',
       'tr_user',
+      'tr_status',
+      'tr_approval',
       'tr_from_date',
       'tr_to_date'
     );

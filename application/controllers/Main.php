@@ -14,7 +14,7 @@ class Main extends PS_Controller
 		_check_login();
 		$this->pm = new stdClass();
 		$this->pm->can_view = 1;
-		$this->home = base_url()."main";		
+		$this->home = base_url()."main";
 	}
 
 

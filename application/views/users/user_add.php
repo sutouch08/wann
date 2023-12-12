@@ -1,4 +1,5 @@
 <?php $this->load->view('include/header'); ?>
+<script src="<?php echo base_url(); ?>assets/js/select2.js"></script>
 <script>
 	var USE_STRONG_PWD = <?php echo getConfig('USE_STRONG_PWD'); ?>;
 </script>
@@ -45,7 +46,7 @@
 				<?php echo select_employee(); ?>
       </select>
     </div>
-  </div>	
+  </div>
 
 	<div class="form-group">
     <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">User Group</label>

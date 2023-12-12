@@ -13,7 +13,7 @@ class Transfer_request_model extends CI_Model
   {
     $rs = $this->ms
     ->select('tq.DocEntry, tq.DocNum, tq.DocDate, tq.DocDueDate, tq.DocStatus, tq.CANCELED')
-    ->select('tq.Filler, tq.toWhsCode, tq.Series, tq.Comments, tq.U_BEX_EXREMARK')
+    ->select('tq.Filler, tq.toWhsCode, tq.Series, tq.Comments, tq.U_BEX_EXREMARK, tq.U_ProductionOrder')
     ->select('sr.BeginStr, wh1.WhsName AS fromWarehouse, wh2.WhsName AS toWarehouse')
     ->from('OWTQ AS tq')
     ->join('NNM1 AS sr', 'tq.Series = sr.Series', 'left')

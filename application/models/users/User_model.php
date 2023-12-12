@@ -112,6 +112,30 @@ class User_model extends CI_Model
     return NULL;
   }
 
+	public function get_name_by_id($id)
+	{
+		$rs = $this->db->where('id', $id)->get($this->tb);
+
+		if($rs->num_rows() === 1)
+		{
+			return $rs->row()->name;
+		}
+
+		return NULL;
+	}
+
+	public function get_name_by_uid($uid)
+	{
+		$rs = $this->db->where('uid', $uid)->get($this->tb);
+
+		if($rs->num_rows() === 1)
+		{
+			return $rs->row()->name;
+		}
+
+		return NULL;
+	}
+
 	public function get_uname($id)
 	{
 		$rs = $this->db->where('id', $id)->get($this->tb);
@@ -378,11 +402,10 @@ class User_model extends CI_Model
 
 	public function has_transection($id)
 	{
-		$sq = 0; $this->db->where('user_id', $id)->or_where('upd_user_id', $id)->count_all_results('quotation');
-		$so = 0; $this->db->where('user_id', $id)->or_where('upd_user_id', $id)->count_all_results('orders');
-		$apv = 0; $this->db->where('user_id', $id)->count_all_results('approver');
+		$tr = $this->db->where('user_id', $id)->or_where('upd_user_id', $id)->count_all_results('transfer');
+		$td = $this->db->where('user_id', $id)->or_where('upd_user_id', $id)->count_all_results('transfer_details');
 
-		$total = $so + $sq + $apv;
+		$total = $tr + $td;
 
 		return $total > 0 ? TRUE : FALSE;
 	}
@@ -391,6 +414,18 @@ class User_model extends CI_Model
 	public function add_logs(array $ds = array())
 	{
 		return $this->db->insert('access_logs', $ds);
+	}
+
+	public function docList()
+	{
+		$rs = $this->db->get('doc_type');
+
+		if($rs->num_rows() > 0)
+		{
+			return $rs->result();
+		}
+
+		return NULL;
 	}
 
 

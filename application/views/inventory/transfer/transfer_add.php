@@ -8,7 +8,7 @@
   </div>
   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
     <p class="pull-right top-p">
-      <button type="button" class="btn btn-xs btn-warning top-btn" onclick="leave()"><i class="fa fa-arrow-left"></i> Back</button>
+      <button type="button" class="btn btn-xs btn-warning top-btn" onclick="goBack()"><i class="fa fa-arrow-left"></i> Back</button>
     </p>
   </div>
 </div>

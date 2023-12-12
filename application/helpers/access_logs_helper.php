@@ -27,9 +27,7 @@ function select_action($action = NULL)
     'delete' => 'delete',
     'approve' => 'approve',
     'reject' => 'reject',
-    'review' => 'review',
-    'cancel' => 'cancel',
-    'reject_review' => 'reject review'
+    'cancel' => 'cancel'
   );
 
   foreach($acts as $ac => $name)

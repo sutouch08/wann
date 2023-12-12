@@ -7,17 +7,7 @@
 	  <div class="divider-hidden"></div>
 		<div class="divider"></div>
 	</div>
-	<div class="row">
-		<?php
-			$code = "TFQP-1234567890";
-			$prefix = preg_replace('/[^a-zA-Z]/', '', $code);
-			$docNum = preg_replace('/[^0-9]/', '', $code);
-
-			echo $prefix;
-			echo "</br>";
-			echo $docNum;
-
-		 ?>
+	<div class="row">		
 	</div>
 
 <?php $this->load->view('include/footer'); ?>

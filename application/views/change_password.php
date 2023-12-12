@@ -32,14 +32,7 @@
 			<div class="main-content">
 				<div class="row">
 					<div class="col-sm-10 col-sm-offset-1">
-						<div class="login-container">
-							<div class="center">
-								<h1>
-									<span class="orange"><?php echo getConfig('COMPANY_NAME'); ?></span>
-									<span class="white" id="id-text2">Web Sales</span>
-								</h1>
-								<h4 class="blue" id="id-company-text">&copy; <?php echo getConfig('COMPANY_FULL_NAME');?></h4>
-							</div>
+						<div class="login-container" style="margin-top:50px;">							
 
 							<div class="space-6"></div>
 

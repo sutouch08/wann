@@ -9,7 +9,7 @@
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
     <p class="pull-right top-p">
 			<button type="button" class="btn btn-sm btn-warning top-btn" onclick="goBack()"><i class="fa fa-arrow-left"></i> กลับ</button>
-			<button type="button" class="btn btn-sm btn-info top-btn" onclick="printTQ()"><i class="fa fa-print"></i> พิมพ์</button>
+			<button type="button" class="btn btn-sm btn-info top-btn" onclick="printTQ(<?php echo $doc->DocEntry; ?>)"><i class="fa fa-print"></i> พิมพ์</button>
 		</p>
   </div>
 </div><!-- End Row -->

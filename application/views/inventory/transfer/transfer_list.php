@@ -17,17 +17,17 @@
 <form id="searchForm" method="post" action="<?php echo current_url(); ?>">
 <div class="row">
   <div class="col-lg-1-harf col-md-2 col-sm-2 col-xs-6 padding-5">
-    <label>Web No</label>
+    <label>เลขที่เอกสาร</label>
     <input type="text" class="form-control input-sm search-box" name="code"  value="<?php echo $code; ?>" />
   </div>
 
   <div class="col-lg-1-harf col-md-2 col-sm-2 col-xs-6 padding-5">
-    <label>Request No</label>
+    <label>ใบขอโอน</label>
     <input type="text" class="form-control input-sm search-box" name="BaseRef"  value="<?php echo $BaseRef; ?>" />
   </div>
 
   <div class="col-lg-1-harf col-md-2 col-sm-2 col-xs-6 padding-5">
-    <label>Transfer No</label>
+    <label>ใบโอน</label>
     <input type="text" class="form-control input-sm search-box" name="DocNum"  value="<?php echo $DocNum; ?>" />
   </div>
 
@@ -60,6 +60,17 @@
 		</select>
   </div>
 
+	<div class="col-lg-1-harf col-md-1-harf col-sm-1-harf col-xs-6 padding-5">
+    <label>การอนุมัติ</label>
+    <select class="form-control input-sm" name="approval" onchange="getSearch()">
+			<option value="all">ทั้งหมด</option>
+			<option value="P" <?php echo is_selected('P', $approval); ?>>รออนุมัติ</option>
+			<option value="A" <?php echo is_selected('A', $approval); ?>>อนุมัติแล้ว</option>
+			<option value="S" <?php echo is_selected('S', $approval); ?>>ไม่ต้องอนุมัติ</option>
+      <option value="R" <?php echo is_selected('R', $approval); ?>>ไม่อนุมัติ</option>
+		</select>
+  </div>
+
 	<div class="col-lg-2 col-md-2-harf col-sm-2-harf col-xs-6 padding-5">
     <label>วันที่</label>
     <div class="input-daterange input-group">
@@ -87,10 +98,10 @@
 <?php echo $this->pagination->create_links(); ?>
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding-5 table-responsive">
-		<table class="table table-striped border-1" style="min-width:840px;">
+		<table class="table table-striped border-1" style="min-width:1000px;">
 			<thead>
 				<tr>
-					<th class="fix-width-60 middle"></th>
+					<th class="fix-width-100 middle"></th>
 					<th class="fix-width-50 middle text-center">ลำดับ</th>
 					<th class="fix-width-100 middle text-center">วันที่</th>
 					<th class="fix-width-150 middle">เลขที่เอกสาร</th>
@@ -99,6 +110,7 @@
 					<th class="fix-width-100 middle">ปลายทาง</th>
           <th class="fix-width-120 middle">Request No.</th>
           <th class="fix-width-120 middle">Transfer No.</th>
+					<th class="min-width-100 middle">User</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -106,10 +118,14 @@
           <?php $no = $this->uri->segment(4) + 1; ?>
           <?php foreach($data as $rs) : ?>
             <tr id="row-<?php echo $rs->id; ?>">
-							<td class="middle text-right">
+							<td class="middle">
 								<button type="button" class="btn btn-minier btn-info" onclick="viewDetail('<?php echo $rs->id; ?>')"><i class="fa fa-eye"></i></button>
+							<?php if($this->pm->can_edit && ($rs->Status == -1 OR $rs->Status == 0)) : ?>
                 <button type="button" class="btn btn-minier btn-warning" onclick="edit(<?php echo $rs->id; ?>)"><i class="fa fa-pencil"></i></button>
-                <button type="button" class="btn btn-minier btn-danger" onclick="confirmDelete(<?php echo $rs->id; ?>, '<?php echo $rs->code; ?>')"><i class="fa fa-trash"></i></button>
+							<?php endif; ?>
+							<?php if($this->pm->can_delete && ($rs->Status != 1 && $rs->Status != 2)) : ?>
+                <button type="button" class="btn btn-minier btn-danger" onclick="cancleTransfer(<?php echo $rs->id; ?>, '<?php echo $rs->code; ?>')"><i class="fa fa-trash"></i></button>
+							<?php endif; ?>
 							</td>
               <td class="middle text-center"><?php echo $no; ?></td>
               <td class="middle text-center"><?php echo thai_date($rs->DocDate); ?></td>
@@ -118,7 +134,11 @@
                 <?php if($rs->Status == -1) : ?>
                   <span class="purple">Draft</span>
                 <?php elseif($rs->Status == 0) : ?>
-                  <span class="orange">Pending</span>
+									<?php if($rs->approved == 'R') : ?>
+										<span class="red">Rejected</span>
+									<?php else : ?>
+                  	<span class="orange">Pending</span>
+									<?php endif; ?>
                 <?php elseif($rs->Status == 1) : ?>
                   <span class="green">Success</span>
                 <?php elseif($rs->Status == 2) : ?>
@@ -133,6 +153,7 @@
               <td class="middle"><?php echo $rs->toWhsCode; ?></td>
               <td class="middle"><?php echo ( ! empty($rs->BasePrefix) ? $rs->BasePrefix.'-'.$rs->BaseRef : $rs->BaseRef); ?></td>
               <td class="middle"><?php echo ( ! empty($rs->DocPrefix) ? $rs->DocPrefix.'-'.$rs->DocNum : $rs->DocNum); ?></td>
+							<td class="middle"><?php echo $rs->user; ?></td>
             </tr>
             <?php $no++; ?>
           <?php endforeach; ?>

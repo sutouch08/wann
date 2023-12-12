@@ -3,196 +3,160 @@ class Api
 {
   private $url;
   protected $ci;
-	public $error;
-  protected $timeout = 0; //-- time out in seconds;
+	//public $error;
+  private $timeout = 0; //--- timeout in seconds;
 
   public function __construct()
   {
 		$this->ci =& get_instance();
 
-
     $this->url = getConfig('SAP_API_HOST');
-		if($this->url[-1] != '/')
-		{
-			$this->url .'/';
-		}
+
+    if( ! empty($this->url))
+    {
+      if($this->url[-1] != '/')
+      {
+        $this->url .'/';
+      }
+    }
   }
 
 
-  public function exportSQ($code)
+	public function exportTransfer($id)
 	{
-    $this->ci->load->model('rest/logs_model');
-    $logJson = getConfig('LOGS_JSON') == 1 ? TRUE : FALSE;
-    $testMode = getConfig('TEST') ? TRUE : FALSE;
+    $this->ci->load->model('inventory/transfer_model');
+    $this->ci->load->model('logs_model');
 
-		$sc = TRUE;
-		$order = $this->ci->quotation_model->get($code);
-		$details = $this->ci->quotation_model->get_details($code);
-    $adr = $this->ci->quotation_model->get_quotation_address($code);
+		$testMode = getConfig('TEST_MODE') ? TRUE : FALSE;
 
-    $dfWhsCode = getConfig('DEFAULT_WAREHOUSE');
-
-		if(! empty($order) && ! empty($details))
+		if($testMode)
 		{
-      $ds = array();
-			$sq = array(
-				"WEBNumber" => $order->code,
-				"CardCode" => $order->CardCode,
-				"CardName" => $order->CardName,
-				"SlpCode" => intval($order->SlpCode),
-				"GroupNum" => intval($order->Payment),
-				"DocDate" => $order->DocDate,
-				"DocDueDate" => $order->DocDueDate,
-				"TaxDate" => $order->TextDate,
-        "NumAtCard" => $order->NumAtCard,
-        "CntctCode" => intval($order->CntctCode),
-        "Seires" => 0,
-        "SeriesName" => NULL,
-        "SalesEmployee" => intval($order->SlpCode),
-        "OwnerCode" => intval($order->OwnerCode),
-        "Comments" => $order->Comments,
-        "DiscPrcnt" => round($order->DiscPrcnt, 2),
-        "DiscSum" => round($order->DiscAmount, 2),
-        "DocCur" => $order->DocCur,
-        "DocRate" => round($order->DocRate, 2),
-        "DocTotal" => round($order->DocTotal, 2),
-				"PayToCode" => $order->PayToCode,
-				"ShipToCode" => $order->ShipToCode,
-				"Address" => $order->Address,
-				"Address2" =>$order->Address2,
-				"RoundDif" => round($order->RoundDif, 2),
-        "U_Attn1" => $order->Attn1,
-        "U_Attn2" => $order->Attn2,
-        "U_SQ_TYPE" => $order->Type,
-        "U_SA_PROJECT" => $order->Project,
-        "ShipTo" => array(),
-        "BillTo" => array()
+			$arr = array(
+				'Status' => 1,
+				'DocEntry' => 1,
+				'DocNum' => "22000001"
 			);
 
-      if(!empty($adr))
+			$this->ci->transfer_model->update($id, $arr);
+			return TRUE;
+		}
+
+		$logJson = getConfig('LOGS_JSON') == 1 ? TRUE : FALSE;
+
+
+
+		$sc = TRUE;
+		$doc = $this->ci->transfer_model->get($id);
+    $details = $this->ci->transfer_model->get_details($id);
+
+		if(! empty($doc) && ! empty($details))
+		{
+      $ds = array(
+        'U_WEBCODE' => $doc->code,
+        'DocType' => 'I',
+        'CANCELED' => 'N',
+        'DocDate' => sap_date($doc->DocDate, TRUE),
+        'DocDueDate' => sap_date($doc->DocDueDate, TRUE),
+        'TaxDate' => sap_date($doc->TaxDate, TRUE),
+        'CardCode' => NULL,
+        'CardName' => NULL,
+        'VatPercent' => 0.000000,
+        'VatSum' => 0.000000,
+        'VatSumFc' => 0.000000,
+        'DiscPrcnt' => 0.000000,
+        'DiscSum' => 0.000000,
+        'DiscSumFC' => 0.000000,
+        'DocCur' => NULL,
+        'DocRate' => 1,
+        'DocTotal' => 0.000000,
+        'DocTotalFC' => 0.000000,
+        'Filler' => $doc->fromWhsCode,
+        'ToWhsCode' => $doc->toWhsCode,
+        'Comments' => $doc->remark,
+        'U_OLDTAX' => $doc->BaseRef,
+        'U_ProductionOrder' => $doc->BaseRef,
+        'U_BEX_EXREMARK' => $doc->remark,
+        'U_TransferType' => 'P',
+        'DocLine' => array()
+      );
+
+      foreach($details as $rs)
       {
-        $billTo = array(
-          "Street_B" => $adr->bStreet,
-          "Address2_B" => $adr->bAddress,
-          "Address3_B" => $adr->bAddress2,
-          "Block_B" => $adr->bBlock,
-          "ZipCode_B" => $adr->bZipCode,
-          "County_B" => $adr->bCounty,
-          "Country_B" => $adr->bCountry,
-          "City_B" => $adr->bCity
+        $arr =  array(
+          'U_WEBCODE' => $rs->transfer_code,
+          'LineNum' => $rs->LineNum,
+          'BaseRef' => $rs->BaseRef,
+          'BaseType' => 1250000001,
+          'BaseEntry' => $rs->BaseEntry,
+          'BaseLine' => $rs->BaseLine,
+          'ItemCode' => $rs->ItemCode,
+          'Dscription' => $rs->Dscription,
+          'Quantity' => $rs->Qty,
+          'unitMsr' => $rs->unitMsr,
+          'NumPerMsr' => $rs->numPerMsr,
+          'UomEntry' => $rs->UomEntry,
+          'UomCode' => $rs->UomCode,
+          'unitMsr2' => $rs->unitMsr2,
+          'NumPerMsr2' => $rs->numPerMsr2,
+          'UomEntry2' => $rs->UomEntry2,
+          'UomCode2' => $rs->UomCode2,
+          'PriceBefDi' => 0.000000,
+          'LineTotal' => 0.000000,
+          'ShipDate' => NULL,
+          'Currency' => NULL,
+          'Rate' => 1,
+          'DiscPrcnt' => 0.000000,
+          'Price' => 0.000000,
+          'TotalFrgn' => 0.000000,
+          'FromWhsCod' => $rs->fromWhsCode,
+          'WhsCode' => $rs->toWhsCode,
+          'TaxStatus' => 'Y',
+          'VatPrcnt' => 0.000000,
+          'VatGroup' => NULL,
+          'PriceAfVAT' => 0.000000,
+          'VatSum' => 0.000000,
+          'ReceiptNo' => $rs->ReceiptNo
         );
 
-        array_push($sq['BillTo'], $billTo);
-
-        $shipTo = array(
-          "Street_S" => $adr->sStreet,
-          "Address2_S" => $adr->sAddress,
-          "Address3_S" => $adr->sAddress2,
-          "Block_S" => $adr->sBlock,
-          "ZipCode_S" => $adr->sZipCode,
-          "County_S" => $adr->sCounty,
-          "Country_S" => $adr->sCountry,
-          "City_S" => $adr->sCity
-        );
-
-        array_push($sq['ShipTo'], $shipTo);
+        array_push($ds['DocLine'], $arr);
       }
 
-			$orderLine = array();
+			$url = $this->url."transfer";
 
-			foreach($details AS $rs)
-			{
-				$line = array(
-					"LineNum" => intval($rs->LineNum),
-					"ItemCode" => $rs->ItemCode,
-					"ItemDescription" => $rs->ItemName,
-          "ItemDetails" => $rs->Description,
-          "Text" => $rs->Description,
-          "FreeText" => NULL,
-					"Quantity" => round($rs->Qty, 2),
-					//"UomEntry" => intval($rs->UomEntry),
-          "UnitPrice" => round($rs->Price, 2),
-          "DiscPrcnt" => round($rs->DiscPrcnt, 2),
-          "VatGroup" => $rs->VatGroup,
-          "ShipDate" => NULL,
-          "UomCode" => intval($rs->UomEntry),
-          "OcrCode" => NULL,
-          "AcctCode" => NULL,
-          "WhsCode" => empty($rs->WhsCode) ? $dfWhsCode : $rs->WhsCode,
-					"LineTotal" => round($rs->LineTotal, 2),
-					"PriceBefDi" => round($rs->Price, 2),
-					"Currency" => $order->DocCur,
-					"Rate" => round($order->DocRate, 2),
-					"VatPrcnt" => round($rs->VatRate, 2),
-					"PriceAfVAT" => round(add_vat($rs->SellPrice, $rs->VatRate), 2),
-					"VatSum" => round($rs->totalVatAmount, 2),
-					"SlpCode" => intval($order->SlpCode),
-          "NoInvTryMv" => NULL,
-          "CoGsOcrCode" => NULL,
-          "TreeType" => $rs->TreeType,
-          "Text" => $rs->LineText
-				);
-
-				array_push($orderLine, $line);
-			}
-
-			$sq['Line'] = $orderLine;
-
-      array_push($ds, $sq);
-
-      if($testMode)
-  		{
-  			$arr = array(
-  				'Status' => 1,
-  				'DocEntry' => 1,
-  				'DocNum' => "22000001"
-  			);
-
-  			$this->ci->quotation_model->update($code, $arr);
-
-        $logs = array(
-          'code' => $code,
-          'status' => 'success',
-          'json' => json_encode($ds)
-        );
-
-        $this->ci->logs_model->order_logs($logs);
-  			return TRUE;
-  		}
-
-      $json = json_encode($ds, JSON_UNESCAPED_UNICODE);
+      $json = json_encode($ds);
 
       if($logJson)
       {
         $logs = array(
-          'code' => $code,
+          'code' => $doc->code,
           'status' => 'send',
           'json' => $json
         );
 
-        $this->ci->logs_model->order_logs($logs);
+        $this->ci->logs_model->log_transfer($logs);
       }
-
-
-			$url = getConfig('SAP_API_HOST');
-
-			if($url[-1] != '/')
-			{
-				$url .'/';
-			}
-
-			$url = $url."Quotation";
 
 			$curl = curl_init();
 			curl_setopt($curl, CURLOPT_URL, $url);
 			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
-      curl_setopt($curl, CURLOPT_TIMEOUT, 60);
+      curl_setopt($curl, CURLOPT_TIMEOUT, 0);
 			curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
 			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
 			curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
 
 			$response = curl_exec($curl);
+
+      if($logJson)
+      {
+        $logs = array(
+          'code' => $doc->code,
+          'status' => 'result',
+          'json' => $response
+        );
+
+        $this->ci->logs_model->log_transfer($logs);
+      }
 
       if($response === FALSE)
       {
@@ -201,96 +165,76 @@ class Api
 
 			curl_close($curl);
 
-			$ra = json_decode($response);
+			$rs = json_decode($response);
 
-			if(! empty($ra) && ! empty($ra[0]->Status))
+			if(! empty($rs) && ! empty($rs->status))
 			{
-        $rs = $ra[0];
-
-				if($rs->Status == 'success' OR $rs->Status == 'Success')
+				if($rs->status == 'success')
 				{
 					$arr = array(
 						'Status' => 1,
-						'DocEntry' => $rs->DocEntry,
-						'DocNum' => $rs->DocNum
+						'DocEntry' => $rs->docEntry,
+						'DocNum' => $rs->docNum
 					);
 
-					$this->ci->quotation_model->update($code, $arr);
+					$this->ci->transfer_model->update($id, $arr);
 
-
-          if($logJson)
-					{
-						$logs = array(
-							'code' => $code,
-							'status' => 'success',
-							'json' => $response
-						);
-
-						$this->ci->logs_model->order_logs($logs);
-					}
 				}
+        elseif($rs->status == 'exists')
+        {
+          $arr = array(
+						'Status' => 1,
+						'DocEntry' => $rs->docEntry,
+						'DocNum' => $rs->docNum
+					);
+
+					$this->ci->transfer_model->update($id, $arr);
+        }
 				else
 				{
-          if( ! empty($rs->DocEntry) && ! empty($rs->DocNum))
-          {
-            $arr = array(
-              'Status' => 1,
-              'DocEntry' => $rs->DocEntry,
-              'DocNum' => $rs->DocNum
-            );
-          }
-          else
-          {
-            $arr = array(
-              'Status' => 3,
-              'message' => $rs->errMsg
-            );
-          }
+					$arr = array(
+						'Status' => 3,
+						'Message' => empty($rs->message) ? $response : $rs->message
+					);
 
-					$this->ci->quotation_model->update($code, $arr);
+					$this->ci->transfer_model->update($id, $arr);
 
 					$sc = FALSE;
-					$this->ci->error = $rs->errMsg;
+					$this->ci->error = empty($rs->message) ? $response : $rs->message;
 
-          $logs = array(
-            'code' => $code,
-            'status' => 'error',
-            'json' => $response
-          );
+					if($logJson)
+					{
+						$logs = array(
+							'code' => $doc->code,
+							'status' => 'error',
+							'json' => empty($rs->message) ? $response : $rs->message
+						);
 
-          $this->ci->logs_model->order_logs($logs);
+						$this->ci->logs_model->log_transfer($logs);
+					}
 				}
 			}
 			else
 			{
 				$sc = FALSE;
-				$this->error = "Export failed : {$response}";
+				$this->ci->error = "Export failed : {$response}";
 
 				$arr = array(
 					'Status' => 3,
-					'message' => $response
+					'Message' => $response
 				);
 
-				$this->ci->quotation_model->update($code, $arr);
-
-        $logs = array(
-          'code' => $code,
-          'status' => 'response',
-          'json' => $response
-        );
-
-        $this->ci->logs_model->order_logs($logs);
+				$this->ci->transfer_model->update($id, $arr);
 			}
 		}
 		else
 		{
 			$sc = FALSE;
-			$this->error = "No data found";
+			$this->ci->error = "No data found";
 		}
 
 		return $sc;
 	}
 
-} //-- end class
-
- ?>
+} //--- end class
+?>

@@ -1,4 +1,5 @@
 <?php $this->load->view('include/header'); ?>
+<script src="<?php echo base_url(); ?>assets/js/select2.js"></script>
 <div class="row">
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
     <h3 class="title">
@@ -100,6 +101,7 @@
 						<?php endif; ?>
 						<?php if($this->pm->can_edit) : ?>
 							<button type="button" class="btn btn-minier btn-warning" onclick="getEdit('<?php echo $rs->id; ?>')"><i class="fa fa-pencil"></i></button>
+							<button type="button" class="btn btn-minier btn-info" onclick="printUserCard('<?php echo $rs->id; ?>')"><i class="fa fa-id-card-o"></i></button>
 						<?php endif; ?>
 					</td>
 					<td class="middle text-center"><?php echo $no; ?></td>
@@ -119,7 +121,15 @@
 </div>
 
 <script>
-	$('#emp_id').select2();	
+	$('#emp_id').select2();
+
+	function printUserCard(id) {
+		var center = ($(document).width() - 800)/2;
+		var prop = "width=800, height=800, left="+center+", scrollbars=yes";
+		var target = HOME + 'print_user_card/'+id;
+		window.open(target, "_blank", prop);
+	}
+
 </script>
 <script src="<?php echo base_url(); ?>scripts/users/users.js?v=<?php echo date('Ymd'); ?>"></script>
 

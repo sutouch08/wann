@@ -19,7 +19,7 @@
 		var ports = null;
 		var port = null;
 
-		var reader;
+		var reader = null;
 		var keepReading = true;
 		//var usbProductId = 8200;
 		//var usbVendorId = 1367;
@@ -37,26 +37,32 @@
 		}
 
 
-		$('#result').focus(function() {
-			readData();
-		});
+		// $('#result').focus(function() {
+		// 	readData();
+		// });
 
-		$('#result').focusout(function() {
-			$(this).val('');
-			closeReader();
-		})
+		// $('#result').focusout(function() {
+		// 	$(this).val('');
+		// 	closeReader();
+		// })
 
-		async function closeReader() {
-			try {
-				await reader.releaseLock();
-			}
-			catch(err) {
-
-			}
-			if(port.readable) {
-				await port.close();
-			}
-		}
+		// async function closeReader() {
+		// 	if(reader !== null) {
+		// 		try {
+		// 			// await reader.releaseLock();
+		//
+		// 			await port.close();
+		// 		}
+		// 		catch(err) {
+		// 			await port.close();
+		// 		}
+		// 	}
+		// 	// else {
+		// 	// 	if(port.readable) {
+		// 	// 		await port.close();
+		// 	// 	}
+		// 	// }
+		// }
 
 		async function readData() {
 			ports = await navigator.serial.getPorts();
@@ -64,7 +70,7 @@
 				port = ports[0];
 			}
 
-			await port.open({baudRate:300});
+			await port.open({baudRate:2400});
 			const decoder = new TextDecoder();
 			if(port.readable) {
 				reader = port.readable.getReader();
@@ -79,6 +85,11 @@
 
 						txt = txt + num;
 					}
+
+					if(done) {
+						console.log(txt);
+						break;
+					}
 				}
 
 				$('#result').val(parseFloat(txt));
@@ -87,6 +98,87 @@
 				await port.close();
 			}
 		}
+
+
+		// async function readData() {
+		// 	ports = await navigator.serial.getPorts();
+		// 	if(ports) {
+		// 		port = ports[0];
+		// 	}
+		//
+		// 	await port.open({baudRate:2400});
+		// 	if(port.readable) {
+		// 		// With transform streams.
+		// 		const textDecoder = new TextDecoderStream();
+		// 		const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
+		// 		const reader = textDecoder.readable.getReader();
+		//
+		// 		// Listen to data coming from the serial device.
+		// 		let txt = "";
+		// 		while (true) {
+		// 			const { value, done } = await reader.read();
+		// 			if(value != "") {
+		// 				if(value == "g") {
+		// 					break;
+		// 				}
+		//
+		// 				txt = txt + value;
+		// 				console.log(value);
+		// 			}
+		// 		}
+		//
+		// 		console.log(txt);
+		//
+		// 		const textEncoder = new TextEncoderStream();
+		// 		const writableStreamClosed = textEncoder.readable.pipeTo(port.writable);
+		//
+		// 		reader.cancel();
+		// 		await readableStreamClosed.catch(() => { /* Ignore the error */ });
+		//
+		// 		writer.close();
+		// 		await writableStreamClosed;
+		//
+		// 		await port.close();
+		// 	}
+		// }
+
+		// async function readData() {
+		// 	ports = await navigator.serial.getPorts();
+		// 	if(ports) {
+		// 		port = ports[0];
+		// 	}
+		//
+		// 	await port.open({baudRate:1200});
+		// 	const decoder = new TextDecoder();
+		// 	if(port.readable) {
+		// 		reader = port.readable.getReader();
+		// 		let txt = "";
+		// 		while(true) {
+		// 			const { value, done } = await reader.read();
+		// 			if(done) {
+		// 				reader.releaseLock();
+		// 				break;
+		// 			}
+		// 			console.log(value);
+		// 			// var num = decoder.decode(value);
+		// 			// if(num != "") {
+		// 			// 	if(num == "g") {
+		// 			// 		reader.releaseLock();
+		// 			// 		$('#result').val(parseFloat(txt));
+		// 			// 		break;
+		// 			// 	}
+		// 			//
+		// 			// 	txt = txt + num;
+		// 			// 	console.log(num);
+		// 			// }
+		// 		}
+		//
+		// 		// $('#result').val(parseFloat(txt));
+		// 		// reader.releaseLock();
+		// 		reader.cancle();
+		// 		await port.close();
+		// 	}
+		// }
 
 
 		function getConnect() {

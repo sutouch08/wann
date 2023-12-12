@@ -370,6 +370,11 @@ function changeUserPwd()
 	window.location.href = BASE_URL + 'user_pwd';
 }
 
+function changeUserPin()
+{
+	window.location.href = BASE_URL + 'user_pin';
+}
+
 
 function uniqueId()
 {

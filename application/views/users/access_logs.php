@@ -14,7 +14,7 @@
 
 	<div class="col-lg-1-harf col-md-2 col-sm-2 col-xs-6">
     <label>Doc Num</label>
-    <input type="text" class="form-control" name="docNum" value="<?php echo $docNum; ?>" />
+    <input type="text" class="form-control search-box" name="docNum" value="<?php echo $docNum; ?>" />
   </div>
 
 	<div class="col-lg-1-harf col-md-2 col-sm-2 col-xs-6">
@@ -36,7 +36,7 @@
   </div>
 
 	<div class="col-lg-1-harf col-md-2 col-sm-2 col-xs-6">
-    <label>Ip Address</label>
+    <label>IP Address</label>
     <input type="text" class="form-control search-box" name="ip_address" value="<?php echo $ip_address; ?>" />
   </div>
 

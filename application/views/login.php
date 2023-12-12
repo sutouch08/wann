@@ -1,103 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<meta charset="utf-8" />
-		<title>Login Page - <?php echo getConfig('COMPANY_NAME'); ?></title>
-		<meta name="description" content="User login page" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-		<link rel="shortcut icon" href="<?php echo base_url(); ?>assets/img/favicon.png">
+<head>
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="<?php echo base_url(); ?>assets/img/favicon.png"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/util.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/main.css">
+<script>
+	var BASE_URL = "<?php echo base_url(); ?>";
+</script>
+</head>
+<body>
 
-		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.css" />
-		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.css" />
-		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/ace-fonts.css" />
-		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/ace.css" />
-		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/ace-rtl.css" />
-		<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
-	</head>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-b-20">
+				<form class="login100-form validate-form" method="post" action="authentication/validate_credentials">
+					<span class="login100-form-title p-b-30" style="display:none;">
+						Welcome
+					</span>
 
-	<body class="login-layout blur-login">
+					<span class="login100-form-avatar">
+						<img src="<?php echo base_url(); ?>assets/images/logo.png">
+					</span>
 
-		<script>
-			var BASE_URL = "<?php echo base_url(); ?>";
-		</script>
 
-		<div class="main-container">
-			<div class="main-content">
-				<div class="row">
-					<div class="col-sm-10 col-sm-offset-1">
-						<div class="login-container">
-							<div class="center">
-								<h1>
-									<span class="orange"><?php echo getConfig('COMPANY_NAME'); ?></span>
-									<span class="white" id="id-text2">Web Sales</span>
-								</h1>
-								<h4 class="blue" id="id-company-text">&copy; <?php echo getConfig('COMPANY_FULL_NAME');?></h4>
-							</div>
+					<div class="wrap-input100 validate-input m-t-50 m-b-35" data-validate = "Enter username">
+						<input class="input100" type="text" name="uname" id="uname" autocomplete="off" autofocus>
+						<span class="focus-input100" data-placeholder="Username"></span>
+					</div>
 
-							<div class="space-6"></div>
+					<div class="wrap-input100 validate-input m-b-35" data-validate="Enter password">
+						<input class="input100" type="password" name="pwd" id="pwd" autocomplete="off">
+						<span class="focus-input100" data-placeholder="Password"></span>
+					</div>
 
-							<div class="position-relative">
-								<div id="login-box" class="login-box visible widget-box no-border">
-									<div class="widget-body">
-										<div class="widget-main">
-											<h4 class="header blue lighter bigger">Please Enter Your Information</h4>
+					<div class="validate-input m-b-35">
+						<input type="checkbox" name="remember" id="remember" value="1" class="input-checkbox100" />
+						<label class="label-checkbox100" for="remember"> Remember Me</label>
+					</div>
 
-											<div class="space-6"></div>
 
-											<form method="post">
-												<fieldset>
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="text" id="uname" class="form-control" placeholder="Username" autocomplete="off" autofocus />
-															<i class="ace-icon fa fa-user"></i>
-														</span>
-													</label>
+					<div class="container-login100-form-btn">
+						<button type="button" class="login100-form-btn" onclick="doLogin()">
+							Login
+						</button>
+					</div>
 
-													<label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="password" id="pwd" class="form-control" placeholder="Password" />
-															<i class="ace-icon fa fa-key"></i>
-														</span>
-													</label>
+					<div class="container-login100-form-btn" style="margin-top:30px;">
+						<p id="error-label" class="text-center" style="color:red">&nbsp;</p>
+					</div>
+					<!-- Bypass robot-->
+					<span style="display:none;" id="ipwd"></span>
+				</form>
+			</div>
+		</div>
+	</div>
 
-													<div class="space"></div>
+<!--===============================================================================================-->
+	<script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="<?php echo base_url(); ?>assets/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/popper.js"></script>
+	<script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="<?php echo base_url(); ?>assets/js/main.js"></script>
+	<script src="<?php echo base_url(); ?>scripts/login.js"></script>
 
-													<div class="clearfix">
-
-														<label class="inline">
-															<input type="checkbox" name="remember" id="remember" class="ace" value="1" />
-															<span class="lbl"> Remember Me</span>
-														</label>
-
-														<button type="button" id="login_btn" onclick="doLogin()" class="width-35 pull-right btn btn-sm btn-primary">
-															<i class="ace-icon fa fa-key"></i>
-															<span class="bigger-110">Login</span>
-														</button>
-													</div>
-
-													<div class="space-4"></div>
-													<div class="clearfix">
-														<div class="space-4"></div>
-														<div class="space-4"></div>
-														<!-- error message goes here -->
-														<p id="error-label" style="color:red; text-align:center;"></p>
-													</div>
-												</fieldset>
-											</form>
-
-											<!-- Bypass robot-->
-											<span style="display:none;" id="ipwd"></span>
-										</div><!-- /.widget-main -->
-									</div><!-- /.widget-body -->
-								</div><!-- /.login-box -->
-							</div><!-- /.position-relative -->
-						</div>
-					</div><!-- /.col -->
-				</div><!-- /.row -->
-			</div><!-- /.main-content -->
-		</div><!-- /.main-container -->
-
-		<script src="<?php echo base_url(); ?>scripts/login.js?v=<?php echo date('Ymd'); ?>"></script>
-	</body>
+</body>
 </html>

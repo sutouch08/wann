@@ -10,6 +10,22 @@ class Transfer_model extends CI_Model
     parent::__construct();
   }
 
+  public function get_max_line($id)
+  {
+    $rs = $this->db
+    ->select_max('LineNum')
+    ->where('transfer_id', $id)
+    ->order_by('LineNum', 'ASC')
+    ->get($this->td);
+
+    if($rs->num_rows() === 1)
+    {
+      return $rs->row()->LineNum;
+    }
+
+    return -1;
+  }
+
   public function get($id)
   {
     $rs = $this->db->where('id', $id)->get($this->tb);
@@ -38,7 +54,12 @@ class Transfer_model extends CI_Model
 
   public function get_details($id)
   {
-    $rs = $this->db->where('transfer_id', $id)->get($this->td);
+    $rs = $this->db
+    ->select('td.*, u.name AS checker')
+    ->from('transfer_details AS td')
+    ->join('user AS u', 'td.checker_uid = u.uid', 'left')
+    ->where('td.transfer_id', $id)
+    ->get();
 
     if($rs->num_rows() > 0)
     {
@@ -47,6 +68,25 @@ class Transfer_model extends CI_Model
 
     return NULL;
   }
+
+  public function get_details_by_base_line($transfer_id, $baseLine)
+  {
+    $rs = $this->db
+    ->select('td.*, u.name AS checker')
+    ->from('transfer_details AS td')
+    ->join('user AS u', 'td.checker_uid = u.uid', 'left')
+    ->where('td.transfer_id', $transfer_id)
+    ->where('td.BaseLine', $baseLine)
+    ->get();
+
+    if($rs->num_rows() > 0)
+    {
+      return $rs->result();
+    }
+
+    return NULL;
+  }
+
 
   public function get_request_rows($transfer_id)
   {
@@ -59,13 +99,78 @@ class Transfer_model extends CI_Model
 
     return NULL;
   }
-  
+
+
+  public function get_request_row($transfer_id, $line_num)
+  {
+    $rs = $this->db->where('transfer_id', $transfer_id)->where('LineNum', $line_num)->get($this->tr);
+
+    if($rs->num_rows() === 1)
+    {
+      return $rs->row();
+    }
+
+    return NULL;
+  }
+
 
   public function get_detail($id)
   {
     $rs = $this->db->where('id', $id)->get($this->td);
 
     if($rs->num_rows() === 1)
+    {
+      return $rs->row();
+    }
+
+    return NULL;
+  }
+
+  public function get_detail_by_line_num($transfer_id, $lineNum)
+  {
+    $rs = $this->db
+    ->where('transfer_id', $transfer_id)
+    ->where('LineNum', $lineNum)
+    ->get($this->td);
+
+    if($rs->num_rows() === 1)
+    {
+      return $rs->row();
+    }
+
+    return NULL;
+  }
+
+
+  public function get_exists_detail($transfer_id, $itemCode, $baseRef, $baseLine, $receiptNo)
+  {
+    $rs = $this->db
+    ->where('transfer_id', $transfer_id)
+    ->where('ItemCode', $itemCode)
+    ->where('BaseRef', $baseRef)
+    ->where('BaseLine', $baseLine)
+    ->where('ReceiptNo', $receiptNo)
+    ->get($this->td);
+
+    if($rs->num_rows() === 1)
+    {
+      return $rs->row();
+    }
+
+    return NULL;
+  }
+
+
+  public function get_request_item($id, $itemCode)
+  {
+    $rs = $this->db
+    ->where('transfer_id', $id)
+    ->where('ItemCode', $itemCode)
+    ->where('OpenQty > Qty', NULL, FALSE)
+    ->order_by('LineNum', 'ASC')
+    ->get($this->tr);
+
+    if($rs->num_rows() > 0)
     {
       return $rs->row();
     }
@@ -113,6 +218,45 @@ class Transfer_model extends CI_Model
   }
 
 
+  public function update($id, array $ds = array())
+  {
+    if( ! empty($ds))
+    {
+      return $this->db->where('id', $id)->update($this->tb, $ds);
+    }
+
+    return FALSE;
+  }
+
+
+  public function update_details($transfer_id, array $ds = array())
+  {
+    if( ! empty($ds))
+    {
+      return $this->db->where('transfer_id', $transfer_id)->update($this->td, $ds);
+    }
+
+    return FALSE;
+  }
+
+
+  public function update_request_row($id, array $ds = array())
+  {
+    if( ! empty($ds))
+    {
+      return $this->db->where('id', $id)->update($this->tr, $ds);
+    }
+
+    return  FALSE;
+  }
+
+
+  public function delete_detail($id)
+  {
+    return $this->db->where('id', $id)->delete($this->td);
+  }
+
+
   public function get_list(array $ds = array(), $perpage = 20, $offset = 0)
   {
     if(isset($ds['code']) && $ds['code'] != '')
@@ -143,6 +287,11 @@ class Transfer_model extends CI_Model
     if(isset($ds['status']) && $ds['status'] != 'all')
     {
       $this->db->where('Status', $ds['status']);
+    }
+
+    if(isset($ds['approval']) && $ds['approval'] != 'all')
+    {
+      $this->db->where('approved', $ds['approval']);
     }
 
     if( ! empty($ds['from_date']))
@@ -201,6 +350,11 @@ class Transfer_model extends CI_Model
     if(isset($ds['status']) && $ds['status'] != 'all')
     {
       $this->db->where('Status', $ds['status']);
+    }
+
+    if(isset($ds['approval']) && $ds['approval'] != 'all')
+    {
+      $this->db->where('approved', $ds['approval']);
     }
 
     if( ! empty($ds['from_date']))
@@ -279,6 +433,36 @@ class Transfer_model extends CI_Model
 		}
 
 		return NULL;
+  }
+
+
+  public function get_sap_doc_num($code)
+  {
+    // $rs = $this->ms
+    // ->select('DocNum')
+    // ->where('U_WEBCODE', $code)
+    // ->where('CANCELED', 'N')
+    // ->get('OWTR');
+    //
+    // if($rs->num_rows() > 0)
+    // {
+    //   return $rs->row()->DocNum;
+    // }
+    // return 'WRX';
+    return NULL;
+  }
+
+
+  public function get_transfer_logs($code)
+  {
+    $rs = $this->db->where('docNum', $code)->order_by('date_upd', 'ASC')->get('access_logs');
+
+    if( ! empty($rs))
+    {
+      return $rs->result();
+    }
+
+    return NULL;
   }
 
 } //--- end model

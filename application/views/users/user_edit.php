@@ -1,5 +1,5 @@
 <?php $this->load->view('include/header'); ?>
-
+<script src="<?php echo base_url(); ?>assets/js/select2.js"></script>
 <div class="row">
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
     <h3 class="title">

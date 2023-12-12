@@ -24,7 +24,7 @@ class Transfer_request extends PS_Controller
       'docNum' => get_filter('docNum', 'tq_docNum', ''),
       'fromWhs' => get_filter('fromWhs', 'tq_fromWhs', 'all'),
       'toWhs' => get_filter('toWhs', 'tq_toWhs', 'all'),
-      'status' => get_filter('status', 'tq_status', 'all'),
+      'status' => get_filter('status', 'tq_status', 'O'),
       'from_date' => get_filter('from_date', 'tq_from_date', ''),
       'to_date' => get_filter('to_date', 'tq_to_date', '')
 		);
@@ -60,6 +60,28 @@ class Transfer_request extends PS_Controller
       );
 
       $this->load->view('inventory/transfer_request/transfer_request_detail', $ds);
+
+    }
+    else
+    {
+      $this->page_error();
+    }
+  }
+
+
+  public function printTQ($id)
+  {
+    $doc = $this->transfer_request_model->get($id);
+
+    if( ! empty($doc))
+    {
+      $this->load->library('printer');
+      $ds = array(
+        'doc' => $doc,
+        'details' => $this->transfer_request_model->get_details($id)
+      );
+
+      $this->load->view('print/transfer_request_slip', $ds);
 
     }
     else

@@ -85,6 +85,13 @@
 									</a>
 								</li>
 								<li class="divider"></li>
+								<li>
+									<a href="JavaScript:void(0)" onclick="changeUserPin()">
+										<i class="ace-icon fa fa-keys"></i>
+										เปลี่ยน PIN
+									</a>
+								</li>
+								<li class="divider"></li>
 
 								<li>
 									<a href="<?php echo base_url(); ?>users/authentication/logout">

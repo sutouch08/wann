@@ -183,41 +183,44 @@ class Permission extends PS_Controller{
 			$data['data'] = $this->profile_model->get($id);
 			$data['menus'] = array();
 
-			$groups = $this->menu->get_active_menu_groups();
+			$groups = $this->menu->get_menu_groups();
 
 	    if(!empty($groups))
 	    {
 	      foreach($groups as $group)
 	      {
-	        $ds = array(
-	          'group_code' => $group->code,
-	          'group_name' => $group->name,
-	          'menu' => ''
-	        );
+					if($group->pm)
+					{
+						$ds = array(
+							'group_code' => $group->code,
+							'group_name' => $group->name,
+							'menu' => ''
+						);
 
-	        $menus = $this->menu->get_menus_by_group($group->code);
+						$menus = $this->menu->get_menus_by_group($group->code);
 
-	        if(!empty($menus))
-	        {
-	          $item = array();
-	          foreach($menus as $menu)
-	          {
-							if($menu->valid)
+						if(!empty($menus))
+						{
+							$item = array();
+							foreach($menus as $menu)
 							{
-								$arr = array(
-		              'menu_code' => $menu->code,
-		              'menu_name' => $menu->name,
-		              'permission' => $this->permission_model->get_permission($menu->code, $id)
-		            );
-		            array_push($item, $arr);
+								if($menu->valid)
+								{
+									$arr = array(
+										'menu_code' => $menu->code,
+										'menu_name' => $menu->name,
+										'permission' => $this->permission_model->get_permission($menu->code, $id)
+									);
+									array_push($item, $arr);
+								}
+
 							}
 
-	          }
+							$ds['menu'] = $item;
+						}
 
-	          $ds['menu'] = $item;
-	        }
-
-	        array_push($data['menus'], $ds);
+						array_push($data['menus'], $ds);
+					}
 	      }
 	    }
 
@@ -420,7 +423,7 @@ class Permission extends PS_Controller{
 
   public function clear_filter()
   {
-    return clear_filter(array('profile_name'));    
+    return clear_filter(array('profile_name'));
   }
 
 } //-- end class
