@@ -76,8 +76,6 @@ function get_filter($postName, $cookieName, $defaultValue = "")
 }
 
 
-
-
 function clear_filter($cookies)
 {
   if(is_array($cookies))

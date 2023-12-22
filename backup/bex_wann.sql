@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2023 at 03:00 PM
+-- Generation Time: Dec 19, 2023 at 04:45 AM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.4.29
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bex_inc`
+-- Database: `bex_wann`
 --
 
 -- --------------------------------------------------------
@@ -33,7 +33,7 @@ CREATE TABLE `access_logs` (
   `uname` varchar(50) NOT NULL,
   `docType` varchar(20) DEFAULT NULL,
   `docNum` varchar(20) DEFAULT NULL,
-  `action` set('login','add','edit','delete','approve','reject','cancel','review','reject_review') DEFAULT NULL,
+  `action` set('login','create','edit','delete','approve','reject','cancel','rollback','save','update') DEFAULT NULL,
   `ip_address` varchar(15) DEFAULT NULL,
   `date_upd` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -43,111 +43,15 @@ CREATE TABLE `access_logs` (
 --
 
 INSERT INTO `access_logs` (`id`, `user_id`, `uname`, `docType`, `docNum`, `action`, `ip_address`, `date_upd`) VALUES
-(1, 0, 'sales_01', 'SQ', 'WQ-23080001', 'add', '::1', '2023-08-18 11:38:17'),
-(2, 6, 'sales_01', 'SQ', 'WQ-23080001', 'add', '::1', '2023-08-18 14:18:14'),
-(3, 6, 'sales_01', 'SQ', 'WQ-23080001', 'edit', '::1', '2023-08-18 14:21:28'),
-(4, 6, 'sales_01', 'SQ', 'WQ-23080001', 'edit', '::1', '2023-08-18 14:22:18'),
-(5, 6, 'sales_01', 'SQ', 'WQ-23080001', 'edit', '::1', '2023-08-19 14:40:25'),
-(6, 6, 'sales_01', 'SQ', 'WQ-23080001', 'edit', '::1', '2023-08-19 14:42:52'),
-(7, -1, 'superadmin', 'SQ', 'WQ-23080002', 'add', '::1', '2023-08-19 17:59:46'),
-(8, -1, 'superadmin', 'SQ', 'WQ-23080002', 'edit', '::1', '2023-08-19 18:27:33'),
-(9, -1, 'superadmin', 'SQ', 'WQ-23080002', 'edit', '::1', '2023-08-19 18:30:24'),
-(10, -1, 'superadmin', 'SQ', 'WQ-23080002', 'edit', '::1', '2023-08-19 18:31:16'),
-(11, -1, 'superadmin', 'SQ', 'WQ-23080002', 'edit', '::1', '2023-08-19 18:36:02'),
-(12, -1, 'superadmin', 'SQ', 'WQ-23080002', 'edit', '::1', '2023-08-19 18:36:37'),
-(13, -1, 'superadmin', 'SQ', 'WQ-23080002', 'edit', '::1', '2023-08-19 18:39:11'),
-(14, -1, 'superadmin', 'SQ', 'WQ-23080002', 'edit', '::1', '2023-08-19 18:39:53'),
-(15, -1, 'superadmin', 'SQ', 'WQ-23080002', 'edit', '::1', '2023-08-19 18:47:40'),
-(16, 6, 'sales_01', 'SQ', 'WQ-23080003', 'add', '::1', '2023-08-20 15:05:09'),
-(17, 6, 'sales_01', 'SQ', 'WQ-23080003', 'edit', '::1', '2023-08-20 15:14:52'),
-(18, 6, 'sales_01', 'SQ', 'WQ-23080001', 'reject_review', '::1', '2023-08-20 17:27:11'),
-(19, 6, 'sales_01', 'SQ', 'WQ-23080001', 'edit', '::1', '2023-08-20 17:28:37'),
-(20, 6, 'sales_01', 'SQ', 'WQ-23080001', 'review', '::1', '2023-08-20 17:44:00'),
-(21, 6, 'sales_01', 'SQ', 'WQ-23080001', 'edit', '::1', '2023-08-20 21:17:02'),
-(22, 6, 'sales_01', 'SQ', 'WQ-23080001', 'review', '::1', '2023-08-20 21:17:08'),
-(23, 6, 'sales_01', 'SQ', 'WQ-23080003', 'edit', '::1', '2023-08-20 21:18:07'),
-(24, 6, 'sales_01', 'SQ', 'WQ-23080003', 'review', '::1', '2023-08-20 21:19:11'),
-(25, 1, 'admin', 'SQ', 'WQ-23080003', 'reject', '::1', '2023-08-20 21:34:41'),
-(26, 1, 'admin', 'SQ', 'WQ-23080003', 'edit', '::1', '2023-08-20 21:36:10'),
-(27, 6, 'sales_01', 'SQ', 'WQ-23080003', 'review', '::1', '2023-08-20 21:36:34'),
-(28, 1, 'admin', 'SQ', 'WQ-23080003', 'approve', '::1', '2023-08-20 21:36:55'),
-(29, 6, 'sales_01', 'SQ', 'WQ-23080004', 'add', '::1', '2023-08-22 10:11:14'),
-(30, 6, 'sales_01', 'SQ', 'WQ-23080004', 'edit', '::1', '2023-08-22 13:35:00'),
-(31, 6, 'sales_01', 'SQ', 'WQ-23080004', 'review', '::1', '2023-08-22 20:51:42'),
-(32, 1, 'admin', 'SQ', 'WQ-23080004', 'approve', '::1', '2023-08-22 20:52:08'),
-(33, 6, 'sales_01', 'SQ', 'WQ-23080005', 'add', '::1', '2023-08-24 21:28:16'),
-(34, 6, 'sales_01', 'SQ', 'WQ-23080005', 'edit', '::1', '2023-08-24 21:34:54'),
-(35, 6, 'sales_01', 'SQ', 'WQ-23080006', 'add', '::1', '2023-08-24 21:40:30'),
-(36, 6, 'sales_01', 'SQ', 'WQ-23080006', 'review', '::1', '2023-08-24 21:40:36'),
-(37, 1, 'admin', 'SQ', 'WQ-23080006', 'approve', '::1', '2023-08-24 21:41:24'),
-(38, 6, 'sales_01', NULL, NULL, 'login', '::1', '2023-08-24 22:22:37'),
-(39, 1, 'admin', NULL, NULL, 'login', '::1', '2023-08-25 11:31:29'),
-(40, 1, 'admin', 'SQ', 'WQ-23080005', 'cancel', '::1', '2023-08-25 13:18:30'),
-(41, 1, 'admin', 'SQ', 'WQ-23080007', 'add', '::1', '2023-08-25 13:24:35'),
-(42, -1, 'superadmin', NULL, NULL, 'login', '::1', '2023-08-25 13:27:34'),
-(43, -1, 'superadmin', NULL, NULL, 'login', '::1', '2023-08-28 14:24:54'),
-(44, 6, 'sales_01', NULL, NULL, 'login', '::1', '2023-08-29 12:23:55'),
-(45, 6, 'sales_01', 'SQ', 'WQ-23080004', 'edit', '::1', '2023-08-29 12:27:15'),
-(46, 6, 'sales_01', 'SQ', 'WQ-23080004', 'review', '::1', '2023-08-29 12:27:27'),
-(47, 6, 'sales_01', 'SQ', 'WQ-23080004', 'approve', '::1', '2023-08-29 12:27:45'),
-(48, 1, 'admin', NULL, NULL, 'login', '::1', '2023-08-29 20:50:00'),
-(49, 1, 'admin', 'SQ', 'WQ-23080007', 'edit', '::1', '2023-08-30 11:31:53'),
-(50, 1, 'admin', 'SQ', 'WQ-23080007', 'edit', '::1', '2023-08-30 11:32:52'),
-(51, 1, 'admin', 'SQ', 'WQ-23080007', 'edit', '::1', '2023-08-30 11:42:02'),
-(52, 1, 'admin', 'SQ', 'WQ-23080007', 'edit', '::1', '2023-08-30 11:42:09'),
-(53, 6, 'sales_01', NULL, NULL, 'login', '::1', '2023-08-30 12:58:50'),
-(54, 6, 'sales_01', NULL, NULL, 'login', '::1', '2023-08-31 13:00:21'),
-(55, 6, 'sales_01', 'SQ', 'WQ-23080007', 'edit', '::1', '2023-08-31 20:31:56'),
-(56, 6, 'sales_01', 'SQ', 'WQ-23080007', 'edit', '::1', '2023-08-31 20:33:00'),
-(57, 6, 'sales_01', NULL, NULL, 'login', '::1', '2023-09-01 13:17:23'),
-(58, 6, 'sales_01', 'SQ', 'WQ-23080007', 'edit', '::1', '2023-09-01 19:21:10'),
-(59, 1, 'admin', NULL, NULL, 'login', '::1', '2023-09-01 19:21:53'),
-(60, 6, 'sales_01', NULL, NULL, 'login', '::1', '2023-09-01 19:22:22'),
-(61, 6, 'sales_01', 'SQ', 'WQ-23090001', 'add', '::1', '2023-09-01 19:29:06'),
-(62, 6, 'sales_01', 'SQ', 'WQ-23090001', 'edit', '::1', '2023-09-01 21:30:26'),
-(63, 6, 'sales_01', 'SQ', 'WQ-23090001', 'edit', '::1', '2023-09-01 21:39:58'),
-(64, 6, 'sales_01', 'SQ', 'WQ-23090001', 'edit', '::1', '2023-09-01 21:43:28'),
-(65, 6, 'sales_01', 'SQ', 'WQ-23090001', 'edit', '::1', '2023-09-01 22:14:24'),
-(66, 6, 'sales_01', 'SQ', 'WQ-23090001', 'edit', '::1', '2023-09-01 22:15:03'),
-(67, 6, 'sales_01', 'SQ', 'WQ-23090001', 'edit', '::1', '2023-09-01 22:19:55'),
-(68, 6, 'sales_01', 'SQ', 'WQ-23090001', 'reject_review', '::1', '2023-09-01 22:20:16'),
-(69, 6, 'sales_01', 'SQ', 'WQ-23090001', 'edit', '::1', '2023-09-02 11:14:48'),
-(70, 6, 'sales_01', 'SQ', 'WQ-23090001', 'reject_review', '::1', '2023-09-02 11:23:32'),
-(71, 6, 'sales_01', 'SQ', 'WQ-23080007', 'edit', '::1', '2023-09-02 12:58:40'),
-(72, 6, 'sales_01', 'SQ', 'WQ-23080007', 'review', '::1', '2023-09-02 12:58:44'),
-(73, 6, 'sales_01', 'SQ', 'WQ-23080007', 'reject', '::1', '2023-09-02 12:59:32'),
-(74, 6, 'sales_01', 'SQ', 'WQ-23090001', 'edit', '::1', '2023-09-02 13:24:57'),
-(75, 6, 'sales_01', 'SQ', 'WQ-23090001', 'review', '::1', '2023-09-02 13:25:03'),
-(76, 6, 'sales_01', 'SQ', 'WQ-23090001', 'approve', '::1', '2023-09-02 13:25:08'),
-(77, 6, 'sales_01', 'SQ', 'WQ-23090001', 'edit', '::1', '2023-09-02 14:14:33'),
-(78, 6, 'sales_01', 'SQ', 'WQ-23090001', 'edit', '::1', '2023-09-02 14:19:20'),
-(79, 6, 'sales_01', 'SQ', 'WQ-23090001', 'review', '::1', '2023-09-02 14:26:50'),
-(80, 6, 'sales_01', 'SQ', 'WQ-23090001', 'approve', '::1', '2023-09-02 14:26:54'),
-(81, 6, 'sales_01', 'SQ', 'WQ-23080004', 'edit', '::1', '2023-09-02 16:10:04'),
-(82, 6, 'sales_01', 'SQ', 'WQ-23080004', 'edit', '::1', '2023-09-02 16:40:18'),
-(83, 6, 'sales_01', 'SQ', 'WQ-23080004', 'edit', '::1', '2023-09-02 17:10:08'),
-(84, 6, 'sales_01', 'SQ', 'WQ-23080004', 'edit', '::1', '2023-09-02 17:14:46'),
-(85, 6, 'sales_01', NULL, NULL, 'login', '::1', '2023-09-10 15:43:17'),
-(86, 6, 'sales_01', 'SQ', 'WQ-23080004', 'review', '::1', '2023-09-10 18:46:13'),
-(87, 6, 'sales_01', 'SQ', 'WQ-23080004', 'reject', '::1', '2023-09-10 19:11:27'),
-(88, 6, 'sales_01', 'SQ', 'WQ-23080004', 'edit', '::1', '2023-09-10 19:12:00'),
-(89, 6, 'sales_01', 'SQ', 'WQ-23080004', 'review', '::1', '2023-09-10 19:12:04'),
-(90, 6, 'sales_01', 'SQ', 'WQ-23080004', 'approve', '::1', '2023-09-10 19:12:13'),
-(91, 6, 'sales_01', 'SQ', 'WQ-23080007', 'edit', '::1', '2023-09-10 19:16:52'),
-(92, 6, 'sales_01', 'SQ', 'WQ-23080007', 'review', '::1', '2023-09-10 19:17:06'),
-(93, 6, 'sales_01', 'SQ', 'WQ-23090001', 'edit', '::1', '2023-09-11 11:38:59'),
-(94, -1, 'superadmin', NULL, NULL, 'login', '::1', '2023-09-13 09:35:50'),
-(95, -1, 'superadmin', 'SQ', 'WQ-23080007', 'edit', '::1', '2023-09-13 13:57:28'),
-(96, -1, 'superadmin', NULL, NULL, 'login', '::1', '2023-09-15 09:09:03'),
-(97, -1, 'superadmin', 'SQ', 'WQ-23090001', 'edit', '::1', '2023-09-15 14:20:51'),
-(98, -1, 'superadmin', 'SQ', 'WQ-23090001', 'edit', '::1', '2023-09-15 14:21:20'),
-(99, -1, 'superadmin', 'SQ', 'WQ-23090002', 'add', '::1', '2023-09-15 14:27:02'),
-(100, -1, 'superadmin', 'SQ', 'WQ-23090002', 'edit', '::1', '2023-09-15 14:30:20'),
-(101, -1, 'superadmin', 'SQ', 'WQ-23090002', 'edit', '::1', '2023-09-15 14:54:37'),
-(102, -1, 'superadmin', 'SQ', 'WQ-23090002', 'edit', '::1', '2023-09-15 17:45:13'),
-(103, -1, 'superadmin', 'SQ', 'WQ-23090003', 'add', '::1', '2023-09-15 19:23:32'),
-(104, -1, 'superadmin', 'SQ', 'WQ-23090004', 'add', '::1', '2023-09-15 19:26:06'),
-(105, -1, 'superadmin', 'SQ', 'WQ-23090005', 'add', '::1', '2023-09-15 19:26:42');
+(1, -1, 'superadmin', 'TR', 'WT-23120001', 'create', '::1', '2023-12-07 11:14:17'),
+(2, -1, 'superadmin', 'TR', 'WT-23120001', 'approve', '::1', '2023-12-12 12:14:49'),
+(3, -1, 'superadmin', 'TR', 'WT-23110002', 'cancel', '::1', '2023-12-12 12:38:42'),
+(4, -1, 'superadmin', 'TR', 'WT-23120001', 'rollback', '::1', '2023-12-12 12:59:14'),
+(5, -1, 'superadmin', 'TR', 'WT-23120001', 'edit', '::1', '2023-12-12 13:40:00'),
+(6, -1, 'superadmin', 'TR', 'WT-23110001', 'reject', '::1', '2023-12-12 13:40:22'),
+(7, -1, 'superadmin', 'TR', 'WT-23120001', 'approve', '::1', '2023-12-12 13:46:38'),
+(8, -1, 'superadmin', NULL, NULL, 'login', '::1', '2023-12-12 13:50:38'),
+(9, -1, 'superadmin', NULL, NULL, 'login', '::1', '2023-12-19 09:30:35');
 
 -- --------------------------------------------------------
 
@@ -7626,7 +7530,7 @@ CREATE TABLE `approver` (
 
 INSERT INTO `approver` (`id`, `user_id`, `status`, `date_add`, `date_upd`, `add_user`, `update_user`) VALUES
 (1, 6, 1, '2023-08-19 22:18:13', '2023-09-10 12:24:33', 'sales_01', 'sales_01'),
-(4, 1, 1, '2023-08-20 21:20:31', '2023-08-20 14:20:59', 'admin', 'admin'),
+(4, 1, 1, '2023-08-20 21:20:31', '2023-10-23 01:44:34', 'admin', 'admin'),
 (6, 2, 1, '2023-09-10 16:52:00', NULL, 'sales_01', NULL);
 
 -- --------------------------------------------------------
@@ -7653,46 +7557,10 @@ CREATE TABLE `approve_rule` (
 --
 
 INSERT INTO `approve_rule` (`id`, `id_approver`, `docType`, `review`, `approve`, `minDisc`, `maxDisc`, `minAmount`, `maxAmount`, `date_update`) VALUES
-(17, 4, 'SQ', 0, 1, '0.00', '20.00', '0.000000', '10000.000000', '2023-08-20 14:20:59'),
-(18, 4, 'SO', 1, 0, '0.00', '0.00', '0.000000', '0.000000', '2023-08-20 14:20:59'),
 (22, 6, 'SQ', 0, 1, '0.00', '10.00', '100000.000000', '1000000.000000', '2023-09-10 09:52:00'),
-(23, 1, 'SQ', 1, 1, '0.00', '20.00', '0.000000', '100000.000000', '2023-09-10 12:24:33');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `channels`
---
-
-CREATE TABLE `channels` (
-  `id` int(11) NOT NULL,
-  `code` varchar(20) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `position` int(11) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
-  `is_default` tinyint(1) NOT NULL DEFAULT '0',
-  `date_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `last_sync` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `channels`
---
-
-INSERT INTO `channels` (`id`, `code`, `name`, `position`, `active`, `is_default`, `date_add`, `date_upd`, `last_sync`) VALUES
-(1, 'C01', 'ร้านค้า', 1, 1, 0, '2022-06-22 10:55:48', '2022-07-15 13:37:15', '2022-06-22 10:55:48'),
-(2, 'C02', 'ผู้รับเหมา', 2, 1, 1, '2022-06-22 10:55:48', '2022-07-15 13:37:30', '2022-06-22 10:55:48'),
-(3, 'C03', 'Modern trade', 3, 1, 0, '2022-06-22 10:55:48', '2022-07-15 13:37:30', '2022-06-22 10:55:48'),
-(4, 'C04', 'Shopee', 4, 1, 0, '2022-06-22 10:55:48', '2022-07-12 06:21:15', '2022-06-22 10:55:48'),
-(5, 'C05', 'Lazada', 5, 1, 0, '2022-06-22 10:55:48', '2022-07-12 06:21:19', '2022-06-22 10:55:48'),
-(6, 'C06', 'JD Central', 6, 1, 0, '2022-06-22 10:55:48', '2022-07-12 06:21:22', '2022-06-22 10:55:48'),
-(7, 'C07', 'Walk in', 7, 1, 0, '2022-06-22 10:55:48', '2022-07-12 06:21:25', '2022-06-22 10:55:48'),
-(8, 'C08', 'Chat', 8, 1, 0, '2022-06-22 10:55:48', '2022-07-12 06:21:29', '2022-06-22 10:55:48'),
-(9, 'C09', 'เจ้าของโครงการ', 9, 1, 0, '2022-06-22 10:55:48', '2022-07-12 06:21:32', '2022-06-22 10:55:48'),
-(10, 'C10', 'Events', 10, 1, 0, '2022-06-22 10:55:48', '2022-07-12 06:21:35', '2022-06-22 10:55:48'),
-(11, 'C11', 'โรงงาน', 11, 1, 0, '2022-06-22 10:55:48', '2022-07-12 06:21:38', '2022-06-22 10:55:48'),
-(12, 'C12', 'Promotions', 12, 1, 0, '2022-06-22 10:55:48', '2022-07-12 06:21:42', '2022-06-22 10:55:48');
+(23, 1, 'SQ', 1, 1, '0.00', '20.00', '0.000000', '100000.000000', '2023-09-10 12:24:33'),
+(33, 4, 'SQ', 1, 0, '0.00', '0.00', '0.000000', '0.000000', '2023-10-23 01:44:34'),
+(34, 4, 'SO', 1, 1, '0.00', '20.00', '0.000000', '1000000.000000', '2023-10-23 01:44:34');
 
 -- --------------------------------------------------------
 
@@ -7714,38 +7582,33 @@ CREATE TABLE `config` (
 --
 
 INSERT INTO `config` (`code`, `name`, `value`, `group_code`, `description`, `date_upd`) VALUES
-('AMOUNT_TO_APPROVE_SQ', 'มูลค่าที่ต้องอนุมัติในใบเสนอราคา', '0', 'Document', '', '2023-09-01 15:14:54'),
-('CLOSE_SYSTEM', 'ปิดปรับปรุงระบบ', '0', 'System', '', '2022-08-11 14:09:01'),
-('COMPANY_ADDRESS1', 'ที่อยู่', '89/18-19 MOO.5, TAM BON PUNTAINORASIGHA ,', 'Company', '', '2023-08-21 07:54:24'),
-('COMPANY_ADDRESS2', NULL, 'MUANG SAMUTSAKORN DISTRICT, SAMUTSAKHON PROVINCE', 'Company', '', '2023-08-21 07:54:24'),
+('CLOSE_SYSTEM', 'ปิดปรับปรุงระบบ', '0', 'System', '', '2023-11-17 02:57:08'),
+('COMPANY_ADDRESS1', 'ที่อยู่', 'เลขที่ 40 หมู่ที่ 7 ซอยสินสาคร ถนนพระรามที่ 2', 'Company', '', '2023-10-31 02:45:52'),
+('COMPANY_ADDRESS2', NULL, 'ต.พันท้ายนรสิงห์ อ.เมืองสมุทรสาคร จ.สมุทรสาคร', 'Company', '', '2023-10-31 02:45:52'),
 ('COMPANY_CODE', 'รหัสบริษัท', '0001', 'Company', '', '2019-08-31 11:49:52'),
 ('COMPANY_EMAIL', 'อีเมล์', '', 'Company', '', '2023-08-21 07:54:24'),
-('COMPANY_FACEBOOK', NULL, 'LIGHTTRIOLED', 'Company', '', '2023-08-21 07:54:24'),
-('COMPANY_FAX', 'แฟกซ์', '+6634-872-566', 'Company', '', '2023-08-21 07:54:24'),
-('COMPANY_FULL_NAME', 'ชื่อเต็ม', 'ITTHIRIT NICE CORPORATION PUBLIC COMPANY LIMITED', 'Company', '', '2023-08-21 07:54:24'),
-('COMPANY_LINE', 'LINE', '@LIGHTTRIO / @Unionclean', 'Company', '', '2023-08-21 07:54:24'),
-('COMPANY_NAME', 'ชื่อย่อ', 'INC', 'Company', '', '2023-08-05 11:50:25'),
-('COMPANY_PHONE', 'โทรศัพท์', '+6634-446265,446258,872-577', 'Company', '', '2023-08-21 07:54:24'),
+('COMPANY_FACEBOOK', NULL, '', 'Company', '', '2023-10-31 02:45:52'),
+('COMPANY_FAX', 'แฟกซ์', '', 'Company', '', '2023-10-31 02:45:52'),
+('COMPANY_FULL_NAME', 'ชื่อเต็ม', 'บริษัท แวนน์ คอสเมติกส์ แอนด์ แลบอราทอรี จำกัด', 'Company', '', '2023-10-31 02:45:52'),
+('COMPANY_LINE', 'LINE', '', 'Company', '', '2023-10-31 02:45:52'),
+('COMPANY_NAME', 'ชื่อย่อ', 'WANN', 'Company', '', '2023-10-31 02:45:52'),
+('COMPANY_PHONE', 'โทรศัพท์', '', 'Company', '', '2023-10-31 02:45:52'),
 ('COMPANY_POST_CODE', 'รหัสไปรษณีย์', '74000', 'Company', '', '2023-08-21 07:54:24'),
-('COMPANY_TAX_ID', 'เลขที่ผู้เสียภาษี', '0107565000565', 'Company', '', '2023-08-21 07:54:24'),
-('COMPANY_WEBSITE', NULL, 'WWW.LIGHTTRIO.COM', 'Company', '', '2023-08-21 07:54:24'),
+('COMPANY_TAX_ID', 'เลขที่ผู้เสียภาษี', '0115545006884', 'Company', '', '2023-10-31 02:45:52'),
+('COMPANY_WEBSITE', NULL, '', 'Company', '', '2023-10-31 02:45:52'),
 ('CREDIT_LIMIT', 'จำกัดวงเงินเครดิตหรือไม่', '1', 'Order', '', '2022-08-17 05:09:47'),
 ('DEFAULT_CURRENCY', '', 'THB', 'Company', '', '2019-08-31 11:49:52'),
-('DEFAULT_WAREHOUSE', '', 'FG01', 'Company', '', '2023-08-30 04:30:05'),
-('DISCOUNT_TO_APPROVE_SQ', 'ส่วนลดที่ไม่ต้องอนุมัติ (เกินกว่านี้ต้องอนุมัติ)\r\n0 = ต้องอนุมัติทั้งหมด\r\n0.01 = ถ้ามีส่วนลดที่เกินกว่าระบบมอบให้ต้องอนุมัติ', '0', 'Document', '', '2023-09-01 15:14:54'),
+('DEFAULT_WAREHOUSE', '', '01', 'Company', '', '2023-10-31 02:46:35'),
 ('ITEM_TAX_TYPE', NULL, 'I', NULL, 'I = Include\r\nE = Exclude', '2022-07-03 07:18:17'),
 ('LOGS_JSON', NULL, '1', 'System', '', '2023-08-30 05:17:24'),
-('PREFIX_ORDER', NULL, 'WO', 'Document', '', '2019-08-31 11:51:58'),
-('PREFIX_QUOTATION', NULL, 'WQ', 'Document', '', '2022-07-15 14:24:36'),
-('QUOTATION_APPROVE', 'ต้องอนุมัติ ใบเสนอราคา', '1', 'Document', 'เปิด/ปิด การอนุมัติใบเสนอราคา\r\nโดยถ้าเปิดไว้ จะไปดูเงื่อนไขว่า ต้องอนุมัติหรือไม่\r\nถ้าปิด ผ่านได้เลย', '2023-08-19 11:53:02'),
-('QUOTATION_AUTO_INTERFACE', 'Interface ทันทีหลังอนุมัติ หรือหลังจากบันทึก(ถ้าไม่ต้องอนุมัติ)', '0', 'Document', 'Interface ทันทีหลังอนุมัติ หรือหลังจากบันทึก(ถ้าไม่ต้องอนุมัติ)\n1 = ส่งทันที\n0 = กดส่งทีหลัง', '2023-09-02 11:32:00'),
-('QUOTATION_REVIEW', 'ต้อง Review ใบเสนอราคา', '1', 'Document', 'ถ้าเปิดจะต้องกด confirm ใบเสนอราคาโดยคนที่มีสิทธิ์ก่อนเข้ากระบวนการต่อไป', '2023-09-01 15:19:46'),
-('RUN_DIGIT_ORDER', 'จำนวนหลัก', '5', 'Document', '', '2019-08-31 11:55:42'),
-('RUN_DIGIT_QUOTATION', NULL, '4', 'Document', '', '2022-05-07 08:03:18'),
+('PREFIX_TRANSFER', NULL, 'WT', 'Document', '', '2023-11-03 11:27:01'),
+('RUN_DIGIT_TRANSFER', 'จำนวนหลัก', '4', 'Document', '', '2023-11-03 11:27:22'),
 ('SALE_VAT_CODE', NULL, 'S07', 'Company', '', '2022-07-06 06:21:53'),
 ('SALE_VAT_RATE', NULL, '7.00', 'Company', '', '2022-07-06 06:21:53'),
-('SAP_API_HOST', '', 'http://192.168.44.249/sap/', 'System', '', '2023-08-24 15:27:19'),
-('TEST', NULL, '0', 'System', '', '2023-09-02 07:29:05'),
+('SAP_API_HOST', '', '', 'System', '', '2023-10-31 02:46:18'),
+('SYSTEM_DATE', NULL, '2024-01-31', NULL, '', '2023-12-19 02:18:15'),
+('TEST', NULL, '1', 'System', '', '2023-12-07 04:16:23'),
+('TEST_MODE', 'API TEST MODE', '1', 'System', '', '2023-10-11 08:53:37'),
 ('USER_PASSWORD_AGE', NULL, '0', 'System', '', '2022-08-05 01:41:36'),
 ('USE_STRONG_PWD', NULL, '0', 'System', '', '2022-07-22 03:37:22');
 
@@ -7776,6 +7639,32 @@ INSERT INTO `config_group` (`code`, `name`, `position`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `contact_person`
+--
+
+CREATE TABLE `contact_person` (
+  `id` int(11) NOT NULL,
+  `CardCode` varchar(15) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `FirstName` varchar(50) DEFAULT NULL,
+  `MiddleName` varchar(50) DEFAULT NULL,
+  `LastName` varchar(50) DEFAULT NULL,
+  `Title` varchar(10) DEFAULT NULL,
+  `Position` varchar(90) DEFAULT NULL,
+  `Address` varchar(100) DEFAULT NULL,
+  `Tel1` varchar(20) DEFAULT NULL,
+  `Tel2` varchar(20) DEFAULT NULL,
+  `Cellolar` varchar(50) DEFAULT NULL,
+  `Fax` varchar(20) DEFAULT NULL,
+  `E_MailL` varchar(100) DEFAULT NULL,
+  `Notes1` varchar(100) DEFAULT NULL,
+  `Notes2` varchar(100) DEFAULT NULL,
+  `BirthDate` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `doc_type`
 --
 
@@ -7790,7 +7679,7 @@ CREATE TABLE `doc_type` (
 --
 
 INSERT INTO `doc_type` (`id`, `code`, `name`) VALUES
-(1, 'SQ', 'Quotation');
+(1, 'TR', 'Transfer');
 
 -- --------------------------------------------------------
 
@@ -7833,6 +7722,28 @@ INSERT INTO `keys` (`id`, `user_id`, `key`, `level`, `ignore_limits`, `is_privat
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `logs_transfer`
+--
+
+CREATE TABLE `logs_transfer` (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  `json` mediumtext,
+  `date_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `logs_transfer`
+--
+
+INSERT INTO `logs_transfer` (`id`, `code`, `status`, `json`, `date_upd`) VALUES
+(1, 'WT-23110002', 'send', '{\"U_WEBCODE\":\"WT-23110002\",\"DocType\":\"I\",\"CANCELED\":\"N\",\"DocDate\":\"1970-01-01 07:00:00\",\"DocDueDate\":\"1970-01-01 07:00:00\",\"CardCode\":null,\"CardName\":null,\"VatPercent\":0,\"VatSum\":0,\"VatSumFc\":0,\"DiscPrcnt\":0,\"DiscSum\":0,\"DiscSumFC\":0,\"DocCur\":null,\"DocRate\":1,\"DocTotal\":0,\"DocTotalFC\":0,\"Filler\":\"W-SC\",\"ToWhsCode\":\"W-PD\",\"Comments\":\"\\u0e17\\u0e14\\u0e2a\\u0e2d\\u0e1a\",\"U_OLDTAX\":\"123100660\",\"U_ProductionOrder\":\"123100660\",\"U_BEX_EXREMARK\":\"\\u0e17\\u0e14\\u0e2a\\u0e2d\\u0e1a\",\"U_TransferType\":\"P\",\"DocLine\":[{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"2\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"4\",\"ItemCode\":\"PX-0C-0064\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"1111\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"4\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"13\",\"ItemCode\":\"RM-W-ALL-1F-0340\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1000.000000\",\"UomEntry2\":\"1\",\"UomCode2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"1111\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"5\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"5\",\"ItemCode\":\"PX-0C-0070\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"1234\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"6\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"5\",\"ItemCode\":\"PX-0C-0070\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"1122\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"7\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"0\",\"ItemCode\":\"PX-0B-0002\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"R0646\\/23\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"8\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"1\",\"ItemCode\":\"PX-0C-0055\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"asd123\\/12\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"9\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"4\",\"ItemCode\":\"PX-0C-0064\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"123345\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"10\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"4\",\"ItemCode\":\"PX-0C-0064\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"11223\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"11\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"0\",\"ItemCode\":\"PX-0B-0002\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"1234\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"12\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"0\",\"ItemCode\":\"PX-0B-0002\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"12345\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"13\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"0\",\"ItemCode\":\"PX-0B-0002\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"12345\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"14\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"0\",\"ItemCode\":\"PX-0B-0002\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"1245\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"15\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"1\",\"ItemCode\":\"PX-0C-0055\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"1234\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"16\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"2\",\"ItemCode\":\"PX-0C-0058\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"1111\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"17\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"4\",\"ItemCode\":\"PX-0C-0064\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"1111\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"18\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"3\",\"ItemCode\":\"PX-0C-0059\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"111\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"19\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"5\",\"ItemCode\":\"PX-0C-0070\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1.000000\",\"UomEntry2\":\"26\",\"UomCode2\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"1111\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"20\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"6\",\"ItemCode\":\"RM-W-ALL-0L-0030\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1000.000000\",\"UomEntry2\":\"1\",\"UomCode2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"111\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"21\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"7\",\"ItemCode\":\"RM-W-ALL-0L-0117\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1000.000000\",\"UomEntry2\":\"1\",\"UomCode2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"1234\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"22\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"8\",\"ItemCode\":\"RM-W-ALL-0L-0120\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1000.000000\",\"UomEntry2\":\"1\",\"UomCode2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"111\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"23\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"9\",\"ItemCode\":\"RM-W-ALL-0L-0168\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1000.000000\",\"UomEntry2\":\"1\",\"UomCode2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"24\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"10\",\"ItemCode\":\"RM-W-ALL-0L-0173\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1000.000000\",\"UomEntry2\":\"1\",\"UomCode2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"25\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"11\",\"ItemCode\":\"RM-W-ALL-1L-0042\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1000.000000\",\"UomEntry2\":\"1\",\"UomCode2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"1111\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"26\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"12\",\"ItemCode\":\"RM-W-ALL-1F-0102\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1000.000000\",\"UomEntry2\":\"1\",\"UomCode2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"1111\"},{\"U_WEBCODE\":\"WT-23110002\",\"LineNum\":\"27\",\"BaseRef\":\"123100660\",\"BaseType\":1250000001,\"BaseEntry\":\"4085\",\"BaseLine\":\"13\",\"ItemCode\":\"RM-W-ALL-1F-0340\",\"Dscription\":null,\"Quantity\":null,\"unitMsr\":null,\"NumPerMsr\":\"1.000000\",\"UomEntry\":\"26\",\"UomCode\":\"\\u0e01\\u0e23\\u0e31\\u0e21\",\"unitMsr2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"NumPerMsr2\":\"1000.000000\",\"UomEntry2\":\"1\",\"UomCode2\":\"\\u0e01\\u0e34\\u0e42\\u0e25\\u0e01\\u0e23\\u0e31\\u0e21\",\"PriceBefDi\":0,\"LineTotal\":0,\"ShipDate\":\"1970-01-01 07:00:00\",\"Currency\":null,\"Rate\":1,\"DiscPrcnt\":0,\"Price\":0,\"TotalFrgn\":0,\"FromWhsCod\":\"W-SC\",\"WhsCode\":\"W-PD\",\"TaxStatus\":\"Y\",\"VatPrcnt\":0,\"VatGroup\":null,\"PriceAfVAT\":0,\"VatSum\":0,\"ReceiptNo\":\"1111\"}]}', '2023-11-28 05:53:03'),
+(2, 'WT-23110002', 'result', '0', '2023-11-28 05:53:06');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `menu`
 --
 
@@ -7852,20 +7763,21 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`code`, `name`, `url`, `group_code`, `sub_group`, `active`, `position`, `valid`) VALUES
-('APODSQ', 'Sales Quotation', 'approval/quotation_approval', 'AP', NULL, 1, 1, 1),
-('DBSTEAM', 'Sales Team', 'users/sales_team', 'SC', NULL, 1, 2, 1),
+('DBGROUP', 'User Group', 'users/user_group', 'SC', NULL, 1, 1, 1),
 ('HOME', 'Welcome', 'main', '', NULL, 1, 1, 0),
+('ICAPRQ', 'อนุมัติ การแก้ไขยอดเบิก', NULL, 'AP', NULL, 1, 1, 1),
+('ICAPTR', 'Transfer Approval', 'approval/transfer_approval', 'AP', NULL, 1, 1, 1),
+('ICTRRQ', 'Transfer Request', 'inventory/transfer_request', 'IC', NULL, 1, 1, 1),
+('ICTRWH', 'Inventory Transfer', 'inventory/Transfer', 'IC', NULL, 1, 2, 1),
 ('SCACLOG', 'Access Logs', 'users/access_logs', 'SC', NULL, 1, 8, 1),
-('SCAPPV', 'Approver', 'users/approver', 'SC', NULL, 1, 3, 1),
+('SCAPPV', 'Approver', 'users/approver', 'SC', NULL, 0, 3, 1),
 ('SCCONF', 'Setting', 'setting', 'SC', NULL, 1, 7, 1),
+('SCDECF', 'Weighing Manchine', 'weighing_manchine', 'SC', NULL, 1, 7, 1),
 ('SCPERM', 'Permission', 'users/permission', 'SC', NULL, 1, 4, 1),
-('SCPOLI', 'Promotions', 'discount/discount_policy', 'SC', NULL, 0, 5, 1),
 ('SCPROF', 'Profile', 'users/profiles', 'SC', NULL, 0, 3, 1),
 ('SCRULE', 'Discount Rule', 'discount/discount_rule', 'SC', NULL, 0, 6, 1),
-('SCSIGN', 'Signature', 'users/signature', 'SC', NULL, 1, 2, 1),
-('SCUSER', 'Users', 'users/users', 'SC', NULL, 1, 1, 1),
-('SOODSO', 'Sales Order', 'orders/orders', 'SO', NULL, 0, 2, 1),
-('SOODSQ', 'Sales Quotation', 'orders/quotation', 'SO', NULL, 1, 1, 1);
+('SCSIGN', 'Signature', 'users/signature', 'SC', NULL, 0, 2, 1),
+('SCUSER', 'Users', 'users/users', 'SC', NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -7879,22 +7791,23 @@ CREATE TABLE `menu_group` (
   `position` int(5) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `type` enum('side','top') CHARACTER SET utf8 NOT NULL DEFAULT 'side',
-  `icon` varchar(20) CHARACTER SET utf8 DEFAULT NULL
+  `icon` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+  `pm` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `menu_group`
 --
 
-INSERT INTO `menu_group` (`code`, `name`, `position`, `active`, `type`, `icon`) VALUES
-('AC', 'ระบบบัญชี', 0, 0, 'side', 'fa-calculator'),
-('AP', 'Approval', 3, 1, 'side', 'fa-bolt'),
-('DB', 'Master Data', 8, 0, 'side', 'fa-database'),
-('IC', 'ระบบคลังสินค้า', 1, 0, 'side', 'fa-home'),
-('PO', 'ระบบซื้อ', 4, 0, 'side', 'fa-shopping-bag'),
-('RE', 'รายงาน', 10, 0, 'top', 'fa-bar-chart'),
-('SC', 'Administrator', 5, 1, 'side', 'fa-cogs'),
-('SO', 'Sales A/R', 2, 1, 'side', 'fa-shopping-basket');
+INSERT INTO `menu_group` (`code`, `name`, `position`, `active`, `type`, `icon`, `pm`) VALUES
+('AC', 'ระบบบัญชี', 0, 0, 'side', 'fa-calculator', 0),
+('AP', 'Approval', 3, 1, 'side', 'fa-bolt', 1),
+('DB', 'Master Data', 8, 0, 'side', 'fa-database', 0),
+('IC', 'Inventory', 2, 1, 'side', 'fa-home', 1),
+('PO', 'ระบบซื้อ', 4, 0, 'side', 'fa-shopping-bag', 0),
+('RE', 'รายงาน', 10, 0, 'top', 'fa-bar-chart', 0),
+('SC', 'Administrator', 1, 1, 'side', 'fa-cogs', 1),
+('SO', 'Sales A/R', 2, 0, 'side', 'fa-shopping-basket', 0);
 
 -- --------------------------------------------------------
 
@@ -7921,127 +7834,6 @@ INSERT INTO `menu_sub_group` (`code`, `name`, `group_code`, `active`, `position`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
---
-
-CREATE TABLE `orders` (
-  `code` varchar(20) NOT NULL,
-  `role` set('S','C') NOT NULL DEFAULT 'S' COMMENT 'S = Sale , C = customer',
-  `CardCode` varchar(15) DEFAULT NULL,
-  `CardName` varchar(100) DEFAULT NULL,
-  `PriceList` smallint(6) DEFAULT NULL COMMENT 'Customer price list (OPLN)',
-  `SlpCode` int(11) DEFAULT NULL,
-  `Channels` int(11) DEFAULT NULL,
-  `Payment` int(11) DEFAULT '-1' COMMENT 'Payment term (OCTG)',
-  `DocCur` varchar(3) DEFAULT NULL COMMENT 'Currency OCRN',
-  `DocRate` decimal(19,6) NOT NULL DEFAULT '1.000000' COMMENT 'ตัวคูณ',
-  `DocTotal` decimal(19,6) NOT NULL DEFAULT '0.000000' COMMENT 'มูลค่ารวมทั้งบิล',
-  `DiscPrcnt` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `DiscAmount` decimal(19,6) NOT NULL DEFAULT '0.000000',
-  `RoundDif` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `VatSum` decimal(19,6) NOT NULL DEFAULT '0.000000',
-  `dimCode1` varchar(20) DEFAULT NULL COMMENT 'CEO',
-  `dimCode2` varchar(20) DEFAULT NULL COMMENT 'COO/CFO',
-  `dimCode3` varchar(20) DEFAULT NULL COMMENT 'สายงานขายและการตลาด',
-  `dimCode4` varchar(20) DEFAULT NULL COMMENT 'ฝ่าย',
-  `dimCode5` varchar(20) DEFAULT NULL COMMENT 'แผนก',
-  `PayToCode` varchar(50) DEFAULT NULL,
-  `ShipToCode` varchar(50) DEFAULT NULL,
-  `Address` varchar(254) DEFAULT NULL COMMENT 'CRD1 type=B',
-  `Address2` varchar(254) DEFAULT NULL COMMENT 'CRD1 type=S',
-  `DocEntry` int(11) DEFAULT NULL,
-  `DocNum` int(11) DEFAULT NULL COMMENT 'Sap DocNum',
-  `Status` int(1) NOT NULL DEFAULT '-1' COMMENT '-1 = draft\r\n0 = pending\r\n1 = success\r\n2 = canceled\r\n3 = export failed',
-  `Approved` varchar(1) NOT NULL DEFAULT 'P' COMMENT 'P=pending, A=approved, R=reject, S = No need to approve',
-  `Approver` varchar(50) DEFAULT NULL,
-  `DocDate` date DEFAULT NULL COMMENT 'Posting Data',
-  `DocDueDate` date DEFAULT NULL COMMENT 'Valid untill',
-  `TextDate` date DEFAULT NULL COMMENT 'TaxDate , DocumentDate',
-  `SqNo` varchar(20) DEFAULT NULL,
-  `OriginalSO` varchar(50) DEFAULT NULL,
-  `OwnerCode` int(11) DEFAULT NULL,
-  `Comments` varchar(254) DEFAULT NULL,
-  `date_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `user_id` int(11) DEFAULT NULL,
-  `uname` varchar(50) DEFAULT NULL,
-  `upd_user_id` int(11) DEFAULT NULL,
-  `sale_team` int(11) DEFAULT NULL,
-  `must_approve` tinyint(1) NOT NULL DEFAULT '0',
-  `disc_diff` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT 'ส่วนต่างส่วนลดสูงสุดในออเดอร์(%)',
-  `is_duplicate` tinyint(1) NOT NULL DEFAULT '0',
-  `DeliveryNo` varchar(20) DEFAULT NULL,
-  `InvoiceNo` varchar(20) DEFAULT NULL,
-  `sale_reviewer` int(11) DEFAULT NULL COMMENT 'review by sale_id in case of customer put order directly',
-  `vatType` set('I','E') NOT NULL DEFAULT 'E',
-  `VatGroup` varchar(20) DEFAULT NULL,
-  `VatRate` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `message` text,
-  `so_status` varchar(1) NOT NULL DEFAULT 'O' COMMENT 'O = Open, C = Close, D=Canceled',
-  `last_sync` datetime DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`code`, `role`, `CardCode`, `CardName`, `PriceList`, `SlpCode`, `Channels`, `Payment`, `DocCur`, `DocRate`, `DocTotal`, `DiscPrcnt`, `DiscAmount`, `RoundDif`, `VatSum`, `dimCode1`, `dimCode2`, `dimCode3`, `dimCode4`, `dimCode5`, `PayToCode`, `ShipToCode`, `Address`, `Address2`, `DocEntry`, `DocNum`, `Status`, `Approved`, `Approver`, `DocDate`, `DocDueDate`, `TextDate`, `SqNo`, `OriginalSO`, `OwnerCode`, `Comments`, `date_add`, `date_upd`, `user_id`, `uname`, `upd_user_id`, `sale_team`, `must_approve`, `disc_diff`, `is_duplicate`, `DeliveryNo`, `InvoiceNo`, `sale_reviewer`, `vatType`, `VatGroup`, `VatRate`, `message`, `so_status`, `last_sync`) VALUES
-('WC-220800001', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '54353.720000', '0.00', '0.000000', '0.00', '3556.000000', '', '', '', '', '111040', '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', NULL, NULL, -1, 'P', NULL, '2022-08-22', '2022-08-22', '2022-08-22', NULL, NULL, 356, 'ทดสอบข้อความ', '2022-08-22 20:48:02', '2022-08-29 07:45:13', 7, 'sutouch', -1, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-22 20:48:02'),
-('WC-220800002', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '1996.100000', '0.00', '0.000000', '0.00', '130.600000', NULL, NULL, NULL, NULL, NULL, '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', NULL, NULL, -1, 'P', NULL, '2022-08-26', '2022-08-26', '2022-08-26', NULL, NULL, NULL, NULL, '2022-08-26 20:30:31', '2022-08-26 13:30:31', 7, 'sutouch', NULL, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-26 20:30:31'),
-('WC-220800003', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '2109.270000', '0.00', '0.000000', '0.00', '138.000000', '', '', '', '', '110210', '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', 1, 22000001, 1, 'S', NULL, '2022-08-26', '2022-08-26', '2022-08-26', NULL, NULL, 353, NULL, '2022-08-26 20:46:49', '2022-10-31 08:49:02', 7, 'sutouch', -1, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-26 20:46:49'),
-('WC-220900001', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '3277.160000', '0.00', '0.000000', '0.00', '214.000000', '', '', '', '', '110210', '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', 1, 22000001, 1, 'S', NULL, '2022-09-27', '2022-09-27', '2022-09-27', NULL, NULL, 353, NULL, '2022-09-27 14:57:28', '2022-11-04 05:04:13', 7, 'sutouch', -1, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-09-27 14:57:28'),
-('WC-220900002', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '10427.200000', '0.00', '0.000000', '0.00', '682.000000', '', '', '', '', '110210', '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', 1, 22000001, 1, 'S', NULL, '2022-09-27', '2022-09-27', '2022-09-27', NULL, NULL, 443, NULL, '2022-09-27 19:52:49', '2022-10-31 08:52:55', 7, 'sutouch', -1, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-09-27 19:52:49'),
-('WC-221200001', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '9951.000000', '0.00', '0.000000', '0.00', '651.000000', '', '', '', '', '110210', '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', NULL, NULL, -1, 'P', NULL, '2022-12-21', '2022-12-21', '2022-12-21', NULL, NULL, 353, NULL, '2022-12-21 21:58:21', '2022-12-21 15:18:21', 7, 'sutouch', -1, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-12-21 21:58:21'),
-('WC-221200002', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '12626.000000', '0.00', '0.000000', '0.00', '826.000000', NULL, NULL, NULL, NULL, NULL, '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', NULL, NULL, -1, 'P', NULL, '2022-12-21', '2022-12-21', '2022-12-21', NULL, NULL, NULL, NULL, '2022-12-21 22:21:07', '2022-12-21 15:21:07', 7, 'sutouch', NULL, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-12-21 22:21:07'),
-('WC-230100001', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '65270.000000', '0.00', '0.000000', '0.00', '4270.000000', NULL, NULL, NULL, NULL, NULL, '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', NULL, NULL, -1, 'P', NULL, '2023-01-14', '2023-01-14', '2023-01-14', NULL, NULL, NULL, NULL, '2023-01-14 00:32:27', '2023-01-13 17:32:27', 7, 'sutouch', NULL, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2023-01-14 00:32:27'),
-('WC-230100002', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '55319.000000', '0.00', '0.000000', '0.00', '3619.000000', NULL, NULL, NULL, NULL, NULL, '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', NULL, NULL, 2, 'P', NULL, '2023-01-16', '2023-01-16', '2023-01-16', NULL, NULL, NULL, NULL, '2023-01-16 13:32:47', '2023-01-16 09:32:31', 7, 'sutouch', NULL, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'D', '2023-01-16 13:32:47'),
-('WC-230100003', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '9646.000000', '0.00', '0.000000', '0.00', '9646.000000', '', '', '', '110100', '', '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', 1, 22000001, 1, 'S', NULL, '2023-01-16', '2023-01-16', '2023-01-16', NULL, NULL, 353, NULL, '2023-01-16 20:40:04', '2023-01-16 13:43:35', 7, 'sutouch', -1, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2023-01-16 20:40:04'),
-('WC-230100004', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '2296.000000', '0.00', '0.000000', '0.00', '2296.000000', '', '', '', '110100', '', '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', 1, 22000001, 1, 'S', NULL, '2023-01-16', '2023-01-16', '2023-01-16', NULL, NULL, 353, NULL, '2023-01-16 20:40:04', '2023-01-16 13:44:20', 7, 'sutouch', -1, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2023-01-16 20:40:04'),
-('WC-230100005', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '14454.810000', '0.00', '0.000000', '0.00', '945.630000', NULL, NULL, NULL, NULL, NULL, '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', NULL, NULL, -1, 'P', NULL, '2023-01-16', '2023-01-16', '2023-01-16', NULL, NULL, NULL, NULL, '2023-01-16 20:49:48', '2023-01-16 13:49:48', 7, 'sutouch', NULL, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2023-01-16 20:49:48'),
-('WC-230100006', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '2473.700000', '0.00', '0.000000', '0.00', '161.840000', NULL, NULL, NULL, NULL, NULL, '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', NULL, NULL, -1, 'P', NULL, '2023-01-16', '2023-01-16', '2023-01-16', NULL, NULL, NULL, NULL, '2023-01-16 20:49:48', '2023-01-16 13:49:48', 7, 'sutouch', NULL, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2023-01-16 20:49:48'),
-('WC-230100007', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '232.730000', '0.00', '0.000000', '0.00', '15.240000', NULL, NULL, NULL, NULL, NULL, '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', NULL, NULL, -1, 'P', NULL, '2023-01-16', '2023-01-16', '2023-01-16', NULL, NULL, NULL, NULL, '2023-01-16 20:49:48', '2023-01-16 13:49:48', 7, 'sutouch', NULL, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2023-01-16 20:49:48'),
-('WC-230100008', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '38.250000', '0.00', '0.000000', '0.00', '2.500000', NULL, NULL, NULL, NULL, NULL, '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', NULL, NULL, -1, 'P', NULL, '2023-01-16', '2023-01-16', '2023-01-16', NULL, NULL, NULL, NULL, '2023-01-16 20:49:48', '2023-01-16 13:49:48', 7, 'sutouch', NULL, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2023-01-16 20:49:48'),
-('WC-230100009', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '12814.740000', '0.00', '0.000000', '0.00', '838.360000', NULL, NULL, NULL, NULL, NULL, '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', NULL, NULL, -1, 'P', NULL, '2023-01-16', '2023-01-16', '2023-01-16', NULL, NULL, NULL, NULL, '2023-01-16 20:58:53', '2023-01-16 13:58:53', 7, 'sutouch', NULL, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2023-01-16 20:58:53'),
-('WC-230100010', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '10551.430000', '0.00', '0.000000', '0.00', '690.280000', NULL, NULL, NULL, NULL, NULL, '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', NULL, NULL, -1, 'P', NULL, '2023-01-16', '2023-01-16', '2023-01-16', NULL, NULL, NULL, NULL, '2023-01-16 21:11:09', '2023-01-16 14:11:09', 7, 'sutouch', NULL, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2023-01-16 21:11:09'),
-('WC-230100011', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '64743.088600', '0.00', '0.000000', '0.00', '4235.528600', NULL, NULL, NULL, NULL, NULL, '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', NULL, NULL, -1, 'P', NULL, '2023-01-17', '2023-01-17', '2023-01-17', NULL, NULL, NULL, NULL, '2023-01-17 20:50:28', '2023-01-17 13:50:28', 7, 'sutouch', NULL, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2023-01-17 20:50:28'),
-('WC-230100012', 'C', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '10723.720000', '21.75', '2786.300000', '0.00', '699.000000', '100000', '', '', '', '', '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', NULL, NULL, -1, 'P', NULL, '2023-01-17', '2023-01-17', '2023-01-17', NULL, NULL, 353, NULL, '2023-01-17 20:50:28', '2023-06-30 03:18:05', 7, 'sutouch', -1, 4, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2023-01-17 20:50:28'),
-('WO-220700001', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 46, 3, 27, 'THB', '1.000000', '255.090000', '0.00', '0.000000', '0.00', '17.000000', 'Centr_z', 'Centr_z2', 'Centr_z3', '111100', '111040', '00000', '00000', '808/7 ถนนพหลโยธิน undefined ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน undefined ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', NULL, NULL, 1, 'S', 'admin', '2022-07-12', '2022-07-12', '2022-07-12', NULL, NULL, 109, NULL, '2022-07-12 15:32:33', '2022-07-13 05:02:23', -1, 'superadmin', 2, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', 'Illegal value entered', 'O', NULL),
-('WO-220700002', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 46, 3, 27, 'THB', '1.000000', '1824.650000', '0.00', '0.000000', '0.00', '119.000000', '100000', '120000', '111000', '120100', '111050', '00000', '00000', '808/7 ถนนพหลโยธิน undefined ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน undefined ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', 286, 202207006, 1, 'S', NULL, '2022-07-13', '2022-07-13', '2022-07-13', NULL, NULL, 124, NULL, '2022-07-13 16:59:46', '2022-07-13 12:54:41', 2, 'admin', 2, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', 'Illegal value entered', 'O', NULL),
-('WO-220700003', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 46, 3, 27, 'THB', '1.000000', '1824.650000', '0.00', '0.000000', '0.00', '119.000000', '100000', '120000', '111000', '120100', '111050', '00000', '00000', '808/7 ถนนพหลโยธิน undefined ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน undefined ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', NULL, NULL, 2, 'S', NULL, '2022-07-13', '2022-07-13', '2022-07-13', NULL, 'WO-220700002', 124, NULL, '2022-07-13 19:56:04', '2022-07-16 08:19:20', 2, 'admin', NULL, -1, 0, '0.00', 1, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', NULL),
-('WO-220700004', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 46, 3, 27, 'THB', '1.000000', '1824.650000', '0.00', '0.000000', '0.00', '119.000000', '100000', '120000', '111000', '120100', '111050', '00000', '00000', '808/7 ถนนพหลโยธิน undefined ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน undefined ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', NULL, NULL, -1, 'S', NULL, '2022-07-13', '2022-07-13', '2022-07-13', NULL, 'WO-220700002', 124, NULL, '2022-07-13 19:57:25', '2022-07-13 12:57:25', 2, 'admin', NULL, -1, 0, '0.00', 1, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', NULL),
-('WO-220700005', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 46, 3, 27, 'THB', '1.000000', '356310.000000', '0.00', '0.000000', '0.00', '23310.000000', '100000', '', '', '', '', '00000', '00000', '808/7 ถนนพหลโยธิน undefined ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน undefined ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', NULL, NULL, -1, 'S', NULL, '2022-07-15', '2022-07-15', '2022-07-14', 'WO-220700001', NULL, 110, 'คมไฟติดอย รุ่น SJ6037-5C\nขนาด 550x550x220 มิลลิเมตร\nน้ำหนัก 5 กิโลกรัม\nควรใช้กับหลอดไฟ ขั้ว E27\nคำเตือน ไม่ควรใช้กับอุปกรณ์ที่ไม่ได้มาตรฐาน\nวิธีใช้งาน ติดตั้งภายในอาคาร', '2022-07-16 14:40:28', '2022-07-16 07:40:28', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', NULL),
-('WO-220700006', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 14, 4, -1, 'THB', '1.000000', '0.000000', '0.00', '0.000000', '0.00', '0.000000', '', '', '', '', '111040', '00000', '00000', '808/7 ถนนพหลโยธิน undefined ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน undefined ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', NULL, NULL, -1, 'P', NULL, '2022-07-16', '2022-07-18', '2022-07-18', NULL, NULL, 356, NULL, '2022-07-16 22:10:24', '2022-08-02 06:53:33', -1, 'superadmin', -1, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', NULL),
-('WO-220700007', 'S', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 1, 27, 'THB', '1.000000', '7188.260000', '0.00', '0.000000', '0.00', '470.260000', '', '', '', '', '111040', '00001', '00001', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100', 1, 22000001, 1, 'A', 'superadmin', '2022-07-31', '2022-07-31', '2022-07-31', NULL, 'WC-220700005', 383, NULL, '2022-07-31 23:57:50', '2022-08-04 03:22:31', -1, 'superadmin', 6, 4, 1, '50.00', 1, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', NULL),
-('WO-220800001', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '19.260000', '0.00', '0.000000', '0.00', '1.260000', '', '', '', '', '111040', '00000', '00000', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', NULL, NULL, 0, 'S', NULL, '2022-08-02', '2022-08-02', '2022-08-02', NULL, NULL, 356, NULL, '2022-08-02 13:04:51', '2022-08-02 07:21:15', -1, 'superadmin', -1, -1, 1, '10.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', NULL),
-('WO-220800002', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '0.000000', '0.00', '0.000000', '0.00', '0.000000', '', '', '', '', '110220', '00000', '00000', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', NULL, NULL, -1, 'P', NULL, '2022-08-03', '2022-08-03', '2022-08-03', NULL, NULL, 0, NULL, '2022-08-03 10:48:11', '2022-08-03 03:48:11', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', NULL),
-('WO-220800003', 'S', 'CC00005', 'ห้างหุ้นส่วนจำกัด แม่สายเอสทีการไฟฟ้า สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '1260.460000', '0.00', '0.000000', '0.00', '82.460000', '', '', '', '', '120220', '00000', '00000', '688/6 หมู่ที่ 4 ตำบลเวียงพางคำ อำเภอแม่สาย จังหวัดเชียงราย 57130 ', '688/6 หมู่ที่ 4 ตำบลเวียงพางคำ อำเภอแม่สาย จังหวัดเชียงราย 57130 ', 1, 22000001, 1, 'A', 'admin', '2022-08-03', '2022-08-03', '2022-08-03', NULL, NULL, 353, NULL, '2022-08-03 17:20:29', '2022-08-11 12:18:09', -1, 'superadmin', 2, 1, 1, '20.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', NULL),
-('WO-220800004', 'S', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '2889.000000', '0.00', '0.000000', '0.00', '189.000000', '', '', '', '', '111070', '00001', '00001', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', NULL, NULL, -1, 'P', NULL, '2022-08-04', '2022-08-04', '2022-08-04', NULL, NULL, 0, NULL, '2022-08-04 20:29:35', '2022-08-04 13:29:35', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-04 20:29:35'),
-('WO-220800005', 'S', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '2383.640000', '0.00', '0.000000', '0.00', '155.940000', '', '', '', '', '111070', '00001', '00001', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', NULL, NULL, -1, 'P', NULL, '2022-08-04', '2022-08-04', '2022-08-04', NULL, 'WO-220800004', 353, NULL, '2022-08-04 20:41:31', '2022-08-05 17:44:54', -1, 'superadmin', 6, -1, 1, '17.49', 1, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-04 20:41:31'),
-('WO-220800006', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '254.980000', '0.00', '0.000000', '0.00', '16.680000', '', '', '', '', '111040', '00000', '00000', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', NULL, NULL, 1, 'S', NULL, '2022-08-09', '2022-08-09', '2022-08-09', NULL, NULL, 0, NULL, '2022-08-09 21:32:59', '2022-08-09 14:32:59', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-09 21:32:59'),
-('WO-220800007', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '254.980000', '0.00', '0.000000', '0.00', '16.680000', '', '', '', '', '111040', '00000', '00000', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', NULL, NULL, -1, 'S', NULL, '2022-08-09', '2022-08-09', '2022-08-09', NULL, 'WO-220800006', 0, NULL, '2022-08-09 21:33:58', '2022-08-09 14:33:58', -1, 'superadmin', NULL, -1, 0, '0.00', 1, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-09 21:33:58'),
-('WO-220800008', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '254.980000', '0.00', '0.000000', '0.00', '17.000000', '', '', '', '', '111040', '00000', '00000', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', NULL, NULL, -1, 'P', NULL, '2022-08-09', '2022-08-09', '2022-08-09', NULL, NULL, 0, NULL, '2022-08-09 22:51:25', '2022-08-09 15:51:25', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-09 22:51:25'),
-('WO-220800009', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '254.980000', '0.00', '0.000000', '0.00', '17.000000', '', '', '', '', '111040', '00000', '00000', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', NULL, NULL, -1, 'P', NULL, '2022-08-09', '2022-08-09', '2022-08-09', NULL, NULL, 0, NULL, '2022-08-09 22:51:43', '2022-08-09 15:51:43', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-09 22:51:43'),
-('WO-220800010', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '121.800000', '0.00', '0.000000', '0.00', '7.970000', '', '', '', '', '111040', '00000', '00000', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', NULL, NULL, -1, 'P', NULL, '2022-08-09', '2022-08-09', '2022-08-09', NULL, NULL, 0, NULL, '2022-08-09 23:30:16', '2022-08-09 16:30:16', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-09 23:30:16'),
-('WO-220800011', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '254.980000', '0.00', '0.000000', '0.00', '16.680000', '', '', '', '120100', '', '00000', '00000', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', NULL, NULL, -1, 'P', NULL, '2022-08-09', '2022-08-09', '2022-08-09', NULL, NULL, 0, NULL, '2022-08-09 23:52:42', '2022-08-09 16:52:42', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-09 23:52:42'),
-('WO-220800012', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '351.280000', '0.00', '0.000000', '0.00', '22.980000', '', '', '', '120100', '', '00000', '00000', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', NULL, NULL, -1, 'P', NULL, '2022-08-09', '2022-08-09', '2022-08-09', NULL, NULL, 0, NULL, '2022-08-10 00:12:14', '2022-08-09 17:12:14', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-10 00:12:14'),
-('WO-220800013', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '370.540000', '0.00', '0.000000', '0.00', '24.000000', '', '', '', '120100', '', '00000', '00000', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', 1, 22000001, 1, 'S', NULL, '2022-08-09', '2022-08-09', '2022-08-09', NULL, NULL, 353, NULL, '2022-08-10 00:14:48', '2022-08-10 06:24:10', -1, 'superadmin', -1, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-10 00:14:48'),
-('WO-220800014', 'S', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '14.350000', '0.00', '0.000000', '0.00', '0.940000', '', '', '', '', '120210', '00001', '00001', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', NULL, NULL, 1, 'S', NULL, '2022-08-10', '2022-08-10', '2022-08-10', NULL, NULL, 0, NULL, '2022-08-10 13:01:53', '2022-08-10 06:01:53', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-10 13:01:53'),
-('WO-220800015', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '370.540000', '0.00', '0.000000', '0.00', '24.000000', '', '', '', '120100', '', '00000', '00000', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', 1, 22000001, 1, 'S', NULL, '2022-08-09', '2022-08-09', '2022-08-09', NULL, NULL, 0, NULL, '2022-08-10 13:18:23', '2022-08-10 06:18:23', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-10 13:18:23'),
-('WO-220800016', 'S', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '14.350000', '0.00', '0.000000', '0.00', '0.940000', '', '', '', '', '110220', '00001', '00001', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', NULL, NULL, -1, 'P', NULL, '2022-08-10', '2022-08-10', '2022-08-10', NULL, NULL, 354, NULL, '2022-08-10 13:28:39', '2022-08-10 06:28:39', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-10 13:28:39'),
-('WO-220800017', 'S', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '1434.870000', '0.00', '0.000000', '0.00', '93.870000', '', '', '', '', '110220', '00001', '00001', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', NULL, NULL, -1, 'P', NULL, '2022-08-10', '2022-08-10', '2022-08-10', NULL, NULL, 354, NULL, '2022-08-10 13:28:52', '2022-08-17 05:10:19', -1, 'superadmin', -1, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-10 13:28:52'),
-('WO-220800018', 'S', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '2564.160000', '0.00', '0.000000', '0.00', '167.750000', '', '', '', '', '110220', '00001', '00001', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', 1, 22000001, 1, 'S', NULL, '2022-08-10', '2022-08-10', '2022-08-10', NULL, NULL, 354, NULL, '2022-08-10 13:30:01', '2022-08-17 04:51:49', -1, 'superadmin', -1, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-10 13:30:01'),
-('WO-220800019', 'S', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '172.180000', '0.00', '0.000000', '0.00', '11.260000', '', '', '', '', '110220', '00001', '00001', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', '121/3-4 หมู่ที่ 3 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', 1, 22000001, 1, 'S', NULL, '2022-08-10', '2022-08-10', '2022-08-10', NULL, NULL, 354, NULL, '2022-08-10 13:31:40', '2022-08-16 05:23:43', -1, 'superadmin', -1, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-10 13:31:40'),
-('WO-220800020', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '459.980000', '0.00', '0.000000', '0.00', '16.450000', '', '', '', '', '110210', '00000', '00000', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', NULL, NULL, 0, 'P', NULL, '2022-08-10', '2022-08-10', '2022-08-10', NULL, NULL, 443, NULL, '2022-08-10 13:33:00', '2022-08-11 13:37:16', -1, 'superadmin', -1, 1, 1, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-10 13:33:00'),
-('WO-220800021', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '67.380000', '0.00', '0.000000', '0.00', '3.000000', '', '', '', '', '110210', '00000', '00000', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', 1, 22000001, 1, 'S', NULL, '2022-08-11', '2022-08-11', '2022-08-11', NULL, NULL, 354, NULL, '2022-08-11 12:32:26', '2022-08-11 12:57:20', -1, 'superadmin', 2, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-11 12:32:26'),
-('WO-220800022', 'S', 'CC00004', 'บริษัท จงชัยไลท์ติ้ง จำกัด สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '2549.810000', '0.00', '0.000000', '0.00', '166.810000', '', '', '', '', '110220', '00000', '00000', '145/2 หมู่ที่ 25 ตำบลรอบเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '145/2 หมู่ที่ 25 ตำบลรอบเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', 1, 22000001, 1, 'S', NULL, '2022-08-17', '2022-08-17', '2022-08-17', NULL, NULL, 0, NULL, '2022-08-17 11:54:21', '2022-08-17 04:54:21', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-17 11:54:21'),
-('WO-220800023', 'S', 'CC00001', 'ห้างหุ้นส่วนจำกัด ศิริวัฒน์ 1445  สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '2549.810000', '0.00', '0.000000', '0.00', '166.810000', '', '', '', '', '110210', '00000', '00000', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', '808/7 ถนนพหลโยธิน ตำบลเวียง อำเภอเมืองเชียงราย จังหวัดเชียงราย 57000 ', 1, 22000001, 1, 'S', NULL, '2022-08-17', '2022-08-17', '2022-08-17', NULL, NULL, 0, NULL, '2022-08-17 12:06:08', '2022-08-17 05:06:08', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-17 12:06:08'),
-('WO-220800024', 'S', 'CC00268', 'บริษัท เอ็ม วาย เอ็ม เทรดดิ้ง จำกัด สำนักงานใหญ่', 1, 16, 2, -1, 'THB', '1.000000', '76.490000', '0.00', '0.000000', '0.00', '5.000000', '', '', '', '', '120210', '00000', '00000', '65/1 หมู่ที่ 5 ตำบลบางสมัคร อำเภอบางปะกง จังหวัดฉะเชิงเทรา 24130 ', '65/1 หมู่ที่ 5 ตำบลบางสมัคร อำเภอบางปะกง จังหวัดฉะเชิงเทรา 24130 ', 1, 22000001, 1, 'S', NULL, '2022-08-26', '2022-08-26', '2022-08-26', NULL, NULL, 353, NULL, '2022-08-26 12:42:48', '2022-09-19 06:14:19', -1, 'superadmin', -1, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-08-26 12:42:48'),
-('WO-220900001', 'S', 'CC00002', 'ห้างหุ้นส่วนจำกัด เจริญแสงการไฟฟ้า (2016) สำนักงานใหญ่', 1, 14, 2, 27, 'THB', '1.000000', '25.500000', '0.00', '0.000000', '0.00', '1.670000', '', '', '', '', '110210', '00000', '00000', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', '121/3-4 หมู่ที่ 4 ตำบลบ้านดู่ อำเภอเมืองเชียงราย จังหวัดเชียงราย 57100 ', 1, 22000001, 1, 'S', NULL, '2022-09-19', '2022-09-19', '2022-09-19', NULL, NULL, 356, NULL, '2022-09-19 13:26:58', '2022-09-19 06:26:58', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-09-19 13:26:58'),
-('WO-220900002', 'S', 'CP00382', 'Sahacharte hirunsupachoti', 1, 8, 2, -1, 'THB', '1.000000', '1498235400.000000', '0.00', '0.000000', '0.00', '98015400.000000', '', '', '', '', '110210', NULL, NULL, '', '', 1, 22000001, 1, 'S', NULL, '2022-09-19', '2022-09-19', '2022-09-19', NULL, NULL, 443, NULL, '2022-09-19 13:29:07', '2022-09-19 06:29:07', -1, 'superadmin', NULL, -1, 0, '0.00', 0, NULL, NULL, NULL, 'E', 'S07', '7.00', NULL, 'O', '2022-09-19 13:29:07');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `permission`
 --
 
@@ -8061,31 +7853,23 @@ CREATE TABLE `permission` (
 --
 
 INSERT INTO `permission` (`id`, `menu`, `id_profile`, `can_view`, `can_add`, `can_edit`, `can_delete`, `can_approve`) VALUES
-(50, 'SOODSQ', 3, 1, 1, 1, 1, 0),
-(51, 'SCUSER', 3, 0, 0, 0, 0, 0),
-(52, 'SCSIGN', 3, 0, 0, 0, 0, 0),
-(53, 'DBSTEAM', 3, 0, 0, 0, 0, 0),
-(54, 'SCAPPV', 3, 0, 0, 0, 0, 0),
-(55, 'SCPERM', 3, 0, 0, 0, 0, 0),
-(56, 'SCCONF', 3, 0, 0, 0, 0, 0),
-(57, 'SCACLOG', 3, 0, 0, 0, 0, 0),
-(58, 'SOODSQ', 1, 1, 1, 1, 1, 0),
-(59, 'SCUSER', 1, 1, 1, 1, 1, 0),
-(60, 'SCSIGN', 1, 0, 0, 0, 0, 0),
-(61, 'DBSTEAM', 1, 1, 1, 1, 1, 0),
-(62, 'SCAPPV', 1, 1, 1, 1, 1, 0),
-(63, 'SCPERM', 1, 1, 1, 1, 1, 0),
-(64, 'SCCONF', 1, 1, 1, 1, 1, 0),
-(65, 'SCACLOG', 1, 1, 1, 1, 1, 0),
-(74, 'SOODSQ', 6, 1, 1, 1, 1, 0),
-(75, 'APODSQ', 6, 1, 1, 1, 1, 0),
-(76, 'SCUSER', 6, 1, 1, 1, 1, 0),
-(77, 'SCSIGN', 6, 1, 1, 1, 1, 0),
-(78, 'DBSTEAM', 6, 1, 1, 1, 1, 0),
-(79, 'SCAPPV', 6, 1, 1, 1, 1, 0),
-(80, 'SCPERM', 6, 1, 1, 1, 1, 0),
-(81, 'SCCONF', 6, 1, 1, 1, 1, 0),
-(82, 'SCACLOG', 6, 1, 1, 1, 1, 0);
+(8, 'SCUSER', 2, 0, 0, 0, 0, 0),
+(9, 'DBGROUP', 2, 0, 0, 0, 0, 0),
+(10, 'SCPERM', 2, 0, 0, 0, 0, 0),
+(11, 'SCCONF', 2, 0, 0, 0, 0, 0),
+(12, 'SCACLOG', 2, 0, 0, 0, 0, 0),
+(13, 'ICTRRQ', 2, 1, 1, 1, 1, 0),
+(14, 'ICTRWH', 2, 1, 1, 1, 1, 0),
+(30, 'SCUSER', 3, 1, 1, 1, 1, 0),
+(31, 'DBGROUP', 3, 1, 1, 1, 1, 0),
+(32, 'SCPERM', 3, 1, 1, 1, 1, 0),
+(33, 'SCCONF', 3, 1, 1, 1, 1, 0),
+(34, 'SCDECF', 3, 1, 1, 1, 1, 0),
+(35, 'SCACLOG', 3, 1, 1, 1, 1, 0),
+(36, 'ICTRRQ', 3, 1, 1, 1, 1, 0),
+(37, 'ICTRWH', 3, 1, 1, 1, 1, 0),
+(38, 'ICAPRQ', 3, 1, 1, 1, 1, 0),
+(39, 'ICAPTR', 3, 1, 1, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -8103,378 +7887,9 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`id`, `name`) VALUES
-(1, 'Administrator'),
-(4, 'Logistic'),
-(2, 'Manager'),
-(5, 'Reviewer'),
-(6, 'Sales Admin'),
-(3, 'Sales Rep.'),
-(-987654321, 'Super Admin');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `quotation`
---
-
-CREATE TABLE `quotation` (
-  `id` int(11) NOT NULL,
-  `code` varchar(20) NOT NULL,
-  `CardCode` varchar(15) DEFAULT NULL,
-  `CardName` varchar(100) DEFAULT NULL,
-  `ContactPerson` varchar(100) DEFAULT NULL,
-  `CntctCode` int(11) DEFAULT NULL,
-  `NumAtCard` varchar(100) DEFAULT NULL,
-  `Phone` varchar(50) DEFAULT NULL,
-  `PriceList` smallint(6) DEFAULT NULL COMMENT 'Customer price list (OPLN)',
-  `SlpCode` int(11) DEFAULT NULL,
-  `Payment` int(11) DEFAULT '-1' COMMENT 'Payment term (OCTG)',
-  `DocCur` varchar(3) DEFAULT NULL COMMENT 'Currency OCRN',
-  `DocRate` decimal(19,6) NOT NULL DEFAULT '1.000000' COMMENT 'ตัวคูณ',
-  `DocTotal` decimal(19,6) NOT NULL DEFAULT '0.000000' COMMENT 'มูลค่ารวมทั้งบิล',
-  `SysTotal` decimal(19,6) NOT NULL DEFAULT '0.000000',
-  `DiscPrcnt` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `DiscAmount` decimal(19,6) NOT NULL DEFAULT '0.000000',
-  `RoundDif` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `VatSum` decimal(19,6) NOT NULL DEFAULT '0.000000',
-  `PayToCode` varchar(50) DEFAULT NULL,
-  `ShipToCode` varchar(50) DEFAULT NULL,
-  `Address` varchar(254) DEFAULT NULL COMMENT 'CRD1 type=B',
-  `Address2` varchar(254) DEFAULT NULL COMMENT 'CRD1 type=S',
-  `DocEntry` int(11) DEFAULT NULL,
-  `DocNum` int(11) DEFAULT NULL COMMENT 'Sap DocNum',
-  `Status` int(1) NOT NULL DEFAULT '-1' COMMENT '-1 = draft\r\n0 = pending\r\n1 = success\r\n2 = canceled\r\n3 = export failed',
-  `Review` set('P','R','A','S') NOT NULL DEFAULT 'P' COMMENT 'P=pending, \r\nA=reviewed, \r\nR=reject, \r\nS = No need to review',
-  `ReviewBy` varchar(50) DEFAULT NULL,
-  `Approved` varchar(1) NOT NULL DEFAULT 'P' COMMENT 'P=pending, A=approved, R=reject, S = No need to approve',
-  `Approver` varchar(50) DEFAULT NULL,
-  `DocDate` date DEFAULT NULL COMMENT 'Posting Data',
-  `DocDueDate` date DEFAULT NULL COMMENT 'Valid untill',
-  `TextDate` date DEFAULT NULL COMMENT 'TaxDate , DocumentDate',
-  `OriginalSQ` varchar(50) DEFAULT NULL,
-  `OwnerCode` int(11) DEFAULT NULL,
-  `Comments` varchar(254) DEFAULT NULL,
-  `date_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `user_id` int(11) DEFAULT NULL,
-  `uname` varchar(50) DEFAULT NULL,
-  `upd_user_id` int(11) DEFAULT NULL,
-  `sale_team` int(11) DEFAULT NULL,
-  `must_approve` tinyint(1) NOT NULL DEFAULT '0',
-  `disc_diff` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT 'ส่วนต่างส่วนลดสูงสุดในออเดอร์(%)',
-  `is_duplicate` tinyint(1) NOT NULL DEFAULT '0',
-  `vatType` set('I','E') NOT NULL DEFAULT 'E',
-  `VatGroup` varchar(20) DEFAULT NULL,
-  `VatRate` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `message` text,
-  `session_uuid` varchar(36) DEFAULT NULL,
-  `session_expire` datetime DEFAULT NULL,
-  `Attn1` varchar(50) DEFAULT NULL,
-  `Attn2` varchar(50) DEFAULT NULL,
-  `Type` varchar(40) DEFAULT NULL,
-  `Project` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `quotation`
---
-
-INSERT INTO `quotation` (`id`, `code`, `CardCode`, `CardName`, `ContactPerson`, `CntctCode`, `NumAtCard`, `Phone`, `PriceList`, `SlpCode`, `Payment`, `DocCur`, `DocRate`, `DocTotal`, `SysTotal`, `DiscPrcnt`, `DiscAmount`, `RoundDif`, `VatSum`, `PayToCode`, `ShipToCode`, `Address`, `Address2`, `DocEntry`, `DocNum`, `Status`, `Review`, `ReviewBy`, `Approved`, `Approver`, `DocDate`, `DocDueDate`, `TextDate`, `OriginalSQ`, `OwnerCode`, `Comments`, `date_add`, `date_upd`, `user_id`, `uname`, `upd_user_id`, `sale_team`, `must_approve`, `disc_diff`, `is_duplicate`, `vatType`, `VatGroup`, `VatRate`, `message`, `session_uuid`, `session_expire`, `Attn1`, `Attn2`, `Type`, `Project`) VALUES
-(3, 'WQ-23080001', 'CL1CON0001', 'คุณ ขจร จรูญวานิชย์', '-', NULL, NULL, '', 12, 28, -1, 'THB', '1.000000', '4922.000000', '0.000000', '0.00', '0.000000', '0.00', '322.000000', '-', '-', '27/80 ถ.รัชดา-รามอินทรา แขวงรามอินทรา เขตคันนายาว กรุงเทพมหานคร 10230 ', '27/80 ถ.รัชดา-รามอินทรา แขวงรามอินทรา เขตคันนายาว กรุงเทพมหานคร 10230 ', 1, 22000001, 1, 'A', 'sales_01', 'S', NULL, '2023-08-18', '2023-08-18', '2023-08-18', NULL, 108, NULL, '2023-08-18 11:38:17', '2023-08-20 14:17:08', 6, 'sales_01', NULL, -1, 0, '0.00', 0, 'E', 'S07', '7.00', NULL, 'm5u4ogzbgdchrv3dspllk5', '2023-08-20 21:17:55', NULL, NULL, NULL, NULL),
-(4, 'WQ-23080002', 'CL1CON0039', 'บริษัท นิวอีเล็คตริคัล เทคโนโลยี่ จำกัด', '-', NULL, NULL, '02-9820987', 12, -1, 4, 'THB', '1.000000', '2600.100000', '0.000000', '10.00', '270.000000', '0.00', '170.000000', '00000', '00000', '139/11 หมู่ที่2 ถ.แจ้งวัฒนะ แขวงทุ่งสองห้อง เขตหลักสี่ กรุงเทพมหานคร 10210 ', '139/11 หมู่ที่2 ถ.แจ้งวัฒนะ แขวงทุ่งสองห้อง เขตหลักสี่ กรุงเทพมหานคร 10210 ', 1, 22000001, 1, 'S', NULL, 'S', NULL, '2023-08-19', '2023-08-19', '2023-08-19', NULL, 0, NULL, '2023-08-19 17:59:46', '2023-08-19 11:50:10', -1, 'superadmin', NULL, 0, 0, '0.00', 0, 'E', 'S07', '7.00', NULL, 'm5u4ogzbgdchrv3dspllk5', '2023-08-19 18:51:10', NULL, NULL, NULL, NULL),
-(5, 'WQ-23080003', 'CL1CON0046', 'บริษัท โปรดักชั่น แคมป์ จำกัด(สำนักงานใหญ่)', '-', NULL, NULL, '085-7537344', 12, -1, -1, 'THB', '1.000000', '3125.740000', '3500.000000', '5.00', '153.750000', '0.00', '204.000000', '00000', '00000', '9 ซอยประดิพัทธิ์ 10 ถนนประดิพันธ์ แขวงพญาไท เขตพญาไท กรุงเทพมหานคร 10400 ', '9 ซอยประดิพัทธิ์ 10 ถนนประดิพันธ์ แขวงพญาไท เขตพญาไท กรุงเทพมหานคร 10400 ', 1, 22000001, 1, 'A', 'sales_01', 'A', 'admin', '2023-08-20', '2023-08-20', '2023-08-20', NULL, 15, 'ทดสอบใส่หมายเหตุยาวๆ', '2023-08-20 15:05:08', '2023-08-22 05:41:01', 1, 'admin', NULL, 1, 1, '19.39', 0, 'E', 'S07', '7.00', NULL, 'm5u4ogzbgdchrv3dspllk5', '2023-08-20 21:37:08', NULL, NULL, NULL, NULL),
-(6, 'WQ-23080004', 'CL1CON0023', 'บริษัท เค วาย พี เอ็นจิเนียริ่ง แอนด์ ซัพพลาย จำกัด', 'คุณสมหมาย', NULL, NULL, '089 174 7597', 12, 5, -1, 'THB', '1.000000', '13939.430000', '15005.000000', '10.00', '1447.500000', '0.00', '912.000000', '00000', '00000', '11 หมู่9  ถนนเทพารักษ์ ต.เทพารักษ์ อ.เมืองสมุทรปราการ จ.สมุทรปราการ 10270 ', '11 หมู่9  ถนนเทพารักษ์ ต.เทพารักษ์ อ.เมืองสมุทรปราการ จ.สมุทรปราการ 10270 ', NULL, NULL, 0, 'A', 'sales_01', 'A', 'sales_01', '2023-08-22', '2023-08-22', '2023-08-22', NULL, 15, 'ส่งให้ที่ 11 หมู่9  ถนนเทพารักษ์ ต.เทพารักษ์ อ.เมืองสมุทรปราการ จ.สมุทรปราการ 10270', '2023-08-22 10:11:14', '2023-09-15 03:53:46', 6, 'sales_01', NULL, 1, 1, '19.65', 0, 'E', 'S07', '7.00', 'testss', 'm5u4ogzbgdchrv3dspllk5', '2023-09-15 10:54:46', NULL, NULL, NULL, NULL),
-(7, 'WQ-23080005', 'CL1CON0004', 'คุณสาคร เกตุหอม', '-', 0, 'คุณ สมหมาย 0891747597', '', 12, 2, -1, 'THB', '1.000000', '1444.500000', '1500.000000', '10.00', '150.000000', '0.00', '95.000000', '00000', '-', '331 หมู่5 ต.ศาลเจ้าไก่ต่อ อ.ลาดยาว จ.นครสวรรค์ 60150 ', '331 หมู่5 ตำบลศาลเจ้าไก่ต่อ อำเภอลาดยาว จังหวัดนครสวรรค์ 60150 ', NULL, NULL, 2, 'P', NULL, 'P', NULL, '2023-08-24', '2023-08-24', '2023-08-24', NULL, 15, 'ทดสอบ', '2023-08-24 21:28:16', '2023-08-25 06:18:30', 6, 'sales_01', NULL, 1, 1, '10.00', 0, 'E', 'S07', '7.00', NULL, 'm5u4ogzbgdchrv3dspllk5', '2023-08-25 13:10:43', NULL, NULL, NULL, NULL),
-(8, 'WQ-23080006', 'CL1CON0033', 'บริษัท ตงฮั้วบัวใหญ่ (1994) จำกัด', '-', 39, 'คุณสมหมาย 089 174 7597', '044-292222', 12, 2, -1, 'THB', '1.000000', '834.600000', '780.000000', '0.00', '0.000000', '0.00', '54.600000', '00000', '00000', '44 ม.5 ถ.นิเวศรัตน์ ต.ด่านซ้าย อ.บัวใหญ่ จ.นครราชสีมา 30120 ', '44 ม.5 ถ.นิเวศรัตน์ ต.ด่านซ้าย อ.บัวใหญ่ จ.นครราชสีมา 30120 ', 1, 22000001, 1, 'A', 'sales_01', 'A', 'admin', '2023-08-24', '2023-08-24', '2023-08-24', NULL, 15, 'ทดสอบ', '2023-08-24 21:40:30', '2023-08-24 15:14:36', 6, 'sales_01', NULL, 1, 1, '0.00', 0, 'E', 'S07', '7.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, 'WQ-23080007', 'CL1CON0002', 'คุณสมาน ดีนา', '-', 8, 'fddfd', '', 12, 2, -1, 'THB', '1.000000', '5355.350000', '5005.000000', '0.00', '0.000000', '0.00', '350.350000', '00000', '-', '25/142 หมู่ที่ 13 ต.ในคลองบางปลากด อ.พระสมุทรเจดีย์ จ.สมุทรปราการ 10290', 'fdsfds asfsfdsfd sdfdss', NULL, NULL, 0, 'P', NULL, 'P', NULL, '2023-08-25', '2023-08-25', '2023-08-25', NULL, 0, 'xxxxxxxx', '2023-08-25 13:24:35', '2023-09-15 06:50:08', -1, 'superadmin', NULL, -1, 1, '0.00', 0, 'E', 'S07', '7.00', 'ส่วนลดรายการมากเกินไป ให้ผ่านไม่ได้', 'm5u4ogzbgdchrv3dspllk5', '2023-09-15 13:51:08', 'sdsds', 'dsdsd', 'sdsds', 'dsdfdfsd'),
-(10, 'WQ-23090001', 'CL1CON0021', 'บริษัท แกรนด์ พาราไดซ์ วิลล่า จำกัด', '-', 27, 'WO2308001', '094-565-9588', 12, 2, -1, 'THB', '1.000000', '625.950000', '685.000000', '0.00', '0.000000', '0.00', '41.000000', '00000', '00000', '41/82  หมู่9 ต.หนองปรือ อ.บางละมุง จ.ชลบุรี 20150', '41/82  หมู่9 ต.หนองปรือ อ.บางละมุง จ.ชลบุรี 20150', NULL, NULL, -1, 'P', NULL, 'P', NULL, '2023-09-01', '2023-09-01', '2023-09-01', NULL, 0, 'ทดสอบ', '2023-09-01 19:29:05', '2023-09-15 07:21:20', -1, 'superadmin', NULL, 1, 1, '50.00', 0, 'E', 'S07', '7.00', 'No Reason', 'm5u4ogzbgdchrv3dspllk5', '2023-09-15 14:21:59', 'คุณสมชาย 089 123 4567', 'คุณสมร 081 234 5678', 'Xxxx', 'HomePro2'),
-(11, 'WQ-23090002', 'CL1CON0002', 'คุณสมาน ดีนา', '-', 8, NULL, '', 12, -1, -1, 'THB', '1.000000', '1423.100000', '2330.000000', '0.00', '0.000000', '0.00', '93.000000', '00000', '-', '25/142 หมู่ที่ 13 ต.ในคลองบางปลากด อ.พระสมุทรเจดีย์ จ.สมุทรปราการ 10290', '25/142 หมู่ที่ 13 ตำบลในคลองบางปลากด อำเภอพระสมุทรเจดีย์ จังหวัดสมุทรปราการ 10290', NULL, NULL, 0, 'P', NULL, 'P', NULL, '2023-09-15', '2023-09-15', '2023-09-15', NULL, 0, NULL, '2023-09-15 14:27:02', '2023-09-15 10:45:13', -1, 'superadmin', NULL, 0, 1, '50.00', 0, 'E', 'S07', '7.00', NULL, 'm5u4ogzbgdchrv3dspllk5', '2023-09-15 17:45:55', NULL, NULL, NULL, NULL),
-(14, 'WQ-23090003', 'CL1CON0002', 'คุณสมาน ดีนา', '-', 8, NULL, '', 12, -1, -1, 'THB', '1.000000', '1423.100000', '2330.000000', '0.00', '0.000000', '0.00', '93.000000', '00000', '-', '25/142 หมู่ที่ 13 ต.ในคลองบางปลากด อ.พระสมุทรเจดีย์ จ.สมุทรปราการ 10290', '25/142 หมู่ที่ 13 ตำบลในคลองบางปลากด อำเภอพระสมุทรเจดีย์ จังหวัดสมุทรปราการ 10290', NULL, NULL, -1, 'P', NULL, 'P', NULL, '2023-09-15', '2023-09-15', '2023-09-15', 'WQ-23090002', NULL, NULL, '2023-09-15 19:23:32', '2023-09-15 12:23:32', -1, 'superadmin', NULL, 0, 1, '50.00', 1, 'E', 'S07', '7.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(15, 'WQ-23090004', 'CL1CON0002', 'คุณสมาน ดีนา', '-', 8, NULL, '', 12, -1, -1, 'THB', '1.000000', '1423.100000', '2330.000000', '0.00', '0.000000', '0.00', '93.000000', '00000', '-', '25/142 หมู่ที่ 13 ต.ในคลองบางปลากด อ.พระสมุทรเจดีย์ จ.สมุทรปราการ 10290', '25/142 หมู่ที่ 13 ตำบลในคลองบางปลากด อำเภอพระสมุทรเจดีย์ จังหวัดสมุทรปราการ 10290', NULL, NULL, -1, 'P', NULL, 'P', NULL, '2023-09-15', '2023-09-15', '2023-09-15', 'WQ-23090003', NULL, NULL, '2023-09-15 19:26:06', '2023-09-15 12:26:06', -1, 'superadmin', NULL, 0, 1, '50.00', 1, 'E', 'S07', '7.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(16, 'WQ-23090005', 'CL1CON0002', 'คุณสมาน ดีนา', '-', 8, NULL, '', 12, -1, -1, 'THB', '1.000000', '1423.100000', '2330.000000', '0.00', '0.000000', '0.00', '93.000000', '00000', '-', '25/142 หมู่ที่ 13 ต.ในคลองบางปลากด อ.พระสมุทรเจดีย์ จ.สมุทรปราการ 10290', '25/142 หมู่ที่ 13 ตำบลในคลองบางปลากด อำเภอพระสมุทรเจดีย์ จังหวัดสมุทรปราการ 10290', NULL, NULL, -1, 'P', NULL, 'P', NULL, '2023-09-15', '2023-09-15', '2023-09-15', 'WQ-23090003', NULL, NULL, '2023-09-15 19:26:42', '2023-09-15 12:44:11', -1, 'superadmin', NULL, 0, 1, '50.00', 1, 'E', 'S07', '7.00', NULL, 'm5u4ogzbgdchrv3dspllk5', '2023-09-15 19:45:11', NULL, NULL, NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `quotation_address`
---
-
-CREATE TABLE `quotation_address` (
-  `id` int(11) NOT NULL,
-  `quotation_code` varchar(20) DEFAULT NULL,
-  `bAddress` varchar(50) DEFAULT NULL COMMENT 'รหัสสาขา',
-  `bAddress2` varchar(50) DEFAULT NULL COMMENT 'ชื่อสาขา',
-  `bStreet` varchar(100) DEFAULT NULL COMMENT 'ที่อยู่',
-  `bStreetNo` varchar(100) DEFAULT NULL COMMENT 'ถนน',
-  `bBlock` varchar(100) DEFAULT NULL COMMENT 'ตำบล',
-  `bCity` varchar(100) DEFAULT NULL COMMENT 'อำเภอ',
-  `bCounty` varchar(100) DEFAULT NULL COMMENT 'จังหวัด',
-  `bZipCode` varchar(20) DEFAULT NULL COMMENT 'รหัสไปรษณีย์',
-  `bCountry` varchar(3) DEFAULT NULL COMMENT 'ประเทศ',
-  `sAddress` varchar(50) DEFAULT NULL COMMENT 'รหัสสาขา',
-  `sAddress2` varchar(50) DEFAULT NULL COMMENT 'ชื่อสาขา',
-  `sStreet` varchar(100) DEFAULT NULL,
-  `sStreetNo` varchar(100) DEFAULT NULL,
-  `sBlock` varchar(100) DEFAULT NULL,
-  `sCity` varchar(100) DEFAULT NULL,
-  `sCounty` varchar(100) DEFAULT NULL,
-  `sZipCode` varchar(20) DEFAULT NULL,
-  `sCountry` varchar(3) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `quotation_address`
---
-
-INSERT INTO `quotation_address` (`id`, `quotation_code`, `bAddress`, `bAddress2`, `bStreet`, `bStreetNo`, `bBlock`, `bCity`, `bCounty`, `bZipCode`, `bCountry`, `sAddress`, `sAddress2`, `sStreet`, `sStreetNo`, `sBlock`, `sCity`, `sCounty`, `sZipCode`, `sCountry`) VALUES
-(18, 'WQ-23080004', '00000', 'สำนักงานใหญ่', '', '', '', '', '', '', '', '00000', 'สำนักงานใหญ่', '', '', '', '', '', '', ''),
-(21, 'WQ-23080007', '00000', 'สำนักงานใหญ่', '25/142 หมู่ที่ 13', '', 'ต.ในคลองบางปลากด', 'อ.พระสมุทรเจดีย์', 'จ.สมุทรปราการ', '10290', 'TH', '-', '-', 'fdsfds', '', '', 'asfsfdsfd', 'sdfdss', '', ''),
-(23, 'WQ-23090001', '00000', 'สำนักงานใหญ่', '41/82  หมู่9', '', 'ต.หนองปรือ', 'อ.บางละมุง', 'จ.ชลบุรี', '20150', 'TH', '00000', 'สำนักงานใหญ่', '41/82  หมู่9', '', 'ต.หนองปรือ', 'อ.บางละมุง', 'จ.ชลบุรี', '20150', ''),
-(28, 'WQ-23090002', '00000', 'สำนักงานใหญ่', '25/142 หมู่ที่ 13', '', 'ต.ในคลองบางปลากด', 'อ.พระสมุทรเจดีย์', 'จ.สมุทรปราการ', '10290', 'TH', '-', '-', '25/142 หมู่ที่ 13', '', 'ตำบลในคลองบางปลากด', 'อำเภอพระสมุทรเจดีย์', 'จังหวัดสมุทรปราการ', '10290', ''),
-(29, 'WQ-23090003', '00000', 'สำนักงานใหญ่', '25/142 หมู่ที่ 13', '', 'ต.ในคลองบางปลากด', 'อ.พระสมุทรเจดีย์', 'จ.สมุทรปราการ', '10290', 'TH', '-', '-', '25/142 หมู่ที่ 13', '', 'ตำบลในคลองบางปลากด', 'อำเภอพระสมุทรเจดีย์', 'จังหวัดสมุทรปราการ', '10290', ''),
-(30, 'WQ-23090004', '00000', 'สำนักงานใหญ่', '25/142 หมู่ที่ 13', '', 'ต.ในคลองบางปลากด', 'อ.พระสมุทรเจดีย์', 'จ.สมุทรปราการ', '10290', 'TH', '-', '-', '25/142 หมู่ที่ 13', '', 'ตำบลในคลองบางปลากด', 'อำเภอพระสมุทรเจดีย์', 'จังหวัดสมุทรปราการ', '10290', ''),
-(31, 'WQ-23090005', '00000', 'สำนักงานใหญ่', '25/142 หมู่ที่ 13', '', 'ต.ในคลองบางปลากด', 'อ.พระสมุทรเจดีย์', 'จ.สมุทรปราการ', '10290', 'TH', '-', '-', '25/142 หมู่ที่ 13', '', 'ตำบลในคลองบางปลากด', 'อำเภอพระสมุทรเจดีย์', 'จังหวัดสมุทรปราการ', '10290', '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `quotation_details`
---
-
-CREATE TABLE `quotation_details` (
-  `id` int(11) NOT NULL,
-  `quotation_id` int(11) NOT NULL,
-  `quotation_code` varchar(20) NOT NULL,
-  `LineNum` int(11) DEFAULT NULL,
-  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0= Item, 1= text',
-  `ItemCode` varchar(50) DEFAULT NULL,
-  `ItemName` varchar(100) DEFAULT NULL COMMENT 'ItemName',
-  `Description` varchar(100) DEFAULT NULL,
-  `WhsCode` varchar(8) DEFAULT NULL,
-  `Qty` int(15) NOT NULL DEFAULT '0',
-  `UomCode` varchar(20) DEFAULT NULL,
-  `UomEntry` int(11) DEFAULT NULL,
-  `Cost` decimal(19,6) NOT NULL DEFAULT '0.000000',
-  `Price` decimal(19,4) NOT NULL DEFAULT '0.0000' COMMENT 'ราคาเต็มไม่รวม vat',
-  `SellPrice` decimal(19,4) NOT NULL DEFAULT '0.0000' COMMENT 'price after discount',
-  `sysSellPrice` decimal(19,4) NOT NULL DEFAULT '0.0000',
-  `disc1` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `disc2` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `disc3` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `sysDisc` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `discLabel` varchar(50) NOT NULL DEFAULT '0',
-  `discDiff` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT 'ส่วนต่างส่วนลดที่ถูกแก้ไขโดยพนักงาน',
-  `DiscPrcnt` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT 'ส่วนลด (%) เอาส่วนลด 5 สเต็ปมาแปลงเป็นส่วนลดเดี่ยว',
-  `discAmount` decimal(19,4) NOT NULL DEFAULT '0.0000',
-  `totalDiscAmount` decimal(19,4) NOT NULL DEFAULT '0.0000',
-  `VatGroup` varchar(8) DEFAULT NULL,
-  `VatRate` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `VatAmount` decimal(19,4) NOT NULL DEFAULT '0.0000',
-  `totalVatAmount` decimal(19,4) NOT NULL DEFAULT '0.0000',
-  `LineSysTotal` decimal(19,6) NOT NULL DEFAULT '0.000000',
-  `LineTotal` decimal(15,2) NOT NULL DEFAULT '0.00' COMMENT 'มูลค่ารวมหลังส่วนลดก่อนภาษี',
-  `date_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `user_id` int(11) DEFAULT NULL,
-  `uname` varchar(50) DEFAULT NULL,
-  `sale_team` int(11) DEFAULT NULL,
-  `LineText` text,
-  `LineStatus` set('O','C','D') NOT NULL DEFAULT 'O' COMMENT 'O = Open,\r\nC = Closed,\r\nD = Cancelled',
-  `TreeType` varchar(1) NOT NULL DEFAULT 'N' COMMENT 'N = Not a Bom,\r\nS = Has childs,\r\nI = Childs',
-  `uid` varchar(32) DEFAULT NULL,
-  `father_uid` varchar(32) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `quotation_details`
---
-
-INSERT INTO `quotation_details` (`id`, `quotation_id`, `quotation_code`, `LineNum`, `type`, `ItemCode`, `ItemName`, `Description`, `WhsCode`, `Qty`, `UomCode`, `UomEntry`, `Cost`, `Price`, `SellPrice`, `sysSellPrice`, `disc1`, `disc2`, `disc3`, `sysDisc`, `discLabel`, `discDiff`, `DiscPrcnt`, `discAmount`, `totalDiscAmount`, `VatGroup`, `VatRate`, `VatAmount`, `totalVatAmount`, `LineSysTotal`, `LineTotal`, `date_add`, `date_upd`, `user_id`, `uname`, `sale_team`, `LineText`, `LineStatus`, `TreeType`, `uid`, `father_uid`) VALUES
-(35, 4, 'WQ-23080002', 0, 0, 'FG1101010001', 'C-015-10', NULL, NULL, 1, 'ชุด', 5, '0.000000', '400.0000', '200.0000', '200.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '200.0000', '200.0000', 'S07', '7.00', '14.0000', '14.0000', '0.000000', '200.00', '2023-08-19 18:47:40', '2023-08-19 11:47:40', -1, 'superadmin', 0, NULL, 'O', 'N', NULL, NULL),
-(36, 4, 'WQ-23080002', 1, 0, 'FG1101010011', 'C-2004', NULL, NULL, 10, 'ชุด', 5, '0.000000', '500.0000', '250.0000', '250.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '250.0000', '2500.0000', 'S07', '7.00', '17.5000', '175.0000', '0.000000', '2500.00', '2023-08-19 18:47:40', '2023-08-19 11:47:40', -1, 'superadmin', 0, NULL, 'O', 'N', NULL, NULL),
-(44, 3, 'WQ-23080001', 0, 0, 'FG1101010002', 'C-028', NULL, NULL, 10, 'ชุด', 5, '0.000000', '480.0000', '240.0000', '240.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '240.0000', '2400.0000', 'S07', '7.00', '16.8000', '168.0000', '0.000000', '2400.00', '2023-08-20 21:17:02', '2023-08-20 14:17:02', 6, 'sales_01', -1, NULL, 'O', 'N', NULL, NULL),
-(45, 3, 'WQ-23080001', 1, 0, 'FG1101010001', 'C-015-10', NULL, NULL, 10, 'ชุด', 5, '0.000000', '400.0000', '200.0000', '200.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '200.0000', '2000.0000', 'S07', '7.00', '14.0000', '140.0000', '0.000000', '2000.00', '2023-08-20 21:17:02', '2023-08-20 14:17:02', 6, 'sales_01', -1, NULL, 'O', 'N', NULL, NULL),
-(46, 3, 'WQ-23080001', 2, 0, 'FG1101010001', 'C-015-10', NULL, NULL, 1, 'ชุด', 5, '0.000000', '400.0000', '200.0000', '200.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '200.0000', '200.0000', 'S07', '7.00', '14.0000', '14.0000', '0.000000', '200.00', '2023-08-20 21:17:02', '2023-08-20 14:17:02', 6, 'sales_01', -1, NULL, 'O', 'N', NULL, NULL),
-(49, 5, 'WQ-23080003', 0, 0, 'FG1101010008', 'C-111/AB', NULL, NULL, 10, 'ชุด', 5, '0.000000', '300.0000', '127.5000', '150.0000', '50.00', '15.00', '0.00', '50.00', '50+15', '15.00', '57.50', '172.5000', '1725.0000', 'S07', '7.00', '8.9300', '89.3000', '1500.000000', '1275.00', '2023-08-20 21:36:10', '2023-08-20 14:36:10', 1, 'admin', 1, NULL, 'O', 'N', NULL, NULL),
-(50, 5, 'WQ-23080003', 1, 0, 'FG1101010001', 'C-015-10', NULL, NULL, 10, 'ชุด', 5, '0.000000', '400.0000', '180.0000', '200.0000', '50.00', '10.00', '0.00', '50.00', '50+10', '10.00', '55.00', '220.0000', '2200.0000', 'S07', '7.00', '12.6000', '126.0000', '2000.000000', '1800.00', '2023-08-20 21:36:10', '2023-08-20 14:36:10', 1, 'admin', 1, NULL, 'O', 'N', NULL, NULL),
-(90, 7, 'WQ-23080005', 0, 0, 'FG1101010009', 'C-111/S', 'ชุดโคมไฟเพดาน E27', NULL, 10, 'ชุด', 5, '0.000000', '300.0000', '150.0000', '150.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '150.0000', '1500.0000', 'S07', '7.00', '10.5000', '105.0000', '1500.000000', '1500.00', '2023-08-24 21:34:54', '2023-08-25 06:18:30', 6, 'sales_01', 1, NULL, 'D', 'N', NULL, NULL),
-(91, 8, 'WQ-23080006', 0, 0, 'FG1101010022', 'C-ME09/D380', 'ชุดโคมไฟเพดานอคริริค 380mm. ถาด+ฝา', NULL, 1, 'ชุด', 5, '0.000000', '360.0000', '180.0000', '180.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '180.0000', '180.0000', 'S07', '7.00', '12.6000', '12.6000', '180.000000', '180.00', '2023-08-24 21:40:30', '2023-08-24 14:40:30', 6, 'sales_01', 1, NULL, 'O', 'N', NULL, NULL),
-(92, 8, 'WQ-23080006', 1, 0, 'FG1101010021', 'C-F01', 'ชุดโคมไฟเพดานรุ่นมาตรฐาน G10Q/32', NULL, 1, 'ชุด', 5, '0.000000', '1200.0000', '600.0000', '600.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '600.0000', '600.0000', 'S07', '7.00', '42.0000', '42.0000', '600.000000', '600.00', '2023-08-24 21:40:30', '2023-08-24 14:40:30', 6, 'sales_01', 1, NULL, 'O', 'N', NULL, NULL),
-(341, 6, 'WQ-23080004', 0, 0, 'FG1101010001', 'C-015-10', 'ชุดโคมไฟเพดานกลม2xE27 Size235mm. H80mm.', 'FG01', 10, 'ชุด', 5, '0.000000', '400.0000', '200.0000', '200.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '200.0000', '2000.0000', 'S07', '7.00', '14.0000', '140.0000', '2000.000000', '2000.00', '2023-09-10 19:11:59', '2023-09-10 12:11:59', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(342, 6, 'WQ-23080004', 1, 0, 'FG1101010002', 'C-028', 'ชุดโคมไฟเพดาน', 'FG01', 1, 'ชุด', 5, '0.000000', '480.0000', '240.0000', '240.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '240.0000', '240.0000', 'S07', '7.00', '16.8000', '16.8000', '240.000000', '240.00', '2023-09-10 19:11:59', '2023-09-10 12:11:59', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(343, 6, 'WQ-23080004', 2, 0, 'FG9900000022', 'L&B FTT-NOOF/BK DAY', 'L&B โคมไฟตั้งโต๊ะ NOOF BK พร้อมหลอดLED 9D', 'FG01', 5, 'ชุด', 5, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-10 19:11:59', '2023-09-10 12:11:59', 6, 'sales_01', 1, NULL, 'O', 'S', '5079a9b73a8f0', NULL),
-(344, 6, 'WQ-23080004', 3, 0, 'FG1305000015', 'FTT-NOOF/BK', 'โคมไฟตั้งโต๊ะ BLACK 1xE27', 'FG01', 5, 'ชุด', 5, '0.000000', '880.0000', '792.0000', '880.0000', '10.00', '0.00', '0.00', '0.00', '10', '10.00', '10.00', '88.0000', '440.0000', 'S07', '7.00', '55.4400', '277.2000', '4400.000000', '3960.00', '2023-09-10 19:11:59', '2023-09-10 12:11:59', 6, 'sales_01', 1, NULL, 'O', 'I', '9332af1714b3b', '5079a9b73a8f0'),
-(345, 6, 'WQ-23080004', 4, 0, 'FG3101090013', 'LED-LA609D/LTO', 'NA-หลอดไฟ-LED-Bulbs-LTO', 'FG01', 5, 'หลอด', 80, '0.000000', '180.0000', '162.0000', '180.0000', '10.00', '0.00', '0.00', '0.00', '10', '10.00', '10.00', '18.0000', '90.0000', 'S07', '7.00', '11.3400', '56.7000', '900.000000', '810.00', '2023-09-10 19:11:59', '2023-09-10 12:11:59', 6, 'sales_01', 1, NULL, 'O', 'I', 'e4bfd6a61cc26', '5079a9b73a8f0'),
-(346, 6, 'WQ-23080004', 5, 0, 'FG1101010008', 'C-111/AB', 'ชุดโคมไฟเพดาน E27', 'FG01', 1, 'ชุด', 5, '0.000000', '300.0000', '150.0000', '150.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '150.0000', '150.0000', 'S07', '7.00', '10.5000', '10.5000', '150.000000', '150.00', '2023-09-10 19:11:59', '2023-09-10 12:11:59', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(347, 6, 'WQ-23080004', 6, 0, 'FG1101010009', 'C-111/S', 'ชุดโคมไฟเพดาน E27', 'FG01', 1, 'ชุด', 5, '0.000000', '300.0000', '150.0000', '150.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '150.0000', '150.0000', 'S07', '7.00', '10.5000', '10.5000', '150.000000', '150.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(348, 6, 'WQ-23080004', 7, 0, 'FG1101010011', 'C-2004', 'ชุดโคมไฟเพดานกลมE27x2 (29)', 'FG01', 1, 'ชุด', 5, '0.000000', '500.0000', '250.0000', '250.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '250.0000', '250.0000', 'S07', '7.00', '17.5000', '17.5000', '250.000000', '250.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(349, 6, 'WQ-23080004', 8, 0, 'FG1101010013', 'C-2007A/13', 'ชุดโคมไฟเพดานขอบเงินเหลี่ยม2xE27', 'FG01', 1, 'ชุด', 5, '0.000000', '600.0000', '300.0000', '300.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '300.0000', '300.0000', 'S07', '7.00', '21.0000', '21.0000', '300.000000', '300.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(350, 6, 'WQ-23080004', 9, 0, 'FG1101010014', 'C-2007B/11', 'ชุดโคมไฟเพดานขอบเงินกลม2xE27', 'FG01', 1, 'ชุด', 5, '0.000000', '500.0000', '250.0000', '250.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '250.0000', '250.0000', 'S07', '7.00', '17.5000', '17.5000', '250.000000', '250.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(351, 6, 'WQ-23080004', 10, 0, 'FG1101010016', 'C-802', 'ชุดโคมไฟเพดานกลมE27x2 (29.5)', 'FG01', 1, 'ชุด', 5, '0.000000', '500.0000', '250.0000', '250.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '250.0000', '250.0000', 'S07', '7.00', '17.5000', '17.5000', '250.000000', '250.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(352, 6, 'WQ-23080004', 11, 0, 'FG1101010018', 'C-803/WH', 'ชุดโคมไฟเพดานกลม E27x2 (32)', 'FG01', 1, 'ชุด', 5, '0.000000', '600.0000', '300.0000', '300.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '300.0000', '300.0000', 'S07', '7.00', '21.0000', '21.0000', '300.000000', '300.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(353, 6, 'WQ-23080004', 12, 0, 'FG1101010019', 'C-8117/L', 'ชุดโคมไฟเพดานเหลี่ยมE27 (25)', 'FG01', 1, 'ชุด', 5, '0.000000', '300.0000', '150.0000', '150.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '150.0000', '150.0000', 'S07', '7.00', '10.5000', '10.5000', '150.000000', '150.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(354, 6, 'WQ-23080004', 13, 0, 'FG1101010021', 'C-F01', 'ชุดโคมไฟเพดานรุ่นมาตรฐาน G10Q/32', 'FG01', 1, 'ชุด', 5, '0.000000', '1200.0000', '600.0000', '600.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '600.0000', '600.0000', 'S07', '7.00', '42.0000', '42.0000', '600.000000', '600.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(355, 6, 'WQ-23080004', 14, 0, 'FG1101010020', 'C-8117/S', 'ชุดโคมไฟเพดานเหลี่ยมE27 (20)', 'FG01', 1, 'ชุด', 5, '0.000000', '240.0000', '120.0000', '120.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '120.0000', '120.0000', 'S07', '7.00', '8.4000', '8.4000', '120.000000', '120.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(356, 6, 'WQ-23080004', 15, 0, 'FG1101010022', 'C-ME09/D380', 'ชุดโคมไฟเพดานอคริริค 380mm. ถาด+ฝา', 'FG01', 1, 'ชุด', 5, '0.000000', '360.0000', '180.0000', '180.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '180.0000', '180.0000', 'S07', '7.00', '12.6000', '12.6000', '180.000000', '180.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(357, 6, 'WQ-23080004', 16, 0, 'FG9900000033', 'L&B HL-BOSTON/B/BK', 'L&B HL-BOSTON/B/BK พร้อมหลอดวินเทจLED', 'FG01', 1, 'ชุด', 5, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'S', '2b5fb064590c8', NULL),
-(358, 6, 'WQ-23080004', 17, 0, 'FG1306000100', 'HL-BOSTON/B', 'โคมไฟห้อย 1xE27(HL-V01/D220/BK)', 'FG01', 1, 'ชุด', 5, '0.000000', '2000.0000', '2000.0000', '2000.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '140.0000', '140.0000', '2000.000000', '2000.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'I', '0040636b96547', '2b5fb064590c8'),
-(359, 6, 'WQ-23080004', 18, 0, 'FG3101090041', 'LED-LVST64-4W/LTO', 'LTO-หลอดLED  VINTAGE  ST64 E27 4W', 'FG01', 1, 'หลอด', 80, '0.000000', '160.0000', '160.0000', '160.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '11.2000', '11.2000', '160.000000', '160.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'I', 'f59758f37ee7d', '2b5fb064590c8'),
-(360, 6, 'WQ-23080004', 19, 0, 'FG9900000021', 'L&B FTF-NOOF/WH WARM', 'L&B โคมไฟตั้งพื้นNOOF WH พร้อมหลอดLED 9W', 'FG01', 1, 'ชุด', 5, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'S', 'c38e19e049b2c', NULL),
-(361, 6, 'WQ-23080004', 20, 0, 'FG1304000006', 'FTF-NOOF/WH', 'โคมไฟตั้งพื้น WHITE 1xE27', 'FG01', 1, 'ชุด', 5, '0.000000', '2000.0000', '2000.0000', '2000.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '140.0000', '140.0000', '2000.000000', '2000.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'I', '6a4e86269619d', 'c38e19e049b2c'),
-(362, 6, 'WQ-23080004', 21, 0, 'FG3101090014', 'LED-LA609W/LTO', 'NA-หลอดไฟ-LED-Bulbs-LTO', 'FG01', 1, 'หลอด', 80, '0.000000', '90.0000', '90.0000', '90.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '6.3000', '6.3000', '90.000000', '90.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'I', 'a43cfa25b59e8', 'c38e19e049b2c'),
-(363, 6, 'WQ-23080004', 22, 0, 'FG1101010026', 'SET C-008', 'SET โคมซาลาเปานม 8นิ้ว E27', 'FG01', 1, 'ชุด', 5, '0.000000', '150.0000', '75.0000', '75.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '75.0000', '75.0000', 'S07', '7.00', '5.2500', '5.2500', '75.000000', '75.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(364, 6, 'WQ-23080004', 23, 0, 'FG1101010027', 'SET C-010', 'SET โคมซาลาเปานม 10นิ้ว E27', 'FG01', 1, 'ชุด', 5, '0.000000', '180.0000', '90.0000', '90.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '90.0000', '90.0000', 'S07', '7.00', '6.3000', '6.3000', '90.000000', '90.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(365, 6, 'WQ-23080004', 24, 0, 'FG1101010028', 'SET C-A200', 'SET โคมไฟเพดานอะคริริค32วัตต์ ขาล๊อค', 'FG01', 1, 'ชุด', 5, '0.000000', '700.0000', '350.0000', '350.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '350.0000', '350.0000', 'S07', '7.00', '24.5000', '24.5000', '350.000000', '350.00', '2023-09-10 19:12:00', '2023-09-10 12:12:00', 6, 'sales_01', 1, NULL, 'O', 'N', '', NULL),
-(383, 9, 'WQ-23080007', 0, 0, 'FG1101010008', 'C-111/AB', 'ชุดโคมไฟเพดาน E27', 'FG01', 1, 'ชุด', 5, '0.000000', '300.0000', '150.0000', '150.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '150.0000', '150.0000', 'S07', '7.00', '10.5000', '10.5000', '150.000000', '150.00', '2023-09-13 13:57:28', '2023-09-13 06:57:28', -1, 'superadmin', -1, NULL, 'O', 'N', 'eeb1f2fd249b4', NULL),
-(384, 9, 'WQ-23080007', 1, 0, 'FG1101010001', 'C-015-10', 'ชุดโคมไฟเพดานกลม2xE27 Size235mm. H80mm.', 'FG01', 1, 'ชุด', 5, '0.000000', '400.0000', '200.0000', '200.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '200.0000', '200.0000', 'S07', '7.00', '14.0000', '14.0000', '200.000000', '200.00', '2023-09-13 13:57:28', '2023-09-13 06:57:28', -1, 'superadmin', -1, NULL, 'O', 'N', '8b7a5f4811445', NULL),
-(385, 9, 'WQ-23080007', 2, 0, 'FG9900000001', 'L&B FTF-NOOF/BK DAY', 'L&B โคมไฟตั้งพื้นNOOF BK พร้อมหลอดLED 9D', 'FG01', 2, 'ชุด', 5, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-13 13:57:28', '2023-09-13 06:57:28', -1, 'superadmin', -1, NULL, 'O', 'S', '0929ea6121d91', NULL),
-(386, 9, 'WQ-23080007', 3, 0, 'FG1304000005', 'FTF-NOOF/BK', 'โคมไฟตั้งพื้น BLACK 1xE27', 'FG01', 2, 'ชุด', 5, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-13 13:57:28', '2023-09-13 06:57:28', -1, 'superadmin', -1, NULL, 'O', 'I', 'db0e95c71c503', '0929ea6121d91'),
-(387, 9, 'WQ-23080007', 4, 0, 'FG3101090013', 'LED-LA609D/LTO', 'NA-หลอดไฟ-LED-Bulbs-LTO', 'FG01', 2, 'หลอด', 80, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-13 13:57:28', '2023-09-13 06:57:28', -1, 'superadmin', -1, NULL, 'O', 'I', '80ad48c365ae0', '0929ea6121d91'),
-(388, 9, 'WQ-23080007', 5, 0, 'FG9900000159', 'L&B UD-653/BK LA60ES7/30X2', 'L&B UD-653/BK และ PH-LA60ES7/30x2', 'FG01', 4, 'ชุด', 5, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-13 13:57:28', '2023-09-13 06:57:28', -1, 'superadmin', -1, NULL, 'O', 'S', '1f469f7f8219d', NULL),
-(389, 9, 'WQ-23080007', 6, 0, 'FG1210010114', 'UD-653/BK', 'โคมผนังภายนอก 2xE27', 'FG01', 4, 'ชุด', 5, '0.000000', '1000.0000', '1000.0000', '1000.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '70.0000', '280.0000', '4000.000000', '4000.00', '2023-09-13 13:57:28', '2023-09-13 06:57:28', -1, 'superadmin', -1, NULL, 'O', 'I', '148d0a0990eb4', '1f469f7f8219d'),
-(390, 9, 'WQ-23080007', 7, 0, 'FG3101110062', 'PH-LA60ES7/30', 'PH-หลอดLED-A60 ESS 7W 3000K', 'FG01', 8, 'หลอด', 80, '0.000000', '45.0000', '45.0000', '45.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '3.1500', '25.2000', '360.000000', '360.00', '2023-09-13 13:57:28', '2023-09-13 06:57:28', -1, 'superadmin', -1, NULL, 'O', 'I', 'c912203887605', '1f469f7f8219d'),
-(391, 9, 'WQ-23080007', 8, 0, 'FG2101000003', 'EBG888', 'PANA-BELL PANASONIC', 'FG01', 1, 'ตัว', 15, '0.000000', '295.0000', '295.0000', '295.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '20.6500', '20.6500', '295.000000', '295.00', '2023-09-13 13:57:28', '2023-09-13 06:57:28', -1, 'superadmin', -1, NULL, 'O', 'N', '04cfff67fa0b4', NULL),
-(396, 10, 'WQ-23090001', 0, 0, 'FG1101010001', 'C-015-10', 'ชุดโคมไฟเพดานกลม2xE27 Size235mm. H80mm.', 'FG01', 1, 'ชุด', 5, '0.000000', '200.0000', '100.0000', '200.0000', '50.00', '0.00', '0.00', '50.00', '50', '50.00', '50.00', '100.0000', '100.0000', 'S07', '7.00', '7.0000', '7.0000', '200.000000', '100.00', '2023-09-15 14:21:20', '2023-09-15 07:21:20', -1, 'superadmin', 1, NULL, 'O', 'N', '4fd33ec437cff', NULL),
-(397, 10, 'WQ-23090001', 1, 0, 'FG9900000023', 'L&B FTT-NOOF/BK WARM', 'L&B โคมไฟตั้งโต๊ะ NOOF BK พร้อมหลอดLED 9W', 'FG01', 1, 'ชุด', 5, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-15 14:21:20', '2023-09-15 07:21:20', -1, 'superadmin', 1, NULL, 'O', 'S', '52173b276da0b', NULL),
-(398, 10, 'WQ-23090001', 2, 0, 'FG1305000015', 'FTT-NOOF/BK', 'โคมไฟตั้งโต๊ะ BLACK 1xE27', 'FG01', 1, 'ชุด', 5, '0.000000', '880.0000', '440.0000', '440.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '440.0000', '440.0000', 'S07', '7.00', '30.8000', '30.8000', '440.000000', '440.00', '2023-09-15 14:21:20', '2023-09-15 07:21:20', -1, 'superadmin', 1, NULL, 'O', 'I', '9a64df48aa339', '52173b276da0b'),
-(399, 10, 'WQ-23090001', 3, 0, 'FG3101090014', 'LED-LA609W/LTO', 'NA-หลอดไฟ-LED-Bulbs-LTO', 'FG01', 1, 'หลอด', 80, '0.000000', '90.0000', '45.0000', '45.0000', '50.00', '0.00', '0.00', '50.00', '50', '0.00', '50.00', '45.0000', '45.0000', 'S07', '7.00', '3.1500', '3.1500', '45.000000', '45.00', '2023-09-15 14:21:20', '2023-09-15 07:21:20', -1, 'superadmin', 1, NULL, 'O', 'I', '3d91adedf1dee', '52173b276da0b'),
-(412, 11, 'WQ-23090002', 0, 0, 'FG1101010001', 'C-015-10', 'ชุดโคมไฟเพดานกลม2xE27 Size235mm. H80mm.', 'FG01', 1, 'ชุด', 5, '108.000000', '200.0000', '100.0000', '200.0000', '50.00', '0.00', '0.00', '50.00', '50', '50.00', '50.00', '100.0000', '100.0000', 'S07', '7.00', '7.0000', '7.0000', '200.000000', '100.00', '2023-09-15 17:45:13', '2023-09-15 10:45:13', -1, 'superadmin', 0, NULL, 'O', 'N', 'ba47d9be3d796', NULL),
-(413, 11, 'WQ-23090002', 1, 0, 'FG1101010013', 'C-2007A/13', 'ชุดโคมไฟเพดานขอบเงินเหลี่ยม2xE27', 'FG01', 1, 'ชุด', 5, '0.000000', '300.0000', '150.0000', '300.0000', '50.00', '0.00', '0.00', '50.00', '50', '50.00', '50.00', '150.0000', '150.0000', 'S07', '7.00', '10.5000', '10.5000', '300.000000', '150.00', '2023-09-15 17:45:13', '2023-09-15 10:45:13', -1, 'superadmin', 0, NULL, 'O', 'N', '913e0d28859b8', NULL),
-(414, 11, 'WQ-23090002', 2, 0, 'FG9900000159', 'L&B UD-653/BK LA60ES7/30X2', 'L&B UD-653/BK และ PH-LA60ES7/30x2', 'FG01', 3, 'ชุด', 5, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-15 17:45:13', '2023-09-15 10:45:13', -1, 'superadmin', 0, NULL, 'O', 'S', '5a9d50ae934af', NULL),
-(415, 11, 'WQ-23090002', 3, 0, 'FG1210010114', 'UD-653/BK', 'โคมผนังภายนอก 2xE27', 'FG01', 3, 'ชุด', 5, '397.700000', '500.0000', '250.0000', '500.0000', '50.00', '0.00', '0.00', '50.00', '50', '50.00', '50.00', '250.0000', '750.0000', 'S07', '7.00', '17.5000', '52.5000', '1500.000000', '750.00', '2023-09-15 17:45:13', '2023-09-15 10:45:13', -1, 'superadmin', 0, NULL, 'O', 'I', '4d4f7546aeee0', '5a9d50ae934af'),
-(416, 11, 'WQ-23090002', 4, 0, 'FG3101110062', 'PH-LA60ES7/30', 'PH-หลอดLED-A60 ESS 7W 3000K', 'FG01', 6, 'หลอด', 80, '0.000000', '55.0000', '55.0000', '55.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '3.8500', '23.1000', '330.000000', '330.00', '2023-09-15 17:45:13', '2023-09-15 10:45:13', -1, 'superadmin', 0, NULL, 'O', 'I', '8aad51eaaca06', '5a9d50ae934af'),
-(417, 11, 'WQ-23090002', 5, 0, 'FG-Dummy', 'PH-LA60ES7/30++', 'PH-หลอดLED-A60 ESS 7W 3000K++', NULL, 1, 'หลอด', 80, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-15 17:45:13', '2023-09-15 10:45:13', -1, 'superadmin', 0, NULL, 'O', 'N', '95a7f1313975b', NULL),
-(418, 14, 'WQ-23090003', 0, 0, 'FG1101010001', 'C-015-10', 'ชุดโคมไฟเพดานกลม2xE27 Size235mm. H80mm.', NULL, 1, 'ชุด', 5, '108.000000', '200.0000', '100.0000', '200.0000', '50.00', '0.00', '0.00', '50.00', '50', '50.00', '50.00', '100.0000', '100.0000', 'S07', '7.00', '7.0000', '7.0000', '200.000000', '100.00', '2023-09-15 19:23:32', '2023-09-15 12:23:32', -1, 'superadmin', 0, NULL, 'O', 'N', 'ba47d9be3d796', NULL),
-(419, 14, 'WQ-23090003', 1, 0, 'FG1101010013', 'C-2007A/13', 'ชุดโคมไฟเพดานขอบเงินเหลี่ยม2xE27', NULL, 1, 'ชุด', 5, '0.000000', '300.0000', '150.0000', '300.0000', '50.00', '0.00', '0.00', '50.00', '50', '50.00', '50.00', '150.0000', '150.0000', 'S07', '7.00', '10.5000', '10.5000', '300.000000', '150.00', '2023-09-15 19:23:32', '2023-09-15 12:23:32', -1, 'superadmin', 0, NULL, 'O', 'N', '913e0d28859b8', NULL),
-(420, 14, 'WQ-23090003', 2, 0, 'FG9900000159', 'L&B UD-653/BK LA60ES7/30X2', 'L&B UD-653/BK และ PH-LA60ES7/30x2', NULL, 3, 'ชุด', 5, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-15 19:23:32', '2023-09-15 12:23:32', -1, 'superadmin', 0, NULL, 'O', 'S', '5a9d50ae934af', NULL),
-(421, 14, 'WQ-23090003', 3, 0, 'FG1210010114', 'UD-653/BK', 'โคมผนังภายนอก 2xE27', NULL, 3, 'ชุด', 5, '397.700000', '500.0000', '250.0000', '500.0000', '50.00', '0.00', '0.00', '50.00', '50', '50.00', '50.00', '250.0000', '750.0000', 'S07', '7.00', '17.5000', '52.5000', '1500.000000', '750.00', '2023-09-15 19:23:32', '2023-09-15 12:23:32', -1, 'superadmin', 0, NULL, 'O', 'I', '4d4f7546aeee0', '5a9d50ae934af'),
-(422, 14, 'WQ-23090003', 4, 0, 'FG3101110062', 'PH-LA60ES7/30', 'PH-หลอดLED-A60 ESS 7W 3000K', NULL, 6, 'หลอด', 80, '0.000000', '55.0000', '55.0000', '55.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '3.8500', '23.1000', '330.000000', '330.00', '2023-09-15 19:23:32', '2023-09-15 12:23:32', -1, 'superadmin', 0, NULL, 'O', 'I', '8aad51eaaca06', '5a9d50ae934af'),
-(423, 14, 'WQ-23090003', 5, 0, 'FG-Dummy', 'PH-LA60ES7/30++', 'PH-หลอดLED-A60 ESS 7W 3000K++', NULL, 1, 'หลอด', 80, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-15 19:23:32', '2023-09-15 12:23:32', -1, 'superadmin', 0, NULL, 'O', 'N', '95a7f1313975b', NULL),
-(424, 15, 'WQ-23090004', 0, 0, 'FG1101010001', 'C-015-10', 'ชุดโคมไฟเพดานกลม2xE27 Size235mm. H80mm.', NULL, 1, 'ชุด', 5, '108.000000', '200.0000', '100.0000', '200.0000', '50.00', '0.00', '0.00', '50.00', '50', '50.00', '50.00', '100.0000', '100.0000', 'S07', '7.00', '7.0000', '7.0000', '200.000000', '100.00', '2023-09-15 19:26:06', '2023-09-15 12:26:06', -1, 'superadmin', 0, NULL, 'O', 'N', 'ba47d9be3d796', NULL),
-(425, 15, 'WQ-23090004', 1, 0, 'FG1101010013', 'C-2007A/13', 'ชุดโคมไฟเพดานขอบเงินเหลี่ยม2xE27', NULL, 1, 'ชุด', 5, '0.000000', '300.0000', '150.0000', '300.0000', '50.00', '0.00', '0.00', '50.00', '50', '50.00', '50.00', '150.0000', '150.0000', 'S07', '7.00', '10.5000', '10.5000', '300.000000', '150.00', '2023-09-15 19:26:06', '2023-09-15 12:26:06', -1, 'superadmin', 0, NULL, 'O', 'N', '913e0d28859b8', NULL),
-(426, 15, 'WQ-23090004', 2, 0, 'FG9900000159', 'L&B UD-653/BK LA60ES7/30X2', 'L&B UD-653/BK และ PH-LA60ES7/30x2', NULL, 3, 'ชุด', 5, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-15 19:26:06', '2023-09-15 12:26:06', -1, 'superadmin', 0, NULL, 'O', 'S', '5a9d50ae934af', NULL),
-(427, 15, 'WQ-23090004', 3, 0, 'FG1210010114', 'UD-653/BK', 'โคมผนังภายนอก 2xE27', NULL, 3, 'ชุด', 5, '397.700000', '500.0000', '250.0000', '500.0000', '50.00', '0.00', '0.00', '50.00', '50', '50.00', '50.00', '250.0000', '750.0000', 'S07', '7.00', '17.5000', '52.5000', '1500.000000', '750.00', '2023-09-15 19:26:06', '2023-09-15 12:26:06', -1, 'superadmin', 0, NULL, 'O', 'I', '4d4f7546aeee0', '5a9d50ae934af'),
-(428, 15, 'WQ-23090004', 4, 0, 'FG3101110062', 'PH-LA60ES7/30', 'PH-หลอดLED-A60 ESS 7W 3000K', NULL, 6, 'หลอด', 80, '0.000000', '55.0000', '55.0000', '55.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '3.8500', '23.1000', '330.000000', '330.00', '2023-09-15 19:26:06', '2023-09-15 12:26:06', -1, 'superadmin', 0, NULL, 'O', 'I', '8aad51eaaca06', '5a9d50ae934af'),
-(429, 15, 'WQ-23090004', 5, 0, 'FG-Dummy', 'PH-LA60ES7/30++', 'PH-หลอดLED-A60 ESS 7W 3000K++', NULL, 1, 'หลอด', 80, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-15 19:26:06', '2023-09-15 12:26:06', -1, 'superadmin', 0, NULL, 'O', 'N', '95a7f1313975b', NULL),
-(430, 16, 'WQ-23090005', 0, 0, 'FG1101010001', 'C-015-10', 'ชุดโคมไฟเพดานกลม2xE27 Size235mm. H80mm.', NULL, 1, 'ชุด', 5, '108.000000', '200.0000', '100.0000', '200.0000', '50.00', '0.00', '0.00', '50.00', '50', '50.00', '50.00', '100.0000', '100.0000', 'S07', '7.00', '7.0000', '7.0000', '200.000000', '100.00', '2023-09-15 19:26:42', '2023-09-15 12:26:42', -1, 'superadmin', 0, NULL, 'O', 'N', 'ba47d9be3d796', NULL),
-(431, 16, 'WQ-23090005', 1, 0, 'FG1101010013', 'C-2007A/13', 'ชุดโคมไฟเพดานขอบเงินเหลี่ยม2xE27', NULL, 1, 'ชุด', 5, '0.000000', '300.0000', '150.0000', '300.0000', '50.00', '0.00', '0.00', '50.00', '50', '50.00', '50.00', '150.0000', '150.0000', 'S07', '7.00', '10.5000', '10.5000', '300.000000', '150.00', '2023-09-15 19:26:42', '2023-09-15 12:26:42', -1, 'superadmin', 0, NULL, 'O', 'N', '913e0d28859b8', NULL),
-(432, 16, 'WQ-23090005', 2, 0, 'FG9900000159', 'L&B UD-653/BK LA60ES7/30X2', 'L&B UD-653/BK และ PH-LA60ES7/30x2', NULL, 3, 'ชุด', 5, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-15 19:26:42', '2023-09-15 12:26:42', -1, 'superadmin', 0, NULL, 'O', 'S', '5a9d50ae934af', NULL),
-(433, 16, 'WQ-23090005', 3, 0, 'FG1210010114', 'UD-653/BK', 'โคมผนังภายนอก 2xE27', NULL, 3, 'ชุด', 5, '397.700000', '500.0000', '250.0000', '500.0000', '50.00', '0.00', '0.00', '50.00', '50', '50.00', '50.00', '250.0000', '750.0000', 'S07', '7.00', '17.5000', '52.5000', '1500.000000', '750.00', '2023-09-15 19:26:42', '2023-09-15 12:26:42', -1, 'superadmin', 0, NULL, 'O', 'I', '4d4f7546aeee0', '5a9d50ae934af'),
-(434, 16, 'WQ-23090005', 4, 0, 'FG3101110062', 'PH-LA60ES7/30', 'PH-หลอดLED-A60 ESS 7W 3000K', NULL, 6, 'หลอด', 80, '0.000000', '55.0000', '55.0000', '55.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '3.8500', '23.1000', '330.000000', '330.00', '2023-09-15 19:26:42', '2023-09-15 12:26:42', -1, 'superadmin', 0, NULL, 'O', 'I', '8aad51eaaca06', '5a9d50ae934af'),
-(435, 16, 'WQ-23090005', 5, 0, 'FG-Dummy', 'PH-LA60ES7/30++', 'PH-หลอดLED-A60 ESS 7W 3000K++', NULL, 1, 'หลอด', 80, '0.000000', '0.0000', '0.0000', '0.0000', '0.00', '0.00', '0.00', '0.00', '0', '0.00', '0.00', '0.0000', '0.0000', 'S07', '7.00', '0.0000', '0.0000', '0.000000', '0.00', '2023-09-15 19:26:42', '2023-09-15 12:26:42', -1, 'superadmin', 0, NULL, 'O', 'N', '95a7f1313975b', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sale_person`
---
-
-CREATE TABLE `sale_person` (
-  `id` int(11) NOT NULL,
-  `name` varchar(155) NOT NULL,
-  `emp_id` int(11) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
-  `date_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `last_sync` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `sale_person`
---
-
-INSERT INTO `sale_person` (`id`, `name`, `emp_id`, `active`, `date_upd`, `last_sync`) VALUES
-(-1, '-No Sales Employee-', 0, 1, '2022-07-27 13:50:09', NULL),
-(1, 'ณัฐปภัสร์', 0, 1, '2022-08-03 02:42:38', NULL),
-(2, 'ลิขิต', 0, 1, '2022-08-03 02:42:38', NULL),
-(3, 'สุภาพร', 0, 1, '2022-08-03 02:42:38', NULL),
-(4, 'ธมนพัชร์', 0, 1, '2022-08-03 02:42:38', NULL),
-(5, 'มัญชุสา', 0, 1, '2022-08-03 02:42:38', NULL),
-(6, 'เบญจพร', 0, 1, '2022-08-03 02:42:38', NULL),
-(7, 'สาธินี', 0, 1, '2022-08-03 02:42:38', NULL),
-(8, 'กัมปนาท', 0, 1, '2022-08-03 02:42:38', NULL),
-(9, 'สฐิดาภรณ์', 0, 1, '2022-08-03 02:42:38', NULL),
-(10, 'ธิดารัตน์', 0, 1, '2022-08-03 02:42:38', NULL),
-(11, 'กานต์พิชชา', 0, 1, '2022-08-03 02:42:38', NULL),
-(12, 'ขวัญตา', 0, 1, '2022-08-03 02:42:38', NULL),
-(14, 'ปิยะพร', 0, 1, '2022-08-03 02:42:38', NULL),
-(15, 'วราภรณ์', 0, 1, '2022-08-03 02:42:38', NULL),
-(16, 'พัทธนันท์', 0, 1, '2022-08-03 02:42:38', NULL),
-(17, 'ณิชกานต์', 0, 0, '2022-08-03 02:42:38', NULL),
-(18, 'จินตวีร์', 0, 1, '2022-08-03 02:42:38', NULL),
-(19, 'ธิดาเทพ', 0, 1, '2022-08-03 02:42:38', NULL),
-(20, 'ยุรนันท์', 0, 1, '2022-08-03 02:42:38', NULL),
-(21, 'เทพฤทธิ์', 0, 1, '2022-08-03 02:42:38', NULL),
-(22, 'วัชรวีร์', 0, 1, '2022-08-03 02:42:38', NULL),
-(23, 'อุษา', 0, 1, '2022-08-03 02:42:38', NULL),
-(24, 'วีรวรรณ', 0, 1, '2022-08-03 02:42:38', NULL),
-(25, 'พันธพัฒน์', 0, 1, '2022-08-03 02:42:38', NULL),
-(26, 'เฉลิมกิต', 0, 1, '2022-08-03 02:42:38', NULL),
-(27, 'ธัชพล', 0, 1, '2022-08-03 02:42:38', NULL),
-(28, 'อรรนพ', 0, 1, '2022-08-03 02:42:38', NULL),
-(32, 'Waowaew B.', 0, 1, '2022-08-03 02:42:38', NULL),
-(33, 'ปรียา', 0, 1, '2022-08-03 02:42:38', NULL),
-(34, 'Sukonthip C.', 0, 1, '2022-08-03 02:42:38', NULL),
-(35, 'Navarat M.', 0, 1, '2022-08-03 02:42:38', NULL),
-(36, 'Sutat R.', 0, 1, '2022-08-03 02:42:38', NULL),
-(37, 'Khanittha S.', 0, 1, '2022-08-03 02:42:38', NULL),
-(38, 'Ananya D.', 0, 1, '2022-08-03 02:42:38', NULL),
-(43, 'พัชรี', 0, 1, '2022-08-03 02:42:38', NULL),
-(44, 'มัศยา', 0, 1, '2022-08-03 02:42:38', NULL),
-(45, 'นลัทพร', 0, 1, '2022-08-03 02:42:38', NULL),
-(46, 'พาริศา', 0, 1, '2022-08-03 02:42:38', NULL),
-(47, 'ดวงใจ', 0, 1, '2022-08-03 02:42:38', NULL),
-(48, 'สุวิมล', 0, 1, '2022-08-03 02:42:38', NULL),
-(50, 'ศุภชัย', 0, 1, '2022-08-03 02:42:38', NULL),
-(53, 'ทรรศนีย์', 0, 1, '2022-08-03 02:42:38', NULL),
-(54, 'สกาวรัตน์', 0, 1, '2022-08-03 02:42:38', NULL),
-(55, 'Sathitree K.', 0, 1, '2022-08-03 02:42:38', NULL),
-(56, 'ปุณิกา', 0, 1, '2022-08-03 02:42:38', NULL),
-(57, 'สุภัทรา', 0, 0, '2022-08-03 02:42:38', NULL),
-(58, '1131000', 0, 1, '2022-08-03 02:42:38', NULL),
-(65, '2141510', 0, 1, '2022-08-03 02:42:38', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sale_team`
---
-
-CREATE TABLE `sale_team` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `sale_team`
---
-
-INSERT INTO `sale_team` (`id`, `name`) VALUES
-(-1, '-- No Sales Team --'),
-(1, 'Team 1'),
-(2, 'Team 2');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `signature`
---
-
-CREATE TABLE `signature` (
-  `emp_id` int(11) NOT NULL,
-  `firstName` varchar(100) NOT NULL,
-  `lastName` varchar(100) NOT NULL,
-  `image_data` mediumtext,
-  `date_upd` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `signature`
---
-
-INSERT INTO `signature` (`emp_id`, `firstName`, `lastName`, `image_data`, `date_upd`) VALUES
-(12, 'ฐปนนท์', 'แจ้งเชื้อขำ', 'data:image/png;base64,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', '2023-08-24 07:38:18');
-INSERT INTO `signature` (`emp_id`, `firstName`, `lastName`, `image_data`, `date_upd`) VALUES
-(15, 'นาริน', 'เกศกะงาม', 'data:image/png;base64,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', '2023-08-24 06:31:47');
+(3, 'Administrator'),
+(-987654321, 'Super Admin'),
+(2, 'User');
 
 -- --------------------------------------------------------
 
@@ -8517,6 +7932,197 @@ INSERT INTO `sync_logs` (`id`, `code`, `get_item`, `update_item`, `date_upd`) VA
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `transfer`
+--
+
+CREATE TABLE `transfer` (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) NOT NULL,
+  `DocDate` date DEFAULT NULL,
+  `DocDueDate` date DEFAULT NULL,
+  `TaxDate` date DEFAULT NULL,
+  `fromWhsCode` varchar(8) NOT NULL,
+  `toWhsCode` varchar(8) NOT NULL,
+  `BaseEntry` int(11) DEFAULT NULL COMMENT 'Reference to Transfer request Entry',
+  `BasePrefix` varchar(10) DEFAULT NULL,
+  `BaseRef` int(11) DEFAULT NULL COMMENT 'Reference to Transfer Request Number',
+  `Status` tinyint(1) NOT NULL DEFAULT '-1' COMMENT '-1 = draft \r\n0 = pending \r\n1 = success \r\n2 = canceled \r\n3 = export failed	',
+  `DocEntry` int(11) DEFAULT NULL COMMENT 'SAP Transfer Entry',
+  `DocPrefix` varchar(10) DEFAULT NULL,
+  `DocNum` int(11) DEFAULT NULL COMMENT 'SAP Transfer DocNum',
+  `Create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user` varchar(50) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `upd_user_id` int(11) DEFAULT NULL,
+  `Update_at` datetime DEFAULT NULL,
+  `update_user` varchar(50) DEFAULT NULL,
+  `session_uuid` varchar(36) DEFAULT NULL,
+  `session_expire` datetime DEFAULT NULL,
+  `remark` varchar(254) DEFAULT NULL,
+  `must_approve` tinyint(1) NOT NULL DEFAULT '0',
+  `approved` varchar(1) NOT NULL DEFAULT 'P' COMMENT 'P=pending, \r\nA=approved, \r\nR=reject, \r\nS = No need to approve',
+  `approver` varchar(50) DEFAULT NULL,
+  `isDiff` tinyint(1) NOT NULL DEFAULT '0',
+  `isOverWrite` tinyint(1) NOT NULL DEFAULT '0',
+  `Message` text,
+  `isSaved` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'เคยบันทึกไปแล้วหรือยัง'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `transfer`
+--
+
+INSERT INTO `transfer` (`id`, `code`, `DocDate`, `DocDueDate`, `TaxDate`, `fromWhsCode`, `toWhsCode`, `BaseEntry`, `BasePrefix`, `BaseRef`, `Status`, `DocEntry`, `DocPrefix`, `DocNum`, `Create_at`, `user`, `user_id`, `upd_user_id`, `Update_at`, `update_user`, `session_uuid`, `session_expire`, `remark`, `must_approve`, `approved`, `approver`, `isDiff`, `isOverWrite`, `Message`, `isSaved`) VALUES
+(1, 'WT-23110001', '2023-11-07', '2023-11-07', '2023-11-07', 'W-SC', 'W-RD', 4045, 'TFQP', 123100620, 0, NULL, NULL, NULL, '2023-11-07 19:18:04', 'superadmin', -1, NULL, NULL, NULL, NULL, NULL, 'Test', 1, 'R', 'superadmin', 0, 0, 'No reason', 0),
+(2, 'WT-23110002', '2023-11-16', '2023-11-17', '2023-11-16', 'W-SC', 'W-PD', 4085, 'TFQP', 123100660, 2, NULL, NULL, NULL, '2023-11-15 19:46:30', 'superadmin', -1, NULL, NULL, NULL, NULL, NULL, 'ทดสอบ', 0, 'S', NULL, 0, 0, NULL, 0),
+(3, 'WT-23120001', '2023-12-07', '2023-12-07', '2023-12-07', 'W-SC', 'W-PD', 4081, 'TFQP', 123100656, 1, 1, NULL, 22000001, '2023-12-07 11:14:17', 'superadmin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'A', 'superadmin', 0, 0, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transfer_details`
+--
+
+CREATE TABLE `transfer_details` (
+  `id` int(11) NOT NULL,
+  `transfer_id` int(11) NOT NULL,
+  `transfer_code` varchar(20) NOT NULL,
+  `LineNum` int(5) NOT NULL,
+  `BaseRef` varchar(16) DEFAULT NULL,
+  `BaseEntry` int(11) DEFAULT NULL,
+  `BaseLine` int(11) NOT NULL,
+  `LineStatus` varchar(1) NOT NULL DEFAULT 'O' COMMENT 'O = Open, C=Close, D = Cancelled',
+  `ItemCode` varchar(50) NOT NULL,
+  `Dscription` varchar(200) DEFAULT NULL,
+  `ReceiptNo` varchar(50) DEFAULT NULL,
+  `Qty` decimal(19,6) NOT NULL COMMENT 'Transfer Qty',
+  `fromWhsCode` varchar(8) DEFAULT NULL,
+  `toWhsCode` varchar(8) DEFAULT NULL,
+  `unitMsr` varchar(100) DEFAULT NULL,
+  `numPerMsr` decimal(19,6) NOT NULL DEFAULT '1.000000',
+  `unitMsr2` varchar(100) DEFAULT NULL,
+  `numPerMsr2` decimal(19,6) NOT NULL DEFAULT '1.000000',
+  `UomEntry` int(11) DEFAULT NULL,
+  `UomCode` varchar(20) DEFAULT NULL,
+  `UomEntry2` int(11) DEFAULT NULL,
+  `UomCode2` varchar(20) DEFAULT NULL,
+  `valid` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int(11) DEFAULT NULL,
+  `update_at` datetime DEFAULT NULL,
+  `upd_user_id` int(11) DEFAULT NULL,
+  `checker_uid` varchar(32) DEFAULT NULL,
+  `weight` decimal(19,6) NOT NULL DEFAULT '0.000000' COMMENT 'นน. อ่านจากเครื่องชั่ง',
+  `deviceUnit` varchar(50) DEFAULT NULL COMMENT 'หน่วยของเครื่องชั่ง'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `transfer_details`
+--
+
+INSERT INTO `transfer_details` (`id`, `transfer_id`, `transfer_code`, `LineNum`, `BaseRef`, `BaseEntry`, `BaseLine`, `LineStatus`, `ItemCode`, `Dscription`, `ReceiptNo`, `Qty`, `fromWhsCode`, `toWhsCode`, `unitMsr`, `numPerMsr`, `unitMsr2`, `numPerMsr2`, `UomEntry`, `UomCode`, `UomEntry2`, `UomCode2`, `valid`, `create_at`, `user_id`, `update_at`, `upd_user_id`, `checker_uid`, `weight`, `deviceUnit`) VALUES
+(1, 1, 'WT-23110001', 1, '123100620', 4045, 0, 'O', 'RM-W-ALL-0L-0065', 'TEXAPON N 70T', '123465', '400.000000', 'W-SC', 'W-RD', 'กรัม', '1.000000', 'กิโลกรัม', '1000.000000', 26, 'กรัม', 1, 'กิโลกรัม', 0, '2023-11-16 22:14:50', -1, NULL, NULL, NULL, '0.000000', NULL),
+(2, 1, 'WT-23110001', 2, '123100620', 4045, 0, 'O', 'RM-W-ALL-0L-0065', 'TEXAPON N 70T', 'R0646/23', '100.000000', 'W-SC', 'W-RD', 'กรัม', '1.000000', 'กิโลกรัม', '1000.000000', 26, 'กรัม', 1, 'กิโลกรัม', 0, '2023-11-17 10:09:12', 1, NULL, NULL, NULL, '0.000000', NULL),
+(4, 2, 'WT-23110002', 2, '123100660', 4085, 4, 'D', 'PX-0C-0064', 'แม่สี D&C RED NO.6 BARIUM LAKE (1S-1-0240 Disperse 40%) for lip matte', '1111', '6.960000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-19 20:12:28', 1, NULL, NULL, NULL, '0.000000', NULL),
+(6, 2, 'WT-23110002', 4, '123100660', 4085, 13, 'D', 'RM-W-ALL-1F-0340', 'ROSE FRAGRANCE (501043)', '1111', '6.860000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กิโลกรัม', '1000.000000', 26, 'กรัม', 1, 'กิโลกรัม', 0, '2023-11-20 10:12:19', 1, NULL, NULL, '21232f297a57a5a743894a0e4a801fc3', '6.860000', 'กรัม'),
+(7, 2, 'WT-23110002', 5, '123100660', 4085, 5, 'D', 'PX-0C-0070', 'แม่สี D&C RED NO.7 CALCIUM LAKE K7121 (1S-1-0628 Disperse 38 35%) for lip matte', '1234', '6.750000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-20 12:24:17', 1, NULL, NULL, '1234', '6.750000', 'กรัม'),
+(8, 2, 'WT-23110002', 6, '123100660', 4085, 5, 'D', 'PX-0C-0070', 'แม่สี D&C RED NO.7 CALCIUM LAKE K7121 (1S-1-0628 Disperse 38 35%) for lip matte', '1122', '4.270000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-20 14:36:49', 1, NULL, NULL, '11222', '4.270000', 'กรัม'),
+(9, 2, 'WT-23110002', 7, '123100660', 4085, 0, 'D', 'PX-0B-0002', 'BASE INK LIQUID MATTE LIP (MU2625AA)', 'R0646/23', '86.930000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-21 13:21:22', -1, NULL, NULL, 'IX1', '86.930000', 'กรัม'),
+(10, 2, 'WT-23110002', 8, '123100660', 4085, 1, 'D', 'PX-0C-0055', 'แม่สี BBO-I2 (1S-1-0254 Disperse 50%) for lip matte', 'asd123/12', '4.250000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-21 13:23:25', -1, NULL, NULL, 'IX1', '4.250000', 'กรัม'),
+(12, 2, 'WT-23110002', 9, '123100660', 4085, 4, 'D', 'PX-0C-0064', 'แม่สี D&C RED NO.6 BARIUM LAKE (1S-1-0240 Disperse 40%) for lip matte', '123345', '9.090000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-27 21:57:26', -1, NULL, NULL, '21232f297a57a5a743894a0e4a801fc3', '9.090000', 'กรัม'),
+(13, 2, 'WT-23110002', 10, '123100660', 4085, 4, 'D', 'PX-0C-0064', 'แม่สี D&C RED NO.6 BARIUM LAKE (1S-1-0240 Disperse 40%) for lip matte', '11223', '9.030000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-27 21:58:07', -1, NULL, NULL, '21232f297a57a5a743894a0e4a801fc3', '9.030000', 'กรัม'),
+(14, 2, 'WT-23110002', 11, '123100660', 4085, 0, 'D', 'PX-0B-0002', 'BASE INK LIQUID MATTE LIP (MU2625AA)', '1234', '413.800000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-28 11:27:20', -1, NULL, NULL, 'IX1', '413.800000', 'กรัม'),
+(15, 2, 'WT-23110002', 12, '123100660', 4085, 0, 'D', 'PX-0B-0002', 'BASE INK LIQUID MATTE LIP (MU2625AA)', '12345', '413.770000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-28 11:27:39', -1, NULL, NULL, 'IX1', '413.770000', 'กรัม'),
+(16, 2, 'WT-23110002', 13, '123100660', 4085, 0, 'D', 'PX-0B-0002', 'BASE INK LIQUID MATTE LIP (MU2625AA)', '12345', '413.780000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-28 11:28:03', -1, NULL, NULL, 'IX1', '413.780000', 'กรัม'),
+(17, 2, 'WT-23110002', 14, '123100660', 4085, 0, 'D', 'PX-0B-0002', 'BASE INK LIQUID MATTE LIP (MU2625AA)', '1245', '728.720000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-28 11:33:14', -1, NULL, NULL, 'IX1', '728.720000', 'กรัม'),
+(20, 2, 'WT-23110002', 15, '123100660', 4085, 1, 'D', 'PX-0C-0055', 'แม่สี BBO-I2 (1S-1-0254 Disperse 50%) for lip matte', '1234', '0.750000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-28 11:43:50', -1, NULL, NULL, 'IX1', '0.750000', 'กรัม'),
+(21, 2, 'WT-23110002', 16, '123100660', 4085, 2, 'D', 'PX-0C-0058', 'แม่สี BRO-I2 (1S-1-0230/1 Disperse 61.54%) for lip matte', '1111', '128.000000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-28 11:44:31', -1, NULL, NULL, 'IX1', '128.000000', 'กรัม'),
+(22, 2, 'WT-23110002', 17, '123100660', 4085, 4, 'D', 'PX-0C-0064', 'แม่สี D&C RED NO.6 BARIUM LAKE (1S-1-0240 Disperse 40%) for lip matte', '1111', '93.170000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-28 11:45:45', -1, NULL, NULL, 'IX1', '93.170000', 'กรัม'),
+(23, 2, 'WT-23110002', 18, '123100660', 4085, 3, 'D', 'PX-0C-0059', 'แม่สี MANGANESE VIOLET (1S-1-0232 Disperse 50%) for lip matte', '111', '160.000000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-28 11:46:37', -1, NULL, NULL, 'IX1', '160.000000', 'กรัม'),
+(24, 2, 'WT-23110002', 19, '123100660', 4085, 5, 'D', 'PX-0C-0070', 'แม่สี D&C RED NO.7 CALCIUM LAKE K7121 (1S-1-0628 Disperse 38 35%) for lip matte', '1111', '1.730000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กรัม', '1.000000', 26, 'กรัม', 26, 'กรัม', 0, '2023-11-28 11:49:50', -1, NULL, NULL, 'IX1', '1.730000', 'กรัม'),
+(25, 2, 'WT-23110002', 20, '123100660', 4085, 6, 'D', 'RM-W-ALL-0L-0030', 'DL-ALPHA TOCOPHERYL ACETATE', '111', '2.500000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กิโลกรัม', '1000.000000', 26, 'กรัม', 1, 'กิโลกรัม', 0, '2023-11-28 11:53:21', -1, NULL, NULL, 'IX1', '2.500000', 'กรัม'),
+(26, 2, 'WT-23110002', 21, '123100660', 4085, 7, 'D', 'RM-W-ALL-0L-0117', 'POMACE OLIVE OIL COSMETIC GRADE', '1234', '2.500000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กิโลกรัม', '1000.000000', 26, 'กรัม', 1, 'กิโลกรัม', 0, '2023-11-28 11:54:08', -1, NULL, NULL, 'IX1', '2.500000', 'กรัม'),
+(27, 2, 'WT-23110002', 22, '123100660', 4085, 8, 'D', 'RM-W-ALL-0L-0120', 'VIRGIN ARGAN OIL', '111', '2.500000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กิโลกรัม', '1000.000000', 26, 'กรัม', 1, 'กิโลกรัม', 0, '2023-11-28 12:09:27', -1, NULL, NULL, 'IX1', '2.500000', 'กรัม'),
+(28, 2, 'WT-23110002', 23, '123100660', 4085, 9, 'D', 'RM-W-ALL-0L-0168', 'CORUM 8816', '', '0.025000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กิโลกรัม', '1000.000000', 26, 'กรัม', 1, 'กิโลกรัม', 0, '2023-11-28 12:11:33', -1, NULL, NULL, 'IX1', '0.025000', 'กรัม'),
+(29, 2, 'WT-23110002', 24, '123100660', 4085, 10, 'D', 'RM-W-ALL-0L-0173', 'ROSE HIP OIL (ROSA RABIGINOSA)', '', '0.025000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กิโลกรัม', '1000.000000', 26, 'กรัม', 1, 'กิโลกรัม', 0, '2023-11-28 12:11:55', -1, NULL, NULL, 'IX1', '0.025000', 'กรัม'),
+(34, 2, 'WT-23110002', 25, '123100660', 4085, 11, 'D', 'RM-W-ALL-1L-0042', 'NIKKOL VC-IP', '1111', '0.025000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กิโลกรัม', '1000.000000', 26, 'กรัม', 1, 'กิโลกรัม', 0, '2023-11-28 12:19:18', -1, NULL, NULL, 'IX1', '0.025000', 'กรัม'),
+(35, 2, 'WT-23110002', 26, '123100660', 4085, 12, 'D', 'RM-W-ALL-1F-0102', 'PEPERMINT OIL', '1111', '1.250000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กิโลกรัม', '1000.000000', 26, 'กรัม', 1, 'กิโลกรัม', 0, '2023-11-28 12:19:35', -1, NULL, NULL, 'IX1', '1.250000', 'กรัม'),
+(36, 2, 'WT-23110002', 27, '123100660', 4085, 13, 'D', 'RM-W-ALL-1F-0340', 'ROSE FRAGRANCE (501043)', '1111', '1.640000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กิโลกรัม', '1000.000000', 26, 'กรัม', 1, 'กิโลกรัม', 0, '2023-11-28 12:19:59', -1, NULL, NULL, 'IX1', '1.640000', 'กรัม'),
+(37, 1, 'WT-23110001', 3, '123100620', 4045, 1, 'O', 'RM-W-ALL-0L-0066', 'TC-CAB 35 (COCAMIDOPROPYL BETAINE 30%)', 'ssaf', '200.000000', 'W-SC', 'W-RD', 'กรัม', '1.000000', 'กิโลกรัม', '1000.000000', 26, 'กรัม', 1, 'กิโลกรัม', 0, '2023-11-28 20:32:08', -1, NULL, NULL, 'IX1', '200.000000', 'กรัม'),
+(38, 3, 'WT-23120001', 1, '123100656', 4081, 0, 'C', 'RM-W-ALL-0S-0005', 'METHYLPARABEN', '1111', '52.000000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กิโลกรัม', '1000.000000', 26, 'กรัม', 1, 'กิโลกรัม', 0, '2023-12-07 11:17:36', -1, NULL, NULL, 'IX', '0.052000', 'กิโลกรัม'),
+(40, 3, 'WT-23120001', 2, '123100656', 4081, 1, 'C', 'RM-W-ALL-0S-0016', 'SERICITE FC (MICA)', '1111', '10000.000000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กิโลกรัม', '1000.000000', 26, 'กรัม', 1, 'กิโลกรัม', 0, '2023-12-07 11:19:14', -1, NULL, NULL, 'IX1', '10.000000', 'กิโลกรัม'),
+(42, 3, 'WT-23120001', 4, '123100656', 4081, 1, 'C', 'RM-W-ALL-0S-0016', 'SERICITE FC (MICA)', 'R3287/23', '6650.000000', 'W-SC', 'W-PD', 'กรัม', '1.000000', 'กิโลกรัม', '1000.000000', 26, 'กรัม', 1, 'กิโลกรัม', 0, '2023-12-07 11:55:42', -1, NULL, NULL, '3763231', '6.650000', 'กิโลกรัม');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transfer_request_data`
+--
+
+CREATE TABLE `transfer_request_data` (
+  `id` int(11) NOT NULL,
+  `transfer_id` int(11) NOT NULL,
+  `transfer_code` varchar(20) NOT NULL,
+  `DocEntry` int(11) NOT NULL COMMENT 'OWTQ',
+  `DocNum` int(11) NOT NULL COMMENT 'OWTQ',
+  `LineNum` int(11) NOT NULL DEFAULT '0',
+  `ItemCode` varchar(50) NOT NULL,
+  `Dscription` varchar(200) NOT NULL,
+  `UomEntry` int(11) DEFAULT NULL,
+  `UomCode` varchar(20) DEFAULT NULL,
+  `unitMsr` varchar(100) DEFAULT NULL,
+  `NumPerMsr` decimal(19,6) NOT NULL DEFAULT '1.000000',
+  `UomEntry2` int(11) DEFAULT NULL,
+  `UomCode2` varchar(20) DEFAULT NULL,
+  `unitMsr2` varchar(100) DEFAULT NULL,
+  `NumPerMsr2` decimal(19,6) NOT NULL DEFAULT '1.000000',
+  `OpenQty` decimal(19,6) NOT NULL DEFAULT '0.000000' COMMENT 'ยอดตั้งต้นตอนสร้างเอกสารโอน',
+  `Qty` decimal(19,6) NOT NULL DEFAULT '0.000000' COMMENT 'ยอดรวมจากเอกสารโอนใบนี้',
+  `OriginalQty` decimal(19,6) DEFAULT NULL,
+  `OverwriteUser` varchar(50) DEFAULT NULL,
+  `OverwriteTime` datetime DEFAULT NULL,
+  `date_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_upd` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `transfer_request_data`
+--
+
+INSERT INTO `transfer_request_data` (`id`, `transfer_id`, `transfer_code`, `DocEntry`, `DocNum`, `LineNum`, `ItemCode`, `Dscription`, `UomEntry`, `UomCode`, `unitMsr`, `NumPerMsr`, `UomEntry2`, `UomCode2`, `unitMsr2`, `NumPerMsr2`, `OpenQty`, `Qty`, `OriginalQty`, `OverwriteUser`, `OverwriteTime`, `date_add`, `date_upd`) VALUES
+(1, 1, 'WT-23110001', 4045, 123100620, 0, 'RM-W-ALL-0L-0065', 'TEXAPON N 70T', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '500.000000', '500.000000', NULL, NULL, NULL, '2023-11-07 19:18:04', '2023-11-17 03:09:12'),
+(2, 1, 'WT-23110001', 4045, 123100620, 1, 'RM-W-ALL-0L-0066', 'TC-CAB 35 (COCAMIDOPROPYL BETAINE 30%)', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '200.000000', '200.000000', NULL, NULL, NULL, '2023-11-07 19:18:04', '2023-11-28 13:32:08'),
+(3, 1, 'WT-23110001', 4045, 123100620, 2, 'RM-W-ALL-0L-0186', 'SUPGUARD PE91', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '50.000000', '0.000000', NULL, NULL, NULL, '2023-11-07 19:18:04', NULL),
+(4, 2, 'WT-23110002', 4085, 123100660, 0, 'PX-0B-0002', 'BASE INK LIQUID MATTE LIP (MU2625AA)', 26, 'กรัม', 'กรัม', '1.000000', 26, 'กรัม', 'กรัม', '1.000000', '2057.000000', '2057.000000', '2057.675000', 'superadmin', '2023-11-22 20:42:49', '2023-11-15 19:46:30', '2023-11-28 04:33:14'),
+(5, 2, 'WT-23110002', 4085, 123100660, 1, 'PX-0C-0055', 'แม่สี BBO-I2 (1S-1-0254 Disperse 50%) for lip matte', 26, 'กรัม', 'กรัม', '1.000000', 26, 'กรัม', 'กรัม', '1.000000', '5.000000', '5.000000', NULL, NULL, NULL, '2023-11-15 19:46:30', '2023-11-28 04:43:50'),
+(6, 2, 'WT-23110002', 4085, 123100660, 2, 'PX-0C-0058', 'แม่สี BRO-I2 (1S-1-0230/1 Disperse 61.54%) for lip matte', 26, 'กรัม', 'กรัม', '1.000000', 26, 'กรัม', 'กรัม', '1.000000', '128.000000', '128.000000', '128.500000', 'superadmin', '2023-11-22 20:48:19', '2023-11-15 19:46:30', '2023-11-28 04:44:31'),
+(7, 2, 'WT-23110002', 4085, 123100660, 3, 'PX-0C-0059', 'แม่สี MANGANESE VIOLET (1S-1-0232 Disperse 50%) for lip matte', 26, 'กรัม', 'กรัม', '1.000000', 26, 'กรัม', 'กรัม', '1.000000', '160.000000', '160.000000', '160.500000', 'superadmin', '2023-11-22 20:47:23', '2023-11-15 19:46:30', '2023-11-28 04:46:37'),
+(8, 2, 'WT-23110002', 4085, 123100660, 4, 'PX-0C-0064', 'แม่สี D&C RED NO.6 BARIUM LAKE (1S-1-0240 Disperse 40%) for lip matte', 26, 'กรัม', 'กรัม', '1.000000', 26, 'กรัม', 'กรัม', '1.000000', '118.250000', '118.250000', NULL, NULL, NULL, '2023-11-15 19:46:30', '2023-11-28 04:45:45'),
+(9, 2, 'WT-23110002', 4085, 123100660, 5, 'PX-0C-0070', 'แม่สี D&C RED NO.7 CALCIUM LAKE K7121 (1S-1-0628 Disperse 38 35%) for lip matte', 26, 'กรัม', 'กรัม', '1.000000', 26, 'กรัม', 'กรัม', '1.000000', '12.750000', '12.750000', NULL, NULL, NULL, '2023-11-15 19:46:30', '2023-11-28 04:49:50'),
+(10, 2, 'WT-23110002', 4085, 123100660, 6, 'RM-W-ALL-0L-0030', 'DL-ALPHA TOCOPHERYL ACETATE', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '2.500000', '2.500000', NULL, NULL, NULL, '2023-11-15 19:46:30', '2023-11-28 04:53:21'),
+(11, 2, 'WT-23110002', 4085, 123100660, 7, 'RM-W-ALL-0L-0117', 'POMACE OLIVE OIL COSMETIC GRADE', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '2.500000', '2.500000', NULL, NULL, NULL, '2023-11-15 19:46:30', '2023-11-28 04:54:08'),
+(12, 2, 'WT-23110002', 4085, 123100660, 8, 'RM-W-ALL-0L-0120', 'VIRGIN ARGAN OIL', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '2.500000', '2.500000', NULL, NULL, NULL, '2023-11-15 19:46:30', '2023-11-28 05:09:27'),
+(13, 2, 'WT-23110002', 4085, 123100660, 9, 'RM-W-ALL-0L-0168', 'CORUM 8816', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '0.025000', '0.025000', NULL, NULL, NULL, '2023-11-15 19:46:30', '2023-11-28 05:11:33'),
+(14, 2, 'WT-23110002', 4085, 123100660, 10, 'RM-W-ALL-0L-0173', 'ROSE HIP OIL (ROSA RABIGINOSA)', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '0.025000', '0.025000', NULL, NULL, NULL, '2023-11-15 19:46:30', '2023-11-28 05:11:55'),
+(15, 2, 'WT-23110002', 4085, 123100660, 11, 'RM-W-ALL-1L-0042', 'NIKKOL VC-IP', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '0.025000', '0.025000', NULL, NULL, NULL, '2023-11-15 19:46:30', '2023-11-28 05:19:18'),
+(16, 2, 'WT-23110002', 4085, 123100660, 12, 'RM-W-ALL-1F-0102', 'PEPERMINT OIL', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '1.250000', '1.250000', NULL, NULL, NULL, '2023-11-15 19:46:30', '2023-11-28 05:19:35'),
+(17, 2, 'WT-23110002', 4085, 123100660, 13, 'RM-W-ALL-1F-0340', 'ROSE FRAGRANCE (501043)', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '8.500000', '8.500000', NULL, NULL, NULL, '2023-11-15 19:46:30', '2023-11-28 05:19:59'),
+(18, 3, 'WT-23120001', 4081, 123100656, 0, 'RM-W-ALL-0S-0005', 'METHYLPARABEN', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '52.000000', '52.000000', NULL, NULL, NULL, '2023-12-07 11:14:17', '2023-12-07 04:17:36'),
+(19, 3, 'WT-23120001', 4081, 123100656, 1, 'RM-W-ALL-0S-0016', 'SERICITE FC (MICA)', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '20287.000000', '16650.000000', '20287.800000', 'superadmin', '2023-12-07 11:59:33', '2023-12-07 11:14:17', '2023-12-07 04:59:33'),
+(20, 3, 'WT-23120001', 4081, 123100656, 2, 'RM-W-ALL-0S-0022', 'TALC POWDER 1000 MESH', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '7774.000000', '0.000000', NULL, NULL, NULL, '2023-12-07 11:14:17', NULL),
+(21, 3, 'WT-23120001', 4081, 123100656, 3, 'RM-W-ALL-0S-0024', 'SI01-2 TALC JA-46R', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '7633.600000', '0.000000', NULL, NULL, NULL, '2023-12-07 11:14:17', NULL),
+(22, 3, 'WT-23120001', 4081, 123100656, 4, 'RM-W-ALL-0S-0035', 'PROPYL PARABEN BP/EP', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '26.000000', '0.000000', NULL, NULL, NULL, '2023-12-07 11:14:17', NULL),
+(23, 3, 'WT-23120001', 4081, 123100656, 5, 'RM-W-ALL-0S-0047', 'TiO2 CR-50 AS', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '4570.800000', '0.000000', NULL, NULL, NULL, '2023-12-07 11:14:17', NULL),
+(24, 3, 'WT-23120001', 4081, 123100656, 6, 'RM-W-ALL-0C-0001', 'MICA AS', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '5075.200000', '0.000000', NULL, NULL, NULL, '2023-12-07 11:14:17', NULL),
+(25, 3, 'WT-23120001', 4081, 123100656, 7, 'RM-W-ALL-0C-0002', 'SI-2 BLACK BL-100', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '171.600000', '0.000000', NULL, NULL, NULL, '2023-12-07 11:14:17', NULL),
+(26, 3, 'WT-23120001', 4081, 123100656, 8, 'RM-W-ALL-0C-0004', 'SI-2 RED R-516L', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '75.400000', '0.000000', NULL, NULL, NULL, '2023-12-07 11:14:17', NULL),
+(27, 3, 'WT-23120001', 4081, 123100656, 9, 'RM-W-ALL-0C-0005', 'SI-2 YELLOW LLXLO', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '592.800000', '0.000000', NULL, NULL, NULL, '2023-12-07 11:14:17', NULL),
+(28, 3, 'WT-23120001', 4081, 123100656, 10, 'PX-0L-0002', 'BIDER B1 (BC2042A)', 26, 'กรัม', 'กรัม', '1.000000', 26, 'กรัม', 'กรัม', '1.000000', '5584.800000', '0.000000', NULL, NULL, NULL, '2023-12-07 11:14:17', NULL),
+(29, 3, 'WT-23120001', 4081, 123100656, 11, 'RM-W-ALL-1F-0070', 'TOPAZIA LF 9150579', 26, 'กรัม', 'กรัม', '1.000000', 1, 'กิโลกรัม', 'กิโลกรัม', '1000.000000', '156.000000', '0.000000', NULL, NULL, NULL, '2023-12-07 11:14:17', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -8528,27 +8134,23 @@ CREATE TABLE `user` (
   `uid` varchar(32) NOT NULL COMMENT 'Unique id',
   `id_profile` int(11) DEFAULT NULL,
   `emp_id` int(11) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
   `date_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `sale_id` int(11) DEFAULT '-1',
   `last_pass_change` date DEFAULT NULL,
   `force_reset` tinyint(1) NOT NULL DEFAULT '0',
-  `group_id` int(11) NOT NULL DEFAULT '0',
-  `level` int(11) NOT NULL DEFAULT '0',
-  `team_id` int(11) DEFAULT NULL
+  `group_id` int(11) NOT NULL DEFAULT '1',
+  `s_key` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `uname`, `pwd`, `name`, `uid`, `id_profile`, `emp_id`, `active`, `date_add`, `sale_id`, `last_pass_change`, `force_reset`, `group_id`, `level`, `team_id`) VALUES
-(-1, 'superadmin', '$2y$10$s.Ey6n.SIYRGq5wW.q/sJefuYVOU7pkbnA3X0XEN2ezKiTn11qk6u', 'Super Admin', 'IX1', -987654321, NULL, 1, '2019-12-01 21:39:10', -1, '2024-12-31', 0, 1, 1000, NULL),
-(1, 'admin', '$2y$10$u553rxGj.cy7S1MmaawvRuK4SOsZy/Z6D9Cc22SykTI7afJo8qoXC', 'Administrator', '21232f297a57a5a743894a0e4a801fc3', 1, 12, 1, '2023-08-05 16:58:19', -1, '2023-08-16', 0, 2, 100, -1),
-(2, 'Manager', '$2y$10$ZW4Wihjtv6cPxxZUJePwcuQ5a5TmDKqm65JWaK14hY.zwlik75EfW', 'Admin2', 'ae94be3cd532ce4a025884819eb08c98', 2, NULL, 1, '2023-08-05 17:06:39', 18, '2023-08-05', 1, 3, 10, -1),
-(4, 'loc1', '$2y$10$RcNVnNalclqONay0Uypu6OuLLPmgkXnuhp2MtK839IhzA4K56b2Ze', 'Logistic1', 'df38fce06ff4b84a630522b591f2a0f1', 4, NULL, 1, '2023-08-05 18:05:59', -1, '2023-08-05', 1, 5, 1, -1),
-(5, 'loc2', '$2y$10$l6y7Z.wvty74X3PD7m0C9OuQ3Sm3YyuBfFUvqx0jhn9lxtJXqAQ5i', 'Log2', 'f96c5e19af68e66f720bce415112229c', 4, NULL, 1, '2023-08-05 18:07:11', -1, '2023-08-05', 1, 5, 1, 1),
-(6, 'sales_01', '$2y$10$9iOH2wYvpjc/.ME9.RxUDOqFT87KiDwDH5VQjq9P2zU1C4ZxpMj6G', 'Sales 01', 'cc874c08df75e188524b0ec647bb5160', 6, 15, 1, '2023-08-16 12:32:27', 7, '2023-08-16', 0, 4, 1, 1);
+INSERT INTO `user` (`id`, `uname`, `pwd`, `name`, `uid`, `id_profile`, `emp_id`, `active`, `date_add`, `sale_id`, `last_pass_change`, `force_reset`, `group_id`, `s_key`) VALUES
+(-1, 'superadmin', '$2y$10$s.Ey6n.SIYRGq5wW.q/sJefuYVOU7pkbnA3X0XEN2ezKiTn11qk6u', 'Super Admin', 'IX1', -987654321, NULL, 1, '2019-12-01 21:39:10', -1, '2024-12-31', 0, 1, '$2y$10$CYGGCMTYgpT6nSiXMn5FsOByB7GS4k6WYPjg4j/3sRSJvxM3OOUp6'),
+(1, 'admin', '$2y$10$yFx8jlywogheN7tpDStWMeTfiq1frEBrreqJl2FATVFCUXYIV6vca', 'Administrator', '21232f297a57a5a743894a0e4a801fc3', 3, NULL, 1, '2023-10-31 11:13:03', -1, '2023-10-31', 0, 1, NULL),
+(2, 'user01', '$2y$10$jEcNzI4rRHlc/cJCtRBFZeBjuFI6w0Fpt2e.XR9AjharYUT9isgdi', 'User01', 'b75705d7e35e7014521a46b532236ec3', 2, NULL, 1, '2023-10-31 11:24:38', NULL, '2023-11-21', 0, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -8558,20 +8160,16 @@ INSERT INTO `user` (`id`, `uname`, `pwd`, `name`, `uid`, `id_profile`, `emp_id`,
 
 CREATE TABLE `user_group` (
   `id` int(11) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `level` int(11) NOT NULL
+  `name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user_group`
 --
 
-INSERT INTO `user_group` (`id`, `name`, `level`) VALUES
-(1, 'Super Admin', 1000),
-(2, 'Administrator', 100),
-(3, 'Manager', 10),
-(4, 'Sales', 1),
-(5, 'Logistic', 1);
+INSERT INTO `user_group` (`id`, `name`) VALUES
+(1, 'User'),
+(2, 'Administrator');
 
 --
 -- Indexes for dumped tables
@@ -8622,16 +8220,6 @@ ALTER TABLE `approve_rule`
   ADD KEY `maxDisc` (`maxDisc`);
 
 --
--- Indexes for table `channels`
---
-ALTER TABLE `channels`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `position` (`position`),
-  ADD KEY `active` (`active`),
-  ADD KEY `last_sync` (`last_sync`),
-  ADD KEY `code` (`code`);
-
---
 -- Indexes for table `config`
 --
 ALTER TABLE `config`
@@ -8644,6 +8232,14 @@ ALTER TABLE `config`
 ALTER TABLE `config_group`
   ADD PRIMARY KEY (`code`),
   ADD KEY `position` (`position`);
+
+--
+-- Indexes for table `contact_person`
+--
+ALTER TABLE `contact_person`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `CardCode` (`CardCode`),
+  ADD KEY `Name` (`Name`);
 
 --
 -- Indexes for table `doc_type`
@@ -8667,6 +8263,12 @@ ALTER TABLE `keys`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `logs_transfer`
+--
+ALTER TABLE `logs_transfer`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `menu`
 --
 ALTER TABLE `menu`
@@ -8682,9 +8284,10 @@ ALTER TABLE `menu`
 ALTER TABLE `menu_group`
   ADD PRIMARY KEY (`code`),
   ADD UNIQUE KEY `name` (`name`),
-  ADD UNIQUE KEY `position` (`position`),
   ADD KEY `isActive` (`active`),
-  ADD KEY `type` (`type`);
+  ADD KEY `type` (`type`),
+  ADD KEY `position` (`position`) USING BTREE,
+  ADD KEY `pm` (`pm`);
 
 --
 -- Indexes for table `menu_sub_group`
@@ -8692,30 +8295,6 @@ ALTER TABLE `menu_group`
 ALTER TABLE `menu_sub_group`
   ADD PRIMARY KEY (`code`),
   ADD KEY `group_code` (`group_code`);
-
---
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`code`),
-  ADD KEY `CardCode` (`CardCode`),
-  ADD KEY `CardName` (`CardName`),
-  ADD KEY `Status` (`Status`),
-  ADD KEY `DocNum` (`DocNum`),
-  ADD KEY `Approved` (`Approved`),
-  ADD KEY `sale_team` (`sale_team`),
-  ADD KEY `uname` (`uname`),
-  ADD KEY `SlpCode` (`SlpCode`),
-  ADD KEY `must_approve` (`must_approve`),
-  ADD KEY `Approver` (`Approver`),
-  ADD KEY `is_duplicate` (`is_duplicate`),
-  ADD KEY `SQDocNum` (`SqNo`),
-  ADD KEY `Channels` (`Channels`),
-  ADD KEY `Payment` (`Payment`),
-  ADD KEY `sale_reviewer` (`sale_reviewer`),
-  ADD KEY `DocEntry` (`DocEntry`),
-  ADD KEY `so_status` (`so_status`),
-  ADD KEY `last_sync` (`last_sync`);
 
 --
 -- Indexes for table `permission`
@@ -8732,74 +8311,6 @@ ALTER TABLE `profile`
   ADD UNIQUE KEY `name` (`name`);
 
 --
--- Indexes for table `quotation`
---
-ALTER TABLE `quotation`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `code` (`code`),
-  ADD KEY `CardCode` (`CardCode`),
-  ADD KEY `CardName` (`CardName`),
-  ADD KEY `Status` (`Status`),
-  ADD KEY `DocNum` (`DocNum`),
-  ADD KEY `Approved` (`Approved`),
-  ADD KEY `sale_team` (`sale_team`),
-  ADD KEY `uname` (`uname`),
-  ADD KEY `SlpCode` (`SlpCode`),
-  ADD KEY `must_approve` (`must_approve`),
-  ADD KEY `Approver` (`Approver`),
-  ADD KEY `is_duplicate` (`is_duplicate`),
-  ADD KEY `Payment` (`Payment`),
-  ADD KEY `DocEntry` (`DocEntry`),
-  ADD KEY `isReview` (`Review`),
-  ADD KEY `session_uuid` (`session_uuid`),
-  ADD KEY `session_expire` (`session_expire`);
-
---
--- Indexes for table `quotation_address`
---
-ALTER TABLE `quotation_address`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `quotation_code` (`quotation_code`);
-
---
--- Indexes for table `quotation_details`
---
-ALTER TABLE `quotation_details`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `LineNum` (`LineNum`),
-  ADD KEY `so_code_fk` (`quotation_code`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `uname` (`uname`),
-  ADD KEY `sale_team` (`sale_team`),
-  ADD KEY `type` (`type`),
-  ADD KEY `quotation_id` (`quotation_id`),
-  ADD KEY `LineStatus` (`LineStatus`),
-  ADD KEY `TreeType` (`TreeType`);
-
---
--- Indexes for table `sale_person`
---
-ALTER TABLE `sale_person`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `active` (`active`),
-  ADD KEY `name` (`name`),
-  ADD KEY `emp_id` (`emp_id`);
-
---
--- Indexes for table `sale_team`
---
-ALTER TABLE `sale_team`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `signature`
---
-ALTER TABLE `signature`
-  ADD PRIMARY KEY (`emp_id`),
-  ADD KEY `firstName` (`firstName`),
-  ADD KEY `lastName` (`lastName`);
-
---
 -- Indexes for table `sync_error_logs`
 --
 ALTER TABLE `sync_error_logs`
@@ -8813,6 +8324,54 @@ ALTER TABLE `sync_logs`
   ADD KEY `code` (`code`);
 
 --
+-- Indexes for table `transfer`
+--
+ALTER TABLE `transfer`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `code` (`code`),
+  ADD KEY `fromWhsCode` (`fromWhsCode`),
+  ADD KEY `toWhsCode` (`toWhsCode`),
+  ADD KEY `DocDate` (`DocDate`),
+  ADD KEY `Status` (`Status`),
+  ADD KEY `BaseRef` (`BaseRef`),
+  ADD KEY `BaseEntry` (`BaseEntry`),
+  ADD KEY `DocNum` (`DocNum`),
+  ADD KEY `session_uuid` (`session_uuid`),
+  ADD KEY `session_expire` (`session_expire`),
+  ADD KEY `Create_by` (`user`),
+  ADD KEY `must_approve` (`must_approve`),
+  ADD KEY `approved` (`approved`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `upd_user_id` (`upd_user_id`),
+  ADD KEY `isDiff` (`isDiff`),
+  ADD KEY `isOverWrite` (`isOverWrite`);
+
+--
+-- Indexes for table `transfer_details`
+--
+ALTER TABLE `transfer_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `transfer_id` (`transfer_id`),
+  ADD KEY `transfer_code` (`transfer_code`),
+  ADD KEY `LineNum` (`LineNum`),
+  ADD KEY `BaseRef` (`BaseRef`),
+  ADD KEY `BaseLine` (`BaseLine`),
+  ADD KEY `LineStatus` (`LineStatus`),
+  ADD KEY `ItemCode` (`ItemCode`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `upd_user_id` (`upd_user_id`),
+  ADD KEY `ReceiptNo` (`ReceiptNo`),
+  ADD KEY `checker_uid` (`checker_uid`);
+
+--
+-- Indexes for table `transfer_request_data`
+--
+ALTER TABLE `transfer_request_data`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `transfer_id` (`transfer_id`),
+  ADD KEY `LineNum` (`LineNum`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -8824,9 +8383,8 @@ ALTER TABLE `user`
   ADD KEY `id_employee` (`emp_id`),
   ADD KEY `sale_id` (`sale_id`),
   ADD KEY `group_id` (`group_id`),
-  ADD KEY `level` (`level`),
   ADD KEY `id_profile` (`id_profile`),
-  ADD KEY `team_id` (`team_id`);
+  ADD KEY `s_key` (`s_key`);
 
 --
 -- Indexes for table `user_group`
@@ -8842,7 +8400,7 @@ ALTER TABLE `user_group`
 -- AUTO_INCREMENT for table `access_logs`
 --
 ALTER TABLE `access_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `address_info`
@@ -8860,13 +8418,13 @@ ALTER TABLE `approver`
 -- AUTO_INCREMENT for table `approve_rule`
 --
 ALTER TABLE `approve_rule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT for table `channels`
+-- AUTO_INCREMENT for table `contact_person`
 --
-ALTER TABLE `channels`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+ALTER TABLE `contact_person`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `doc_type`
@@ -8887,40 +8445,22 @@ ALTER TABLE `keys`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `logs_transfer`
+--
+ALTER TABLE `logs_transfer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `permission`
 --
 ALTER TABLE `permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `quotation`
---
-ALTER TABLE `quotation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `quotation_address`
---
-ALTER TABLE `quotation_address`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
-
---
--- AUTO_INCREMENT for table `quotation_details`
---
-ALTER TABLE `quotation_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=436;
-
---
--- AUTO_INCREMENT for table `sale_team`
---
-ALTER TABLE `sale_team`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sync_error_logs`
@@ -8935,16 +8475,34 @@ ALTER TABLE `sync_logs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `transfer`
+--
+ALTER TABLE `transfer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `transfer_details`
+--
+ALTER TABLE `transfer_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT for table `transfer_request_data`
+--
+ALTER TABLE `transfer_request_data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_group`
 --
 ALTER TABLE `user_group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
