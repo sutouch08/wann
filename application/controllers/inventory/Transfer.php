@@ -140,44 +140,48 @@ class Transfer extends PS_Controller
 
           if(empty($transfer_code))
           {
-            //--- ไม่มีใบขอโอนที่เปิดค้างไว้ สามารถใช้ open qty จากใบขอโอนที่โหลดเข้ามาได้เลย
-            $details = $this->transfer_request_model->get_open_details($doc->DocEntry);
-
-            if( ! empty($details))
+            if( ! empty($doc->U_ProductionOrder))
             {
-              $this->db->trans_begin();
+              //--- ไม่มีใบขอโอนที่เปิดค้างไว้ สามารถใช้ open qty จากใบขอโอนที่โหลดเข้ามาได้เลย
+              $details = $this->transfer_request_model->get_open_details($doc->DocEntry);
 
-              //--- สร้างเอกสารใหม่
-              $code = $this->get_new_code($doc_date);
-              $arr = array(
-                'code' => $code,
-                'DocDate' => $doc_date,
-                'DocDueDate' => $due_date,
-                'TaxDate' => $tax_date,
-                'fromWhsCode' => empty($fromWhsCode) ? $doc->Filler : $fromWhsCode,
-                'toWhsCode' => empty($toWhsCode) ? $doc->toWhsCode : $toWhsCode,
-                'BaseEntry' => $doc->DocEntry,
-                'BasePrefix' => $doc->BeginStr,
-                'BaseRef' => $doc->DocNum,
-                'remark' => $remark,
-                'user' => $this->_user->uname
-              );
-
-              $id = $this->transfer_model->add($arr);
-
-              if( ! empty($id))
+              if( ! empty($details))
               {
-                //--- create request row data for regconsign
-                foreach($details as $rs)
-                {
-                  if($sc === FALSE)
-                  {
-                    break;
-                  }
+                $this->db->trans_begin();
 
-                  if($rs->OpenQty > 0)
+                //--- สร้างเอกสารใหม่
+                $code = $this->get_new_code($doc_date);
+
+                $arr = array(
+                  'code' => $code,
+                  'DocDate' => $doc_date,
+                  'DocDueDate' => $due_date,
+                  'TaxDate' => $tax_date,
+                  'fromWhsCode' => empty($fromWhsCode) ? $doc->Filler : $fromWhsCode,
+                  'toWhsCode' => empty($toWhsCode) ? $doc->toWhsCode : $toWhsCode,
+                  'BaseEntry' => $doc->DocEntry,
+                  'BasePrefix' => $doc->BeginStr,
+                  'BaseRef' => $doc->DocNum,
+                  'remark' => $remark,
+                  'user' => $this->_user->uname,
+                  'U_ProductionOrder' => $doc->U_ProductionOrder
+                );
+
+                $id = $this->transfer_model->add($arr);
+
+                if( ! empty($id))
+                {
+                  //--- create request row data for regconsign
+                  foreach($details as $rs)
                   {
-                    $arr = array(
+                    if($sc === FALSE)
+                    {
+                      break;
+                    }
+
+                    if($rs->OpenQty > 0)
+                    {
+                      $arr = array(
                       'transfer_id' => $id,
                       'transfer_code' => $code,
                       'DocEntry' => $doc->DocEntry, //--- Transfer request Entry
@@ -194,45 +198,51 @@ class Transfer extends PS_Controller
                       'unitMsr2' => $rs->unitMsr2,
                       'NumPerMsr2' => $rs->NumPerMsr2,
                       'OpenQty' => $rs->OpenQty
-                    );
+                      );
 
-                    if( ! $this->transfer_model->add_request_data_row($arr))
-                    {
-                      $sc = FALSE;
-                      $this->error = "เพิ่มรายการยอดตั้งต้นไม่สำเร็จ";
+                      if( ! $this->transfer_model->add_request_data_row($arr))
+                      {
+                        $sc = FALSE;
+                        $this->error = "เพิ่มรายการยอดตั้งต้นไม่สำเร็จ";
+                      }
                     }
                   }
                 }
-              }
-              else
-              {
-                $sc = FALSE;
-                $this->error = "สร้างเอกสารไม่สำเร็จ";
-              }
+                else
+                {
+                  $sc = FALSE;
+                  $this->error = "สร้างเอกสารไม่สำเร็จ";
+                }
 
-              if($sc === TRUE)
-              {
-                $this->db->trans_commit();
-                $arr = array(
+                if($sc === TRUE)
+                {
+                  $this->db->trans_commit();
+                  $arr = array(
                   'user_id' => $this->_user->id,
                   'uname' => $this->_user->uname,
                   'docType' => 'TR',
                   'docNum' => $code,
                   'action' => 'create',
                   'ip_address' => $_SERVER['REMOTE_ADDR']
-                );
+                  );
 
-                $this->user_model->add_logs($arr);
+                  $this->user_model->add_logs($arr);
+                }
+                else
+                {
+                  $this->db->trans_rollback();
+                }
               }
               else
               {
-                $this->db->trans_rollback();
+                $sc = FALSE;
+                $this->error = "ไม่พบรายการรอโอนย้าย : No Open items found";
               }
             }
             else
             {
               $sc = FALSE;
-              $this->error = "ไม่พบรายการรอโอนย้าย : No Open items found";
+              $this->error = "ไม่พบเลขที่ใบสั่งผลิต กรุณาตรวจสอบ";
             }
           }
           else
@@ -241,7 +251,6 @@ class Transfer extends PS_Controller
             $sc = FALSE;
             $this->error = "พบใบขอโอนย้ายถูกเปิดค้างไว้ที่ {$transfer_code}";
           }
-
         }
         else
         {
@@ -1073,6 +1082,38 @@ class Transfer extends PS_Controller
   }
 
 
+  public function is_exists_receipt_no()
+  {
+    $sc = TRUE;
+    $item_code = $this->input->post('item_code');
+    $receiptNo = $this->input->post('receiptNo');
+    $warehouse_code = $this->input->post('warehouse_code');
+
+    if( ! empty($item_code) && ! empty($receiptNo))
+    {
+      $exists = $this->transfer_model->is_exists_receipt_no($item_code, $receiptNo, $warehouse_code);
+
+      if( ! $exists)
+      {
+        $sc = FALSE;
+        $this->error = "ไม่พบเลขที่รับเข้า {$receiptNo} ของ {$item_code} ในคลัง {$warehouse_code}";
+      }
+    }
+    else
+    {
+      $sc = FALSE;
+      set_error('required');
+    }
+
+    $arr = array(
+      'status' => $sc === TRUE ? 'success' : 'failed',
+      'message' => $sc === TRUE ? 'success' : $this->error
+    );
+
+    echo json_encode($arr);
+  }
+
+
   public function do_export()
   {
     $sc = TRUE;
@@ -1196,6 +1237,84 @@ class Transfer extends PS_Controller
 
     return $new_code;
   }
+
+
+  public function dump_json($id)
+  {
+    $sc = TRUE;
+    $doc = $this->transfer_model->get($id);
+    $details = $this->transfer_model->get_details($id);
+
+    if(! empty($doc) && ! empty($details))
+    {
+
+      $ds = array(
+        'U_WEBCODE' => $doc->code,
+        'DocType' => 'I',
+        'CANCELED' => 'N',
+        'DocDate' => sap_date($doc->DocDate, TRUE),
+        'DocDueDate' => sap_date($doc->DocDueDate, TRUE),
+        'TaxDate' => sap_date($doc->TaxDate, TRUE),
+        'CardCode' => NULL,
+        'CardName' => NULL,
+        'VatPercent' => 0.000000,
+        'VatSum' => 0.000000,
+        'VatSumFc' => 0.000000,
+        'DiscPrcnt' => 0.000000,
+        'DiscSum' => 0.000000,
+        'DiscSumFC' => 0.000000,
+        'DocCur' => NULL,
+        'DocRate' => 1,
+        'DocTotal' => 0.000000,
+        'DocTotalFC' => 0.000000,
+        'Filler' => $doc->fromWhsCode,
+        'ToWhsCode' => $doc->toWhsCode,
+        'Comments' => $doc->remark,
+        'U_ProductionOrder' => "{$doc->U_ProductionOrder}",
+        'U_BEX_EXREMARK' => $doc->remark,
+        'U_TransferType' => 'P',
+        'DocLine' => array()
+      );
+
+      foreach($details as $rs)
+      {
+        $arr =  array(
+          'U_WEBCODE' => $rs->transfer_code,
+          'LineNum' => intval($rs->LineNum),
+          'BaseEntry' => intval($rs->BaseEntry),
+          'BaseLine' => intval($rs->BaseLine),
+          'ItemCode' => $rs->ItemCode,
+          'Dscription' => $rs->Dscription,
+          'Quantity' => floatval($rs->Qty),
+          'unitMsr' => $rs->unitMsr,
+          'NumPerMsr' => $rs->numPerMsr,
+          'UomEntry' => intval($rs->UomEntry),
+          'UomCode' => $rs->UomCode,
+          'PriceBefDi' => 0.000000,
+          'LineTotal' => 0.000000,
+          'ShipDate' => NULL,
+          'Currency' => NULL,
+          'Rate' => 1,
+          'DiscPrcnt' => 0.000000,
+          'Price' => 0.000000,
+          'TotalFrgn' => 0.000000,
+          'FromWhsCod' => $rs->fromWhsCode,
+          'WhsCode' => $rs->toWhsCode,
+          'TaxStatus' => 'Y',
+          'VatPrcnt' => 0.000000,
+          'VatGroup' => NULL,
+          'PriceAfVAT' => 0.000000,
+          'VatSum' => 0.000000,
+          'BatchNo' => $rs->ReceiptNo
+        );
+
+          array_push($ds['DocLine'], $arr);
+        }
+
+        echo json_encode([$ds]);
+      }
+    }
+
 
 
   public function clear_filter()

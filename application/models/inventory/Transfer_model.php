@@ -438,18 +438,30 @@ class Transfer_model extends CI_Model
 
   public function get_sap_doc_num($code)
   {
-    // $rs = $this->ms
-    // ->select('DocNum')
-    // ->where('U_WEBCODE', $code)
-    // ->where('CANCELED', 'N')
-    // ->get('OWTR');
-    //
-    // if($rs->num_rows() > 0)
-    // {
-    //   return $rs->row()->DocNum;
-    // }
-    // return 'WRX';
+    $rs = $this->ms
+    ->select('DocNum')
+    ->where('U_WEBCODE', $code)
+    ->where('CANCELED', 'N')
+    ->get('OWTR');
+
+    if($rs->num_rows() > 0)
+    {
+      return $rs->row()->DocNum;
+    }
+
     return NULL;
+  }
+
+
+  public function is_exists_receipt_no($item_code, $receiptNo, $warehouse_code)
+  {
+    $count = $this->ms
+    ->where('ItemCode', $item_code)
+    ->where('BatchNum', $receiptNo)
+    ->where('WhsCode', $warehouse_code)
+    ->count_all_results('OIBT');
+
+    return $count > 0 ? TRUE : FALSE;
   }
 
 

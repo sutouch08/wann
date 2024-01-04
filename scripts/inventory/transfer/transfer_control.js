@@ -16,8 +16,9 @@ $('#receipt-no').keyup(function(e) {
       swal("กรุณาระบุ Lot/ReceiptNo");
       return false;
     }
-
-    $('#checker-uid').focus();
+    else {
+      validateReceiptNo(receiptNo);
+    }
   }
 })
 
@@ -31,6 +32,57 @@ $('#checker-uid').keyup(function(e) {
     }
   }
 })
+
+
+function validateReceiptNo(receiptNo) {
+  if(receiptNo.length > 0) {
+
+    let pdCode = $.trim($('#pd-code').val());
+    let whsCode = $('#fromWhsCode').val();
+
+    if(pdCode.length > 0) {
+      load_in();
+
+      $.ajax({
+        url:HOME + 'is_exists_receipt_no',
+        type:'POST',
+        cache:false,
+        data:{
+          'receiptNo' : receiptNo,
+          'item_code' : pdCode,
+          'warehouse_code' : whsCode
+        },
+        success:function(rs) {
+          load_out();
+
+          if(isJson(rs)) {
+            let ds = JSON.parse(rs);
+
+            if(ds.status == 'success') {
+              $('#checker-uid').focus();
+            }
+            else {
+              beep();
+              swal({
+                title:'Error!',
+                text:ds.message,
+                type:'error'
+              });
+            }
+          }
+          else {
+            beep();
+            swal({
+              title:'Error!',
+              text:rs,
+              type:'error'
+            });
+          }
+        }
+      });
+    }
+  }
+}
 
 
 function addWeight(weight) {

@@ -30,7 +30,7 @@
     <label>คลังต้นทาง</label>
     <select class="form-control input-sm" id="fromWhsCode" name="fromWhsCode">
       <option value="">ตามใบขอโอนย้าย</option>
-      <?php echo select_warehouse(); ?>
+      <?php //echo select_warehouse(); ?>
     </select>
   </div>
 
@@ -38,7 +38,7 @@
     <label>คลังปลายทาง</label>
     <select class="form-control input-sm" id="toWhsCode" name="toWhsCode">
       <option value="">ตามใบขอโอนย้าย</option>
-      <?php echo select_warehouse(); ?>
+      <?php //echo select_warehouse(); ?>
     </select>
   </div>
 

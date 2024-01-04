@@ -214,3 +214,12 @@ function sendToSap(id, code) {
     }, 200);
   });
 }
+
+
+function showError(id) {
+  let message = $('#error-message-'+id).val();
+  $('#error-message').text(message);
+
+  $('#error-modal').modal('show');
+
+}

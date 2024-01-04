@@ -144,10 +144,11 @@
                 <?php elseif($rs->Status == 2) : ?>
                   <span class="grey">Canceled</span>
                 <?php elseif($rs->Status == 3) : ?>
-                  <span class="red">Failed</span>
+                  <span class="red pointer" onclick="showError(<?php echo $rs->id;?>, '<?php echo $rs->code; ?>')">Failed</span>
                 <?php else : ?>
                   Unknow
                 <?php endif; ?>
+								<input type="hidden" id="error-message-<?php echo $rs->id; ?>" value="<?php echo $rs->Message; ?>" />
               </td>
               <td class="middle"><?php echo $rs->fromWhsCode; ?></td>
               <td class="middle"><?php echo $rs->toWhsCode; ?></td>
@@ -162,6 +163,30 @@
 		</table>
 	</div>
 </div>
+
+<div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width:600px; max-width:90vw;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="title text-center" >Error Message</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<table class="table table-bordered border-1">
+							<tbody>
+								<tr><td class="width-25">Error Message</td><td class="width-75" id="error-message"></td></tr>
+							</tbody>
+						</table>
+					</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <script src="<?php echo base_url(); ?>scripts/inventory/transfer/transfer.js?v=<?php echo date('Ymd'); ?>"></script>
 

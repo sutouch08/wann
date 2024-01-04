@@ -72,7 +72,7 @@ function add() {
             swal({
               title:'Oops!',
               text:ds.message,
-              type:'wanning'
+              type:'warning'
             });
           }
         }

@@ -22,7 +22,7 @@ class Transfer_request extends PS_Controller
 		$filter = array(
 			'prefix' => get_filter('prefix', 'tq_prefix', ''),
       'docNum' => get_filter('docNum', 'tq_docNum', ''),
-      'fromWhs' => get_filter('fromWhs', 'tq_fromWhs', 'all'),
+      'fromWhs' => get_filter('fromWhs', 'tq_fromWhs', getConfig('REQUEST_WAREHOUSE')),
       'toWhs' => get_filter('toWhs', 'tq_toWhs', 'all'),
       'status' => get_filter('status', 'tq_status', 'O'),
       'from_date' => get_filter('from_date', 'tq_from_date', ''),

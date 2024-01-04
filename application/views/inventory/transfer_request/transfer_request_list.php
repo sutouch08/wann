@@ -18,7 +18,7 @@
     <label>เลขที่เอกสาร</label>
     <input type="text" class="form-control input-sm search-box" name="docNum"  value="<?php echo $docNum; ?>" />
   </div>
-
+<!--
   <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6 padding-5">
     <label>คลังต้นทาง</label>
     <select class="form-control input-sm filter" name="fromWhs">
@@ -26,7 +26,7 @@
       <?php echo select_warehouse($fromWhs); ?>
     </select>
   </div>
-
+-->
 	<div class="col-lg-2 col-md-4 col-sm-4 col-xs-6 padding-5">
     <label>คลังปลายทาง</label>
     <select class="form-control input-sm filter" name="toWhs">

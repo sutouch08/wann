@@ -16,7 +16,7 @@ class Api
     {
       if($this->url[-1] != '/')
       {
-        $this->url .'/';
+        $this->url = $this->url .'/';
       }
     }
   }
@@ -73,8 +73,7 @@ class Api
         'Filler' => $doc->fromWhsCode,
         'ToWhsCode' => $doc->toWhsCode,
         'Comments' => $doc->remark,
-        'U_OLDTAX' => $doc->BaseRef,
-        'U_ProductionOrder' => $doc->BaseRef,
+        'U_ProductionOrder' => "{$doc->U_ProductionOrder}",
         'U_BEX_EXREMARK' => $doc->remark,
         'U_TransferType' => 'P',
         'DocLine' => array()
@@ -84,22 +83,16 @@ class Api
       {
         $arr =  array(
           'U_WEBCODE' => $rs->transfer_code,
-          'LineNum' => $rs->LineNum,
-          'BaseRef' => $rs->BaseRef,
-          'BaseType' => 1250000001,
-          'BaseEntry' => $rs->BaseEntry,
-          'BaseLine' => $rs->BaseLine,
+          'LineNum' => intval($rs->LineNum),
+          'BaseEntry' => intval($rs->BaseEntry),
+          'BaseLine' => intval($rs->BaseLine),
           'ItemCode' => $rs->ItemCode,
           'Dscription' => $rs->Dscription,
-          'Quantity' => $rs->Qty,
+          'Quantity' => floatval($rs->Qty),
           'unitMsr' => $rs->unitMsr,
           'NumPerMsr' => $rs->numPerMsr,
-          'UomEntry' => $rs->UomEntry,
+          'UomEntry' => intval($rs->UomEntry),
           'UomCode' => $rs->UomCode,
-          'unitMsr2' => $rs->unitMsr2,
-          'NumPerMsr2' => $rs->numPerMsr2,
-          'UomEntry2' => $rs->UomEntry2,
-          'UomCode2' => $rs->UomCode2,
           'PriceBefDi' => 0.000000,
           'LineTotal' => 0.000000,
           'ShipDate' => NULL,
@@ -115,15 +108,15 @@ class Api
           'VatGroup' => NULL,
           'PriceAfVAT' => 0.000000,
           'VatSum' => 0.000000,
-          'ReceiptNo' => $rs->ReceiptNo
+          'BatchNo' => $rs->ReceiptNo
         );
 
         array_push($ds['DocLine'], $arr);
       }
 
-			$url = $this->url."transfer";
+			$url = $this->url."OWTR";
 
-      $json = json_encode($ds);
+      $json = json_encode([$ds]);
 
       if($logJson)
       {
@@ -165,16 +158,18 @@ class Api
 
 			curl_close($curl);
 
-			$rs = json_decode($response);
+			$rd = json_decode($response);
 
-			if(! empty($rs) && ! empty($rs->status))
+			if(! empty($rd) && ! empty($rd[0]->status))
 			{
+        $rs = $rd[0];
+
 				if($rs->status == 'success')
 				{
 					$arr = array(
 						'Status' => 1,
-						'DocEntry' => $rs->docEntry,
-						'DocNum' => $rs->docNum
+						'DocEntry' => $rs->DocEntry,
+						'DocNum' => $rs->DocNum
 					);
 
 					$this->ci->transfer_model->update($id, $arr);
@@ -184,8 +179,8 @@ class Api
         {
           $arr = array(
 						'Status' => 1,
-						'DocEntry' => $rs->docEntry,
-						'DocNum' => $rs->docNum
+						'DocEntry' => $rs->DocEntry,
+						'DocNum' => $rs->DocNum
 					);
 
 					$this->ci->transfer_model->update($id, $arr);
@@ -194,20 +189,20 @@ class Api
 				{
 					$arr = array(
 						'Status' => 3,
-						'Message' => empty($rs->message) ? $response : $rs->message
+						'Message' => empty($rs->errMsg) ? $response : $rs->errMsg
 					);
 
 					$this->ci->transfer_model->update($id, $arr);
 
 					$sc = FALSE;
-					$this->ci->error = empty($rs->message) ? $response : $rs->message;
+					$this->ci->error = empty($rs->errMsg) ? $response : $rs->errMsg;
 
 					if($logJson)
 					{
 						$logs = array(
 							'code' => $doc->code,
 							'status' => 'error',
-							'json' => empty($rs->message) ? $response : $rs->message
+							'json' => empty($rs->errMsg) ? $response : $rs->errMsg
 						);
 
 						$this->ci->logs_model->log_transfer($logs);

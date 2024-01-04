@@ -18,7 +18,7 @@ class Setting extends PS_Controller{
 
   public function index($tab = 'company')
   {
-		$groups = array('Company', 'Document', 'Order', 'SAP', 'system');
+		$groups = array('Company', 'Document', 'inventory', 'system');
 
 		$ds = array(
 			'tab' => $tab
@@ -35,8 +35,7 @@ class Setting extends PS_Controller{
 					$ds[$rd->code] = $this->config_model->get($rd->code);
 				}
 			}
-		}
-
+		}		
 		$this->load->view('setting/configs', $ds);
 
   }

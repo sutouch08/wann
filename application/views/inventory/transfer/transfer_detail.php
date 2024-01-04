@@ -18,6 +18,9 @@
     <?php if($doc->Status == 1 OR $doc->Status == 3) : ?>
       <button type="button" class="btn btn-sm btn-success top-btn" onclick="sendToSap(<?php echo $doc->id; ?>, '<?php echo $doc->code; ?>')">Send To SAP</button>
     <?php endif; ?>
+    <?php if($this->_SuperAdmin) : ?>
+      <button type="button" class="btn btn-sm btn-danger top-btn" onclick="dumpJson(<?php echo $doc->id; ?>)">Dump Json</button>
+    <?php endif; ?>
     <!--
     <button type="button" class="btn btn-sm btn-info top-btn" onclick="printTransfer(<?php echo $doc->id; ?>)"><i class="fa fa-print"></i> Print</button>
   -->
@@ -194,6 +197,17 @@
 $(function() {
   $('[data-toggle="popover"]').popover({html:true});
 })
+
+function dumpJson(id) {
+  $.ajax({
+    url:HOME + 'dump_json/'+id,
+    type:'GET',
+    cache:false,
+    success:function(rs) {
+      console.log(rs);
+    }
+  });
+}
 
 </script>
 <script src="<?php echo base_url(); ?>/scripts/inventory/transfer/transfer.js?v=<?php echo date('Ymd'); ?>"></script>
