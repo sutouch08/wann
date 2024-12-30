@@ -52,6 +52,41 @@ class Transfer_request_model extends CI_Model
   }
 
 
+  public function get_production_order($U_ProductionOrder)
+  {
+    if( ! empty($U_ProductionOrder))
+    {
+      $rs = $this->ms
+      ->select('ItemCode, Comments, ProdName, U_Kanban_BPR, U_Kanban_BMR')
+      ->where('DocNum', $U_ProductionOrder)
+      ->get('OWOR');
+
+      if($rs->num_rows() === 1)
+      {
+        return $rs->row();
+      }
+    }
+
+    return NULL;
+  }
+
+
+  public function get_item($ItemCode)
+  {
+    $rs = $this->ms
+    ->select('ItemCode, ItemName, U_OldCode, U_BOMCode')
+    ->where('ItemCode', $ItemCode)
+    ->get('OITM');
+
+    if($rs->num_rows() === 1)
+    {
+      return $rs->row();
+    }
+
+    return NULL;
+  }
+
+
   public function get_details($id)
   {
     $rs = $this->ms->where('DocEntry', $id)->get($this->td);

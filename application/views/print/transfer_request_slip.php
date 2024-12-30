@@ -65,6 +65,20 @@ $contentWidth = 78;
                 <td colspan="2">เลขที่อ้างอิง : &nbsp; <?php echo $doc->U_ProductionOrder; ?></td>
                 <td colspan="2" class="text-right">เลขที่เอกสาร : &nbsp; <?php echo $doc->BeginStr.$doc->DocNum; ?></td>
               </tr>
+
+              <tr>
+                <td colspan="2">คัมบัง : <?php echo $doc->Kanban; ?></td>
+                <td colspan="2" class="text-right">ล็อต : <?php echo $doc->Lot; ?></td>
+              </tr>
+              <tr>
+                <td colspan="2">รหัสเนื้อ : <?php echo $doc->OldCode; ?></td>
+                <td colspan="2" class="text-right">สูตร : <?php echo $doc->BOMCode; ?></td>
+              </tr>
+
+              <tr>
+                <td colspan="4">ชื่อเนื้อ : <?php echo $doc->Name; ?></td>
+              </tr>
+
               <tr>
                 <td colspan="2">คลังต้นทาง : <?php echo $doc->Filler; ?></td>
                 <td colspan="2" class="text-right">วันที่เอกสาร : <?php echo thai_date($doc->DocDate, FALSE, '/'); ?></td>
@@ -73,6 +87,8 @@ $contentWidth = 78;
                 <td colspan="2">คลังปลายทาง : <?php echo $doc->toWhsCode; ?></td>
                 <td colspan="2" class="text-right">วันที่ครบกำหนด : <?php echo thai_date($doc->DocDueDate, FALSE, '/'); ?></td>
               </tr>
+
+
 
 
           <?php if( ! empty($details)) : ?>

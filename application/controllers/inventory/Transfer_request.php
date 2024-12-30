@@ -76,6 +76,15 @@ class Transfer_request extends PS_Controller
     if( ! empty($doc))
     {
       $this->load->library('printer');
+
+      $pdo = $this->transfer_request_model->get_production_order($doc->U_ProductionOrder);
+      $item = empty($pdo) ? NULL : $this->transfer_request_model->get_item($pdo->ItemCode);
+      $doc->Kanban = empty($pdo) ? "" : (empty($pdo->U_Kanban_BMR) ? $pdo->U_Kanban_BPR : $pdo->U_Kanban_BMR);
+      $doc->Lot = empty($pdo) ? "" : $pdo->Comments;
+      $doc->Name = empty($pdo) ? "" : $pdo->ProdName;
+      $doc->OldCode = empty($item) ? "" : $item->U_OldCode;
+      $doc->BOMCode = empty($item) ? "" : $item->U_BOMCode;
+      
       $ds = array(
         'doc' => $doc,
         'details' => $this->transfer_request_model->get_details($id)
