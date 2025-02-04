@@ -52,14 +52,7 @@ $contentWidth = 78;
               </tr>
               <tr>
                 <td class="text-center">
-                  <div class="item-box" style="width:90%; height:200px; margin-left:auto; margin-right:auto;">
-
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center">
-                  <?php echo barcodeImage($user->uid, 8, 0, 0); ?>
+                  <?php echo barcodeImage($user->uid, 18, 0, 0); ?>
                 </td>
                 <tr>
                   <td class="text-center"><?php echo (empty($user->empName) ? $user->name : $user->empName); ?></td>
