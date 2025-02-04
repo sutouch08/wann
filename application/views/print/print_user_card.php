@@ -1,7 +1,7 @@
 <?php
 $this->load->helper('print');
-$pageWidth = 80; //--- ควรสร้างเป็น config ไว้ที่เครื่องของ user เพราะว่าบางเครื่องอาจจะไม่ได้ใช้กระดาษหน้ากว้างเท่ากัน
-$contentWidth = 78;
+$pageWidth = 95; //--- ควรสร้างเป็น config ไว้ที่เครื่องของ user เพราะว่าบางเครื่องอาจจะไม่ได้ใช้กระดาษหน้ากว้างเท่ากัน
+$contentWidth = 90;
 ?>
 <!DOCTYPE html>
 <html>
@@ -52,7 +52,7 @@ $contentWidth = 78;
               </tr>
               <tr>
                 <td class="text-center">
-                  <?php echo barcodeImage($user->uid, 18, 0, 0); ?>
+                  <?php echo barcodeImage($user->uid, 18, 0, 24); ?>
                 </td>
                 <tr>
                   <td class="text-center"><?php echo (empty($user->empName) ? $user->name : $user->empName); ?></td>

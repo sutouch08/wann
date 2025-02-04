@@ -89,7 +89,7 @@ class Users extends PS_Controller{
 							'uname' => $uname,
 							'pwd' => password_hash($pwd, PASSWORD_DEFAULT),
 							'name' => $dname,
-							'uid' => md5($uname),
+							'uid' => genUid(),
 							'id_profile' => $id_profile,
 							'active' => $active,
 							'sale_id' => $sale_id,
