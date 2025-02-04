@@ -356,7 +356,7 @@ class Users extends PS_Controller{
 		{
 			if($user->emp_id && $user->emp_id != -1)
 			{
-				$user->empName = $this->user_model->get_full_name($user->emp_id);
+				$user->empName = $this->employee_model->get_full_name($user->emp_id);
 			}
 			else
 			{
