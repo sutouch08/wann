@@ -34,6 +34,13 @@ $('#checker-uid').keyup(function(e) {
 })
 
 
+$('#input-qty').keyup(function(e) {
+  if(e.keyCode === 13) {
+    $('#checker-uid').val('').focus();
+  }
+})
+
+
 function validateReceiptNo(receiptNo) {
   if(receiptNo.length > 0) {
 
@@ -59,7 +66,12 @@ function validateReceiptNo(receiptNo) {
             let ds = JSON.parse(rs);
 
             if(ds.status == 'success') {
-              $('#checker-uid').focus();
+              if(activeDevice.devicePort === 'usb') {
+                $('#input-qty').val('').focus();
+              }
+              else {
+                $('#checker-uid').focus();
+              }
             }
             else {
               beep();

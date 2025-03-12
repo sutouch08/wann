@@ -251,11 +251,12 @@
 					<img src="<?php echo base_url(); ?>images/weighing-scale.png" style="max-width:100%"/>
 				</div>
 				<div class="discription">Name : {{deviceName}}</div>
+        <div class="discription">Port : {{devicePortName}}</div>
 				<div class="discription">Baud Rate : {{deviceBaudRate}}</div>
         <div class="discription">Unit : {{deviceUnitName}}</div>
 				<div class="divider"></div>
 				<div class="discription">
-					<button type="button" class="btn btn-lg btn-primary btn-block" onclick="setActiveDevice('{{deviceId}}', '{{deviceBaudRate}}', '{{deviceUnit}}')">เชื่อมต่อ</button>
+					<button type="button" class="btn btn-lg btn-primary btn-block" onclick="setActiveDevice('{{deviceId}}', '{{deviceBaudRate}}', '{{deviceUnit}}', '{{devicePort}}')">เชื่อมต่อ</button>
 				</div>
 			</div>
 		</div>

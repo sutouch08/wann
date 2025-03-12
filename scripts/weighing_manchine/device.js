@@ -192,6 +192,8 @@ function saveAndClose() {
   const deviceUnit = $('#device-unit').val();
   const deviceUnitName = $('#device-unit option:selected').data('name');
   const deviceBaudRate = parseInt($('#device-baud-rate').val());
+  const devicePort = $('#device-port').val();
+  const devicePortName = $('#device-port option:selected').data('name');
 
   if(deviceName.length == 0) {
     $('#result-message').val("กรุณาระบุชื่อเครื่องชั่ง");
@@ -203,7 +205,9 @@ function saveAndClose() {
     'deviceName' : deviceName,
     'deviceUnit' : deviceUnit,
     'deviceUnitName' : deviceUnitName,
-    'deviceBaudRate' : deviceBaudRate
+    'deviceBaudRate' : deviceBaudRate,
+    'devicePort' : devicePort,
+    'devicePortName' : devicePortName
   }
 
   var db = localStorage.getItem('WannDeviceData');

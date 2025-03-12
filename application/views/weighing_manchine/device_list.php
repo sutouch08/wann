@@ -32,10 +32,17 @@
       </div>
       <div class="modal-body">
         <div class="row" style="margin-left:0; margin-right:0;">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <label>ชื่อเครื่องชั่ง</label>
             <input type="text" class="form-control input-sm" id="device-name" value="" />
           </div>
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+						<label>Port</label>
+						<select class="form-control input-sm" id="device-port">
+							<option value="serial" data-name="Serial">Serial</option>
+							<option value="usb" data-name="USB">USB</option>
+						</select>
+					</div>
 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 						<label>หน่วยวัด</label>
 						<select class="form-control input-sm" id="device-unit">
@@ -88,6 +95,7 @@
 					<img src="<?php echo base_url(); ?>images/weighing-scale.png" style="max-width:100%;"/>
 				</div>
 				<div class="discription">Name : {{deviceName}}</div>
+				<div class="discription">Port : {{devicePortName}}</div>
 				<div class="discription">Baud Rate : {{deviceBaudRate}}</div>
 				<div class="discription">Unit : {{deviceUnitName}}</div>
 				<?php if($this->pm->can_delete) : ?>

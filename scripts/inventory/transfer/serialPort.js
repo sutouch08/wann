@@ -49,7 +49,9 @@ window.addEventListener('load', async () => {
     unitLabel = activeDevice.unitLabel;
     $('#request-unit').text(unitLabel);
     $('#device-unit').text(unitLabel);
-    connect();
+    if(activeDevice.devicePort === 'serial') {
+      connect();      
+    }
   }
 
 });
@@ -84,11 +86,12 @@ function getActiveDevice() {
 }
 
 
-function setActiveDevice(id, baudRate, unit) {
+function setActiveDevice(id, baudRate, unit, devicePort) {
   let unitLabel = unit == 'g' ? 'กรัม' : (unit == 'kg' ? 'กิโลกรัม' : unit);
 
   let ds = {
     "deviceId" : id,
+    "devicePort" : devicePort,
     "deviceBaudRate" : baudRate,
     "deviceUnit" : unit,
     "unitLabel" : unitLabel
