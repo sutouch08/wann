@@ -67,7 +67,7 @@ function validateReceiptNo(receiptNo) {
 
             if(ds.status == 'success') {
               if(activeDevice.devicePort === 'usb') {
-                $('#input-qty').val('').focus();
+                $('#input-qty').val('').removeAttr('readonly').focus();
               }
               else {
                 $('#checker-uid').focus();
