@@ -142,6 +142,22 @@ class Transfer_model extends CI_Model
   }
 
 
+  public function get_production_order($transfer_id)
+  {
+    $rs = $this->db
+    ->select('U_ProductionOrder')
+    ->where('id', $transfer_id)
+    ->get($this->tb);
+
+    if($rs->num_rows() === 1)
+    {
+      return $rs->row()->U_ProductionOrder;
+    }
+
+    return NULL;
+  }
+
+
   public function get_exists_detail($transfer_id, $itemCode, $baseRef, $baseLine, $receiptNo)
   {
     $rs = $this->db

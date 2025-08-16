@@ -4,14 +4,14 @@
   <head>
   	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  	<link rel="icon" href="<?php echo base_url(); ?>assets/img/favicon.png" type="image/x-icon" />
+  	<link rel="icon" href="<?php echo base_url(); ?>assets/images/icons/favicon.ico" type="image/x-icon" />
   	<title><?php echo $this->title; ?></title>
+  	<link href="<?php echo base_url(); ?>assets/fonts/fontawesome-5/css/all.css" rel="stylesheet" />
   	<link href="<?php echo base_url(); ?>assets/css/bootstrap.css" rel="stylesheet" />
   	<link href="<?php echo base_url(); ?>assets/css/template.css" rel="stylesheet" />
   	<link href="<?php echo base_url(); ?>assets/css/print.css" rel="stylesheet" />
-    <link href="<?php echo base_url(); ?>assets/css/font-sarabun.css" rel="stylesheet" />
-    <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
+  	<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+  	<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
     <style>
     .view-port {
       display: flex;
@@ -26,7 +26,7 @@
       width: 105mm;
       min-width: 50mm;
       height:32mm;
-      min-height: 20mm;
+      min-height: 10mm;
       padding-left: 2mm;
       padding-right: 2mm;
       padding-top: 1mm;
@@ -35,7 +35,7 @@
 
     .sticker-label {
       border:solid 1px #ccc;
-      min-width:20mm;
+      min-width:10mm;
       min-height: 10mm;
       width:50%;
       border-radius: 5px;
@@ -81,30 +81,34 @@
               <table class="width-100">
                 <tr><td colspan="2" class="text-center">ฉลากวัตถุดิบ</td></tr>
                 <tr>
-                  <td>รหัสวัตถุดิบ : <?php echo $ItemCode; ?></td>
-                  <td rowspan="5"><image class="qr" src="data:image/png;base64,<?php echo $qrcode; ?>" style="width:15mm;"/></td>
+                  <td class="width-40">รหัสวัตถุดิบ</td>
+                  <td class="width-60">OS-1-0073</td>
                 </tr>
                 <tr>
-                  <td>เลขที่รับ : <?php echo $ReceiptNo; ?></td>
+                  <td>เลขที่รับ</td>
+                  <td>R0750/23</td>
                 </tr>
                 <tr>
-                  <td>รหัสผลิตภัณฑ์ : 11-000-018</td>
+                  <td>รหัสผลิตภัณฑ์</td>
+                  <td>11-000-018</td>
                 </tr>
                 <tr>
-                  <td>Lot No. : -</td>
+                  <td>Lot No.</td>
+                  <td>230011</td>
                 </tr>
                 <tr>
-                  <td>น้ำหนักวัตถุดิบ : <?php echo number($Qty, 6); ?> &nbsp;&nbsp; <?php echo $unitMsr; ?></td>
+                  <td>น้ำหนักวัตถุดิบ</td>
+                  <td>2,010.00 g</td>
                 </tr>
               </table>
               <table class="width-100">
                 <tr>
-                  <td colspan="2" class="width-50">ผู้ชั่ง  <?php echo $user; ?></td>
-                  <td colspan="2" class="width-50">ผู้ตรวจ  <?php echo $checker; ?></td>
+                  <td class="width-50">ผู้ชั่ง  มารวย</td>
+                  <td class="width-50">ผู้ตรวจ  อรรถสิทธิ์</td>
                 </tr>
                 <tr>
-                  <td colspan="3" class="width-50">วันที่  <?php echo date('d/m/Y H:i'); ?></td>
-                  <td class="width-50 text-right" style="padding-right:5px;">FM-SP-14/00</td>
+                  <td class="width-50">วันที่  31/03/2323 09:19</td>
+                  <td class="width-50 text-right" style="paddng-right:5px;">FM-SP-14/00</td>
                 </tr>
               </table>
             </div>
@@ -115,30 +119,34 @@
               <table class="width-100">
                 <tr><td colspan="2" class="text-center">ฉลากวัตถุดิบ</td></tr>
                 <tr>
-                  <td>รหัสวัตถุดิบ : <?php echo $ItemCode; ?></td>
-                  <td rowspan="5"><image class="qr" src="data:image/png;base64,<?php echo $qrcode; ?>" style="width:15mm;"/></td>
+                  <td class="width-40">รหัสวัตถุดิบ</td>
+                  <td class="width-60">OS-1-0073</td>
                 </tr>
                 <tr>
-                  <td>เลขที่รับ : <?php echo $ReceiptNo; ?></td>
+                  <td>เลขที่รับ</td>
+                  <td>R0750/23</td>
                 </tr>
                 <tr>
-                  <td>รหัสผลิตภัณฑ์ : 11-000-018</td>
+                  <td>รหัสผลิตภัณฑ์</td>
+                  <td>11-000-018</td>
                 </tr>
                 <tr>
-                  <td>Lot No. : -</td>
+                  <td>Lot No.</td>
+                  <td>230011</td>
                 </tr>
                 <tr>
-                  <td>น้ำหนักวัตถุดิบ : <?php echo number($Qty, 6); ?> &nbsp;&nbsp; <?php echo $unitMsr; ?></td>
+                  <td>น้ำหนักวัตถุดิบ</td>
+                  <td>2,010.00 g</td>
                 </tr>
               </table>
               <table class="width-100">
                 <tr>
-                  <td colspan="2" class="width-50">ผู้ชั่ง  <?php echo $user; ?></td>
-                  <td colspan="2" class="width-50">ผู้ตรวจ  <?php echo $checker; ?></td>
+                  <td class="width-50">ผู้ชั่ง  มารวย</td>
+                  <td class="width-50">ผู้ตรวจ  อรรถสิทธิ์</td>
                 </tr>
                 <tr>
-                  <td colspan="3" class="width-50">วันที่  <?php echo date('d/m/Y H:i'); ?></td>
-                  <td class="width-50 text-right" style="padding-right:5px;">FM-SP-14/00</td>
+                  <td class="width-50">วันที่  31/03/2323 09:19</td>
+                  <td class="width-50 text-right" style="paddng-right:5px;">FM-SP-14/00</td>
                 </tr>
               </table>
             </div>
@@ -159,7 +167,6 @@
       let con = JSON.parse(setting);
       let s = con.sticker;
       let l = con.label;
-      let p = con.printOption;
 
       let sticker = {
         "width" : `${s.width}mm`,
@@ -181,21 +188,11 @@
       $('.sticker-label').css(label);
       $('.label-space').css('width', `${l.space}mm`);
       $('.sticker-content').css('font-size', `${l.fontSize}px`);
-
-      let printPreview = (p !== undefined && p !== null) ? p.printPreview : 1;
-      let closeAfterPrint = (p !== undefined && p !== null) ? p.closeAfterPrint : 1;
-
-      if(closeAfterPrint) {
-        window.onafterprint = window.close;
-      }
-
-      if( ! printPreview) {
-        window.print();
-      }
     }
     else {
       getDefault();
     }
 
+    window.print();
 });
 </script>

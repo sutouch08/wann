@@ -81,26 +81,30 @@
               <table class="width-100">
                 <tr><td colspan="2" class="text-center">ฉลากวัตถุดิบ</td></tr>
                 <tr>
-                  <td>รหัสวัตถุดิบ : <?php echo $ItemCode; ?></td>
-                  <td rowspan="5"><image class="qr" src="data:image/png;base64,<?php echo $qrcode; ?>" style="width:15mm;"/></td>
+                  <td class="width-40">รหัสวัตถุดิบ</td>
+                  <td class="width-60"><?php echo $ItemCode; ?></td>
                 </tr>
                 <tr>
-                  <td>เลขที่รับ : <?php echo $ReceiptNo; ?></td>
+                  <td>เลขที่รับ</td>
+                  <td><?php echo $ReceiptNo; ?></td>
                 </tr>
                 <tr>
-                  <td>รหัสผลิตภัณฑ์ : 11-000-018</td>
+                  <td>รหัสผลิตภัณฑ์</td>
+                  <td>11-000-018</td>
                 </tr>
                 <tr>
-                  <td>Lot No. : -</td>
+                  <td>Lot No.</td>
+                  <td>-</td>
                 </tr>
                 <tr>
-                  <td>น้ำหนักวัตถุดิบ : <?php echo number($Qty, 6); ?> &nbsp;&nbsp; <?php echo $unitMsr; ?></td>
+                  <td>น้ำหนักวัตถุดิบ</td>
+                  <td><?php echo number($Qty, 6); ?> &nbsp;&nbsp; <?php echo $unitMsr; ?></td>
                 </tr>
               </table>
               <table class="width-100">
                 <tr>
-                  <td colspan="2" class="width-50">ผู้ชั่ง  <?php echo $user; ?></td>
-                  <td colspan="2" class="width-50">ผู้ตรวจ  <?php echo $checker; ?></td>
+                  <td colspan="2" class="width-50">ผู้ชั่ง  <?php echo $this->user_model->get_name_by_id($user_id); ?></td>
+                  <td colspan="2" class="width-50">ผู้ตรวจ  <?php echo $this->user_model->get_name_by_uid($checker_uid); ?></td>
                 </tr>
                 <tr>
                   <td colspan="3" class="width-50">วันที่  <?php echo date('d/m/Y H:i'); ?></td>
@@ -115,26 +119,30 @@
               <table class="width-100">
                 <tr><td colspan="2" class="text-center">ฉลากวัตถุดิบ</td></tr>
                 <tr>
-                  <td>รหัสวัตถุดิบ : <?php echo $ItemCode; ?></td>
-                  <td rowspan="5"><image class="qr" src="data:image/png;base64,<?php echo $qrcode; ?>" style="width:15mm;"/></td>
+                  <td class="width-40">รหัสวัตถุดิบ</td>
+                  <td class="width-60"><?php echo $ItemCode; ?></td>
                 </tr>
                 <tr>
-                  <td>เลขที่รับ : <?php echo $ReceiptNo; ?></td>
+                  <td>เลขที่รับ</td>
+                  <td><?php echo $ReceiptNo; ?></td>
                 </tr>
                 <tr>
-                  <td>รหัสผลิตภัณฑ์ : 11-000-018</td>
+                  <td>รหัสผลิตภัณฑ์</td>
+                  <td>11-000-018</td>
                 </tr>
                 <tr>
-                  <td>Lot No. : -</td>
+                  <td>Lot No.</td>
+                  <td>-</td>
                 </tr>
                 <tr>
-                  <td>น้ำหนักวัตถุดิบ : <?php echo number($Qty, 6); ?> &nbsp;&nbsp; <?php echo $unitMsr; ?></td>
+                  <td>น้ำหนักวัตถุดิบ</td>
+                  <td><?php echo number($Qty, 6); ?> &nbsp;&nbsp; <?php echo $unitMsr; ?></td>
                 </tr>
               </table>
               <table class="width-100">
                 <tr>
-                  <td colspan="2" class="width-50">ผู้ชั่ง  <?php echo $user; ?></td>
-                  <td colspan="2" class="width-50">ผู้ตรวจ  <?php echo $checker; ?></td>
+                  <td colspan="2" class="width-50">ผู้ชั่ง  <?php echo $this->user_model->get_name_by_id($user_id); ?></td>
+                  <td colspan="2" class="width-50">ผู้ตรวจ  <?php echo $this->user_model->get_name_by_uid($checker_uid); ?></td>
                 </tr>
                 <tr>
                   <td colspan="3" class="width-50">วันที่  <?php echo date('d/m/Y H:i'); ?></td>

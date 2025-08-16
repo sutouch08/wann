@@ -81,29 +81,25 @@
               <table class="width-100">
                 <tr><td colspan="2" class="text-center">ฉลากวัตถุดิบ</td></tr>
                 <tr>
-                  <td class="width-40">รหัสวัตถุดิบ</td>
-                  <td class="width-60">OS-1-0073</td>
+                  <td>รหัสวัตถุดิบ : RM-W-ALL-0L-0033</td>
+                  <td rowspan="5"><image class="qr" src="data:image/png;base64,<?php echo $qrcode; ?>" style="width:15mm;"/></td>
                 </tr>
                 <tr>
-                  <td>เลขที่รับ</td>
-                  <td>R0750/23</td>
+                  <td>เลขที่รับ : R0750/23</td>
                 </tr>
                 <tr>
-                  <td>รหัสผลิตภัณฑ์</td>
-                  <td>11-000-018</td>
+                  <td>รหัสผลิตภัณฑ์ : 11-000-018</td>
                 </tr>
                 <tr>
-                  <td>Lot No.</td>
-                  <td>230011</td>
+                  <td>Lot No. : 230011</td>
                 </tr>
                 <tr>
-                  <td>น้ำหนักวัตถุดิบ</td>
-                  <td>2,010.00 g</td>
+                  <td>น้ำหนักวัตถุดิบ : 2,010.00 g</td>
                 </tr>
               </table>
               <table class="width-100">
                 <tr>
-                  <td class="width-50">ผู้ชั่ง  มารวย</td>
+                  <td class="width-50">ผู้ชั่ง  Administrator</td>
                   <td class="width-50">ผู้ตรวจ  อรรถสิทธิ์</td>
                 </tr>
                 <tr>
@@ -119,29 +115,25 @@
               <table class="width-100">
                 <tr><td colspan="2" class="text-center">ฉลากวัตถุดิบ</td></tr>
                 <tr>
-                  <td class="width-40">รหัสวัตถุดิบ</td>
-                  <td class="width-60">OS-1-0073</td>
+                  <td>รหัสวัตถุดิบ : RM-W-ALL-0L-0033</td>
+                  <td rowspan="5"><image class="qr" src="data:image/png;base64,<?php echo $qrcode; ?>" style="width:15mm;"/></td>
                 </tr>
                 <tr>
-                  <td>เลขที่รับ</td>
-                  <td>R0750/23</td>
+                  <td>เลขที่รับ : R0750/23</td>
                 </tr>
                 <tr>
-                  <td>รหัสผลิตภัณฑ์</td>
-                  <td>11-000-018</td>
+                  <td>รหัสผลิตภัณฑ์ : 11-000-018</td>
                 </tr>
                 <tr>
-                  <td>Lot No.</td>
-                  <td>230011</td>
+                  <td>Lot No. : 230011</td>
                 </tr>
                 <tr>
-                  <td>น้ำหนักวัตถุดิบ</td>
-                  <td>2,010.00 g</td>
+                  <td>น้ำหนักวัตถุดิบ : 2,010.00 g</td>
                 </tr>
               </table>
               <table class="width-100">
                 <tr>
-                  <td class="width-50">ผู้ชั่ง  มารวย</td>
+                  <td class="width-50">ผู้ชั่ง  Administrator</td>
                   <td class="width-50">ผู้ตรวจ  อรรถสิทธิ์</td>
                 </tr>
                 <tr>
@@ -188,6 +180,7 @@
       $('.sticker-label').css(label);
       $('.label-space').css('width', `${l.space}mm`);
       $('.sticker-content').css('font-size', `${l.fontSize}px`);
+      $('.qr').css('width', `${l.qrWidth}mm`);
     }
     else {
       getDefault();

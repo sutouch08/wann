@@ -13,6 +13,7 @@
 
     let labelSpace = parseDefault(parseFloat($('#label-space').val()), 0);
     let fontSize = parseDefault(parseFloat($('#label-font-size').val()), 8);
+    let qrWidth = parseDefault(parseFloat($('#label-qr-width').val()), 15);
 
     let printAfterCheck = $('#print-after-check').is(':checked') ? 1 : 0;
     let printPreview = $('#print-preview').is(':checked') ? 1 : 0;
@@ -33,7 +34,8 @@
         "paddingLeft" : labelPaddingLeft,
         "paddingRight" : labelPaddingRight,
         "space" : labelSpace,
-        "fontSize" : fontSize
+        "fontSize" : fontSize,
+        "qrWidth" : qrWidth
       },
       "printOption" : {
         "printAfterCheck" : printAfterCheck,
@@ -68,6 +70,7 @@
 
       $('#label-space').val(l.space);
       $('#label-font-size').val(l.fontSize);
+      $('#label-qr-width').val(l.qrWidth);
 
       let sticker = {
         "width" : `${s.width}mm`,
@@ -89,6 +92,7 @@
       $('.sticker-label').css(label);
       $('.label-space').css('width', `${l.space}mm`);
       $('.sticker-content').css('font-size', `${l.fontSize}px`);
+      $('.qr').css('width', `${l.qrWidth}mm`);
 
       if(p !== undefined && p !== null) {
         if(p.printAfterCheck == 1) {
@@ -195,9 +199,16 @@
     $('.sticker-content').css('font-size', `${num}px`);
   }
 
+  function labelQrWidth() {
+    let num = parseDefault(parseFloat($('#label-qr-width').val()), 15);
+
+    $('.qr').css('width', `${num}mm`);
+  }
+
   function getDefault() {
     let labelSpace = 0;
     let fontSize = 8;
+    let qrWidth = 15;
 
     let sticker = {
       "width" : "105mm",
@@ -218,12 +229,12 @@
     $('#sticker').css(sticker);
     $('.sticker-label').css(label);
     $('.label-space').css('width', `${labelSpace}mm`);
+    $('.qr').css('width', `${qrWidth}mm`);
     $('.sticker-content').css('font-size', `${fontSize}px`);
     $('#print-after-check').prop('checked', true);
     $('#print-preview').prop('checked', true);
     $('#close-after-print').prop('checked', true);
   }
-
 
 
   function testPrint() {

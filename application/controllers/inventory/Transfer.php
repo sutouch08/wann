@@ -298,11 +298,26 @@ class Transfer extends PS_Controller
 
       $can_do = $this->_SuperAdmin ? TRUE : $can_do;
 
+      $this->load->library('ixqrcode');
+      $data = "123090417|RM-W-ALL-0L-0033|R0750/23|2010.000000|Administrator";
+      $qr = array(
+        'data' => $data,
+        'size' => 8,
+        'level' => 'L',
+        'savename' => NULL
+      );
+
+      ob_start();
+      $this->ixqrcode->generate($qr);
+      $qr = base64_encode(ob_get_contents());
+      ob_end_clean();
+
       $arr = array(
         'pm' => $can_do,
         'doc' => $doc,
         'details' => $this->transfer_model->get_details($id),
-        'request_rows' => $this->transfer_model->get_request_rows($id)
+        'request_rows' => $this->transfer_model->get_request_rows($id),
+        'qrcode' => $qr
       );
 
       $this->load->view('inventory/transfer/transfer_edit', $arr);
@@ -1198,7 +1213,27 @@ class Transfer extends PS_Controller
 
     if( ! empty($row))
     {
+      $row->production_order = $this->transfer_model->get_production_order($row->transfer_id);
+      $row->user = $this->user_model->get_name_by_id($row->user_id);
+      $row->checker = $this->user_model->get_name_by_uid($row->checker_uid);
       $this->load->library('printer');
+      $this->load->library('ixqrcode');
+      $data = "{$row->production_order}|{$row->ItemCode}|{$row->ReceiptNo}|{$row->Qty}|{$row->user}";
+
+      $qr = array(
+        'data' => $data,
+        'size' => 8,
+        'level' => 'L',
+        'savename' => NULL
+      );
+
+      ob_start();
+      $this->ixqrcode->generate($qr);
+      $qr = base64_encode(ob_get_contents());
+      ob_end_clean();
+
+      $row->qrcode = $qr;
+
       $this->load->view('print/transfer_sticker', $row);
     }
     else
@@ -1211,7 +1246,23 @@ class Transfer extends PS_Controller
   public function test_print()
   {
     $this->load->library('printer');
-    $this->load->view('print/sticker_test_print');
+    $this->load->library('ixqrcode');
+    $data = "123090417|RM-W-ALL-0L-0033|R0750/23|2010.000000|Administrator";
+    $qr = array(
+      'data' => $data,
+      'size' => 8,
+      'level' => 'L',
+      'savename' => NULL
+    );
+
+    ob_start();
+    $this->ixqrcode->generate($qr);
+    $qr = base64_encode(ob_get_contents());
+    ob_end_clean();
+
+    $ds['qrcode'] = $qr;
+
+    $this->load->view('print/sticker_test_print', $ds);
   }
 
 
