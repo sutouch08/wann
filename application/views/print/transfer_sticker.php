@@ -181,6 +181,7 @@
       $('.sticker-label').css(label);
       $('.label-space').css('width', `${l.space}mm`);
       $('.sticker-content').css('font-size', `${l.fontSize}px`);
+      $('.qr').css('width', `${l.qrWidth}mm`);
 
       let printPreview = (p !== undefined && p !== null) ? p.printPreview : 1;
       let closeAfterPrint = (p !== undefined && p !== null) ? p.closeAfterPrint : 1;
